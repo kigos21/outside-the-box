@@ -1,6 +1,6 @@
 # Outside the Box
 
-This is a Next.js project that uses the Inter font from Google Fonts.
+An Online Logbook and Reservation System Website.
 
 ## Getting Started
 
