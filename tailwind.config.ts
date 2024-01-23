@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         'otb-yellow': '#ffde59',
+        'otb-blue': '#64bbfe',
       },
     },
   },
