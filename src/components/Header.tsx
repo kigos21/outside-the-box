@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function Header() {
   return (
-    <header className="bg-otb-yellow flex justify-between px-12 py-6">
+    <header className="bg-otb-yellow flex justify-between px-[7%] py-6">
       <Link href={'/'}>
         <Image
           src="/otb-logo-cropped.jpg"
