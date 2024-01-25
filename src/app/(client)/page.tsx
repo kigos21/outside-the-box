@@ -1,10 +1,11 @@
 import Image from 'next/image';
+
 export default function Home() {
   return (
     <main>
       <div className="">
         <div className="mt-64 bg-otb-yellow text-center">
-          <h1 className="py-5 text-7xl font-bold">ABOUT US</h1>
+          <h2 className="py-5 text-7xl font-bold">ABOUT US</h2>
           <p className="py-5 text-2xl">
             Our co-working and study lounge is designed to <br></br>
             provide a comfortable, inspiring, and collaborative<br></br>
@@ -19,7 +20,7 @@ export default function Home() {
 
       <div className=" flex h-screen flex-row items-center justify-center ">
         <div className="ml-8 basis-1/2 space-y-16 p-10 text-center">
-          <h1 className="py-5 text-7xl font-bold">WHERE TO FIND US</h1>
+          <h2 className="py-5 text-7xl font-bold">WHERE TO FIND US</h2>
           <p className=" text-3xl">
             Lorem ipsum dolor sit amet, consectetur <br></br>
             adipiscing elit. Duis laoreet fringilla metus<br></br>
@@ -47,7 +48,7 @@ export default function Home() {
       items-center justify-center bg-[url('/paper-crinkle.png')] bg-no-repeat"
       >
         <div className="">
-          <h1 className="py-5 text-center text-8xl font-bold">CONTACT US</h1>
+          <h2 className="py-5 text-center text-8xl font-bold">CONTACT US</h2>
           <div className="place-content-center">
             <table className=" text-3xl">
               <tbody>
@@ -72,7 +73,7 @@ export default function Home() {
       </div>
       <div className="flex h-screen items-center justify-center">
         <div className=" text-center">
-          <h1 className="py-5 text-8xl font-bold">OPERATIONAL HOURS</h1>
+          <h2 className="py-5 text-8xl font-bold">OPERATIONAL HOURS</h2>
 
           <div className="ml-72 mr-72 grid grid-cols-2 gap-5">
             <div className="ml-96 rounded-md bg-otb-yellow p-2 text-2xl font-bold drop-shadow-md">
