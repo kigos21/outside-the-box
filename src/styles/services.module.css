@@ -1,0 +1,7 @@
+.regularRateItem {
+}
+
+.regularRateItem::after {
+  content: '';
+  background-color: blue;
+}
