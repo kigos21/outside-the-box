@@ -17,13 +17,13 @@ export default function Login(){
                     </Link>
                 </div>
             <div className="mt-3">
-                <input type="text" id="username" className="rounded-lg p-2" placeholder="Username"/>
+                <input type="text" id="username" className="rounded-lg p-2 w-72" placeholder="Username"/>
             </div>
             <div className="mt-3">
-                <input type="password" id="password" className="rounded-lg p-2" placeholder="Password"/>
+                <input type="password" id="password" className="rounded-lg p-2 w-72" placeholder="Password"/>
             </div>
             <div>
-            <div className="flex float-right mb-3 "><Link href={"/login/forget"}>Forget Password</Link></div>
+            <div className="flex float-right mb-3 mr-4"><Link href={"/login/forget"}>Forget Password</Link></div>
             <br></br>
             <div className="flex justify-around my-3">            
                 <Link href={'.'} className="rounded px-5 bg-otb-blue">Submit</Link>

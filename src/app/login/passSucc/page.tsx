@@ -27,7 +27,7 @@ export default function Success(){
 function Template(props: { title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined;}){
     return(
         <div>
-        <h2>{props.title}</h2>
+        <h3>{props.title}</h3>
         <br></br>
             <div className="flex justify-around mt-5">            
             <Link href={'/login'} className="rounded px-5 bg-otb-blue">Go Back</Link>
