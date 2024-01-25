@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../app/globals.css';
+
 
 export default function About() {
   return (
@@ -13,7 +13,7 @@ export default function About() {
         Our co-working and study lounge is designed to provide a comfortable, inspiring, and collaborative space for students, freelancers, and professionals to work, learn, and connect.
         <br />
         <br />
-        We believe that a productive environment should engage all senses, not just the mind. That's why we have created a unique workspace that brings a different vibe to the traditional workplace.
+        We believe that a productive environment should engage all senses, not just the mind. That&apos;s why we have created a unique workspace that brings a different vibe to the traditional workplace.
       </p>
 
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
