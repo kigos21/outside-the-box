@@ -21,7 +21,7 @@ export default function Reservation() {
         </div>
 
         <Link href={'/reservation/seat'}>
-          <button className="rounded-2xl bg-otb-blue px-8 py-4 font-semibold uppercase">
+          <button className="rounded-2xl bg-otb-blue px-8 py-4 font-semibold uppercase shadow-lg transition-all hover:bg-black hover:text-white hover:shadow-none">
             Reserve a Seat
           </button>
         </Link>
