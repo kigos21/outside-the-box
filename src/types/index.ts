@@ -9,3 +9,6 @@ export type RegularRateList = {
   items: string[];
   price?: string;
 };
+
+// Reserve seat
+export type SeatReservationInputs = {};
