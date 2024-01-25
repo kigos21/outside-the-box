@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Login() {
+function Login() {
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="m-3 grid w-96 content-evenly justify-items-center gap-3 rounded-md bg-otb-yellow p-6 shadow-lg">
@@ -48,4 +48,8 @@ export default function Login() {
       </div>
     </div>
   );
+}
+
+export default function Page() {
+  return <Login />;
 }
