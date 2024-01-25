@@ -1,7 +1,11 @@
+import Login from './login/page';
+import Forget from './login/forgot';
+
 export default function Home() {
   return (
     <main>
-      <h1>Home</h1>
+      <link href="./globals.css" rel="stylesheet"></link>
+      <h1> <Login/> </h1>
     </main>
   );
 }
