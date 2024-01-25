@@ -53,41 +53,12 @@ function Forgot(props: {
         />
         <br></br>
         <div className="mt-5 flex justify-around">
-          <button className="rounded bg-blue-300 px-5">Submit</button>
-          <button className="rounded bg-blue-300 px-5">Cancel</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function OTP(props: {
-  title:
-    | string
-    | number
-    | boolean
-    | ReactElement<any, string | JSXElementConstructor<any>>
-    | Iterable<ReactNode>
-    | ReactPortal
-    | PromiseLikeOfReactNode
-    | null
-    | undefined;
-  pholder: string | undefined;
-}) {
-  return (
-    <div>
-      <h2>{props.title}</h2>
-      <div className="mt-3">
-        <input
-          type="text"
-          id="username"
-          className="rounded-lg p-2"
-          placeholder={props.pholder}
-        />
-        <br></br>
-        <div className="mt-5 flex justify-around">
-          <button className="rounded bg-blue-300 px-5">Submit</button>
-          <button className="rounded bg-blue-300 px-5">Cancel</button>
+          <Link href={'./otp'} className="rounded bg-otb-blue px-5">
+            Submit
+          </Link>
+          <Link href={'/login'} className="rounded bg-otb-blue px-5">
+            Cancel
+          </Link>
         </div>
       </div>
     </div>

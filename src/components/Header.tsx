@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function Header() {
   return (
-    <header className="bg-otb-yellow flex justify-between px-[7%] py-6">
+    <header className="flex justify-between bg-otb-yellow px-[7%] py-6">
       <Link href={'/'}>
         <Image
           src="/otb-logo-cropped.jpg"
@@ -20,7 +20,7 @@ export default function Header() {
               className="group relative text-stone-600 hover:text-stone-950"
             >
               Home
-              <div className="bg-otb-blue absolute left-1/2 h-[3px] w-0 transition-all group-hover:left-0 group-hover:w-full"></div>
+              <div className="absolute left-1/2 h-[3px] w-0 bg-otb-blue transition-all group-hover:left-0 group-hover:w-full"></div>
             </Link>
           </li>
           <li>
@@ -29,7 +29,7 @@ export default function Header() {
               className="group relative text-stone-600 hover:text-stone-950"
             >
               About
-              <div className="bg-otb-blue absolute left-1/2 h-[3px] w-0 transition-all group-hover:left-0 group-hover:w-full"></div>
+              <div className="absolute left-1/2 h-[3px] w-0 bg-otb-blue transition-all group-hover:left-0 group-hover:w-full"></div>
             </Link>
           </li>
           <li>
@@ -38,7 +38,7 @@ export default function Header() {
               className="group relative text-stone-600 hover:text-stone-950"
             >
               Services
-              <div className="bg-otb-blue absolute left-1/2 h-[3px] w-0 transition-all group-hover:left-0 group-hover:w-full"></div>
+              <div className="absolute left-1/2 h-[3px] w-0 bg-otb-blue transition-all group-hover:left-0 group-hover:w-full"></div>
             </Link>
           </li>
           <li>
@@ -47,7 +47,7 @@ export default function Header() {
               className="group relative text-stone-600 hover:text-stone-950"
             >
               Login
-              <div className="bg-otb-blue absolute left-1/2 h-[3px] w-0 transition-all group-hover:left-0 group-hover:w-full"></div>
+              <div className="absolute left-1/2 h-[3px] w-0 bg-otb-blue transition-all group-hover:left-0 group-hover:w-full"></div>
             </Link>
           </li>
         </ul>
