@@ -1,7 +1,20 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+
+import NavLink from './NavLink';
 
 export default function Header() {
+  const pathname = usePathname();
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Login', path: '/login' },
+  ];
+
   return (
     <header className="flex justify-between bg-otb-yellow px-[7%] py-6">
       <Link href={'/'}>
@@ -14,42 +27,14 @@ export default function Header() {
       </Link>
       <nav className="flex items-center justify-center">
         <ul className="flex gap-12 font-bold">
-          <li>
-            <Link
-              href={'/'}
-              className="group relative text-stone-600 hover:text-stone-950"
-            >
-              Home
-              <div className="absolute left-1/2 h-[3px] w-0 bg-otb-blue transition-all group-hover:left-0 group-hover:w-full"></div>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={'/about'}
-              className="group relative text-stone-600 hover:text-stone-950"
-            >
-              About
-              <div className="absolute left-1/2 h-[3px] w-0 bg-otb-blue transition-all group-hover:left-0 group-hover:w-full"></div>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={'/services'}
-              className="group relative text-stone-600 hover:text-stone-950"
-            >
-              Services
-              <div className="absolute left-1/2 h-[3px] w-0 bg-otb-blue transition-all group-hover:left-0 group-hover:w-full"></div>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={'/login'}
-              className="group relative text-stone-600 hover:text-stone-950"
-            >
-              Login
-              <div className="absolute left-1/2 h-[3px] w-0 bg-otb-blue transition-all group-hover:left-0 group-hover:w-full"></div>
-            </Link>
-          </li>
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.name}
+              name={link.name}
+              href={link.path}
+              pathName={pathname}
+            />
+          ))}
         </ul>
       </nav>
     </header>
