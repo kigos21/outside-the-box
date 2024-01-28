@@ -7,7 +7,7 @@ export default function SpecialPromos({
   specialPromos: ServicePill[];
 }) {
   return (
-    <ul className="flex flex-col gap-4">
+    <ul className="flex flex-col gap-4 text-lg">
       {specialPromos.map((promo) => (
         <ServicePillItem key={promo.title} {...promo} />
       ))}
