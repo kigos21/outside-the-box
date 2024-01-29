@@ -3,7 +3,7 @@ import React from 'react';
 export default function About() {
   return (
     <main className="p-20 text-center">
-      <h1 className="bg-otb-yellow-100 mb-20 text-5xl font-bold">About us!</h1>
+      <h1 className="bg-otb-yellow-100 mb-20 text-7xl font-bold">About us!</h1>
       <p className="mx-auto max-w-2xl text-center font-sans text-2xl">
         At Outside The Box, we believe that productivity and creativity go
         hand-in-hand.
