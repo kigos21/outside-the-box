@@ -1,0 +1,108 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// SCHEMA
+model Admin {
+  id            String @id @default(uuid())
+  username      String @unique
+  password      String
+  contactNumber String
+  otps          OTP[]
+}
+
+model OTP {
+  id         String    @id @default(uuid())
+  admin      Admin?    @relation(fields: [adminId], references: [id])
+  adminId    String?
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId String?
+  otp        String    @unique
+  createdAt  DateTime  @default(now())
+  expiresAt  DateTime  @default(dbgenerated("NOW() + INTERVAL '10 minutes'"))
+}
+
+model Customer {
+  id                   String                @id @default(uuid())
+  firstName            String
+  lastName             String
+  occupation           String
+  affiliation          String
+  contactNumber        String
+  username             String                @unique
+  password             String
+  otps                 OTP[]
+  facilityReservations FacilityReservation[]
+  Log                  Log[]
+  SeatReservation      SeatReservation[]
+}
+
+model FacilityReservation {
+  id         String   @id @default(uuid())
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
+  date       DateTime
+  startTime  DateTime
+  endTime    DateTime
+  price      Float
+}
+
+model Log {
+  id                     String                @id @default(uuid())
+  customer               Customer              @relation(fields: [customerId], references: [id])
+  customerId             String
+  service                Service               @relation(fields: [serviceId], references: [id])
+  serviceId              String
+  date                   DateTime
+  timeIn                 DateTime
+  timeOut                DateTime
+  confirmedReservation   ConfirmedReservation? @relation(fields: [confirmedReservationId], references: [id])
+  confirmedReservationId String?
+}
+
+model ConfirmedReservation {
+  id                String          @id @default(uuid())
+  seatReservation   SeatReservation @relation(fields: [seatReservationId], references: [id])
+  seatReservationId String
+  date              DateTime
+  Log               Log[]
+}
+
+model SeatReservation {
+  id                   String                 @id @default(uuid())
+  customer             Customer               @relation(fields: [customerId], references: [id])
+  customerId           String
+  service              Service                @relation(fields: [serviceId], references: [id])
+  serviceId            String
+  date                 DateTime
+  startTime            DateTime
+  endTime              DateTime
+  ConfirmedReservation ConfirmedReservation[]
+}
+
+model Service {
+  id              String            @id @default(uuid())
+  name            String
+  hours           Int
+  price           Float
+  type            String
+  logs            Log[]
+  SeatReservation SeatReservation[]
+}
+
+model Report {
+  id        String   @id @default(uuid())
+  logIds    String[]
+  createdAt DateTime @default(now())
+}
+
+model ArchivedReservation {
+  id                String   @id @default(uuid())
+  seatReservationId String
+  archivedAt        DateTime @default(now())
+}
