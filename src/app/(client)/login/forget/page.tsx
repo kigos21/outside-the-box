@@ -22,7 +22,7 @@ export default function Forget() {
             />
           </Link>
         </div>
-        <Forgot title="Forget Password" pholder="Username" />
+        <Forgot title="Forget Password" pholder="Mobile Number" />
       </div>
     </div>
   );
@@ -43,12 +43,13 @@ function Forgot(props: {
 }) {
   return (
     <div>
-      <h2>{props.title}</h2>
+      <h2 className="flex justify-center">{props.title}</h2>
+      <h4>We will send an OTP through your SMS</h4>
       <div className="mt-3">
         <input
           type="text"
           id="username"
-          className="rounded-lg p-2"
+          className="w-72 rounded-lg p-2 "
           placeholder={props.pholder}
         />
         <br></br>

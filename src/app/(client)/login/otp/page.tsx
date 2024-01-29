@@ -42,7 +42,7 @@ function OTP(props: {
 }) {
   return (
     <div>
-      <h2>{props.title}</h2>
+      <h2 className="flex justify-center">{props.title}</h2>
       <div className="mt-3">
         <input type="text" id="username" className="rounded-lg p-2" />
         <br></br>

@@ -30,7 +30,7 @@ export default function Success() {
               <input
                 type="text"
                 id="username"
-                className="w-60 rounded-lg p-2"
+                className="w-80 rounded-lg p-2"
                 placeholder="Username"
               />
             </div>
@@ -39,7 +39,7 @@ export default function Success() {
               <input
                 type="password"
                 id="password"
-                className="w-60 rounded-lg p-2"
+                className="w-80 rounded-lg p-2"
                 placeholder="Password"
               />
             </div>
@@ -48,7 +48,7 @@ export default function Success() {
               <input
                 type="password"
                 id="confirmPass"
-                className="w-60 rounded-lg p-2"
+                className="w-80 rounded-lg p-2"
                 placeholder="Confirm Password"
               />
             </div>
@@ -60,7 +60,7 @@ export default function Success() {
             <input
               type="password"
               id="firstName"
-              className="w-60 rounded-lg p-2"
+              className="w-80 rounded-lg p-2 w-96"
               placeholder="First Name"
             />
           </div>
@@ -69,7 +69,7 @@ export default function Success() {
             <input
               type="password"
               id="lastName"
-              className="w-60 rounded-lg p-2"
+              className="w-80 rounded-lg p-2"
               placeholder="Last Name"
             />
           </div>
@@ -78,9 +78,11 @@ export default function Success() {
             <select
               name="occupation"
               id="occupation"
-              className="w-60 rounded-lg p-2"
+              className="w-80 rounded-lg p-2"
             >
               <option value="student">Student</option>
+              <option value="student">Teacher</option>
+              <option value="student">Employee</option>
             </select>
           </div>
           <div className="mt-2">
@@ -88,7 +90,7 @@ export default function Success() {
             <input
               type="password"
               id="affiliation"
-              className="w-60 rounded-lg p-2"
+              className="w-80 rounded-lg p-2"
               placeholder="Affiliation"
             />
           </div>
@@ -97,7 +99,7 @@ export default function Success() {
             <input
               type="number"
               id="mPhone"
-              className="w-60 rounded-lg p-2"
+              className="w-80 rounded-lg p-2"
               placeholder="Mobile Number"
             />
           </div>
