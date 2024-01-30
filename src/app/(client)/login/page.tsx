@@ -1,56 +1,63 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Login() {
   return (
     <div className="flex h-screen items-center justify-center">
-      <div className="m-3 grid content-evenly justify-items-center gap-3 rounded-md bg-otb-yellow p-10 shadow-lg">
-        <div>
-          <Link href={'/'}>
-            <Image
-              src="/otb-logo-cropped.jpg"
-              width={300}
-              height={50}
-              alt="Outside the Box Logo"
+      <div className="flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
+        <Image
+          src={'/otb-logo-cropped.jpg'}
+          alt={'Outside the box logo'}
+          width={400}
+          height={140}
+        />
+
+        <div className="w-full">
+          <form
+            method="post"
+            onSubmit={(e) => e.preventDefault()}
+            className="flex flex-col gap-4"
+          >
+            <input
+              type="text"
+              name="username"
+              id="username"
+              required
+              placeholder="Username e.g. joe123"
+              className="rounded-full border border-gray-300 px-6 py-4"
             />
-          </Link>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              required
+              placeholder="Password"
+              className="rounded-full border border-gray-300 px-6 py-4"
+            />
+            <span>
+              <Link href="/login/forget-password" className="text-sm underline">
+                Forget Password
+              </Link>
+            </span>
+          </form>
         </div>
-        <div className="mt-3">
-          <input
-            type="text"
-            id="username"
-            className="w-72 rounded-lg p-2"
-            placeholder="Username"
-          />
-        </div>
-        <div className="mt-3">
-          <input
-            type="password"
-            id="password"
-            className="w-72 rounded-lg p-2"
-            placeholder="Password"
-          />
-        </div>
-        <div>
-          <div className="float-right mb-3 mr-4 flex">
-            <Link href={'/login/forget'}>Forget Password</Link>
-          </div>
-          <br></br>
-          <div className="my-3 flex justify-around">
-            <Link href={'.'} className="rounded bg-otb-blue px-5">
-              Submit
-            </Link>
-            <Link href={'.'} className="rounded bg-otb-blue px-5">
-              Cancel
-            </Link>
-          </div>
-          <div className="flex">
+
+        <div className="flex w-full flex-col gap-4">
+          <button className="rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+            Login
+          </button>
+
+          <span className="block text-center text-sm">
             Don&apos;t have an account yet?{' '}
-            <Link href={'/login/register'}>
-              <h5 className="mx-1 font-bold text-otb-blue">Register</h5>
-            </Link>{' '}
-            here
-          </div>
+            <Link
+              href="/register"
+              className="font-bold text-otb-blue underline shadow-sm"
+            >
+              Register
+            </Link>
+          </span>
         </div>
       </div>
     </div>
