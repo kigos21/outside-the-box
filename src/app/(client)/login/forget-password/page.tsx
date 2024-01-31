@@ -4,6 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
+import UsernameForm from '@/components/login/UsernameForm';
+import OTPForm from '@/components/login/OTPForm';
+import NewPasswordForm from '@/components/login/NewPasswordForm';
+
 export default function Login() {
   const [username, setUsername] = useState<string>('');
   const [otp, setOTP] = useState<string>('');
@@ -107,127 +111,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  );
-}
-
-type UsernameFormProps = {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleChange: (value: string) => void;
-  username: string;
-};
-
-function UsernameForm({
-  handleSubmit,
-  handleChange,
-  username,
-}: UsernameFormProps) {
-  return (
-    <>
-      <h2>Forget Password</h2>
-      <p>We will send an OTP through your SMS</p>
-      <form method="post" onSubmit={(e) => handleSubmit(e)}>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          required
-          placeholder="Username e.g. joe123"
-          className="mt-4 w-full rounded-full border border-gray-300 px-6 py-4 text-center text-lg"
-          value={username}
-          onChange={(e) => handleChange(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="my-4 w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-        >
-          Proceed
-        </button>
-      </form>
-    </>
-  );
-}
-
-type OTPFormProps = {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleChange: (value: string) => void;
-  otp: string;
-};
-
-function OTPForm({ handleSubmit, handleChange, otp }: OTPFormProps) {
-  return (
-    <>
-      <h2>Enter OTP</h2>
-      <form method="post" onSubmit={(e) => handleSubmit(e)}>
-        <input
-          type="number"
-          name="otp"
-          id="otp"
-          required
-          placeholder="OTP"
-          minLength={6}
-          maxLength={6}
-          className="mt-3 w-full rounded-full border border-gray-300 px-6 py-4 text-center text-lg"
-          value={otp}
-          onChange={(e) => handleChange(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="my-4 w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-        >
-          Verify
-        </button>
-      </form>
-    </>
-  );
-}
-
-type NewPasswordFormProps = {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  handlePasswordChange: (value: string) => void;
-  handleConfirmPasswordChange: (value: string) => void;
-  newPassword: string;
-  confirmPassword: string;
-};
-
-function NewPasswordForm({
-  handleSubmit,
-  handlePasswordChange,
-  handleConfirmPasswordChange,
-  newPassword,
-  confirmPassword,
-}: NewPasswordFormProps) {
-  return (
-    <>
-      <h2>Enter New Password</h2>
-      <form method="post" onSubmit={(e) => handleSubmit(e)}>
-        <input
-          type="password"
-          name="newPassword"
-          id="newPassword"
-          required
-          placeholder="New Password"
-          className="mt-3 w-full rounded-full border border-gray-300 px-6 py-4 text-center text-lg"
-          value={newPassword}
-          onChange={(e) => handlePasswordChange(e.target.value)}
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          required
-          placeholder="Confirm Password"
-          className="mt-2 w-full rounded-full border border-gray-300 px-6 py-4 text-center text-lg"
-          value={confirmPassword}
-          onChange={(e) => handleConfirmPasswordChange(e.target.value)}
-        />
-
-        <button
-          type="submit"
-          className="my-4 w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-        >
-          Reset
-        </button>
-      </form>
-    </>
   );
 }
