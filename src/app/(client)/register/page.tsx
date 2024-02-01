@@ -1,116 +1,110 @@
-import Link from 'next/link';
+'use client';
+
 import Image from 'next/image';
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-  PromiseLikeOfReactNode,
-} from 'react';
+import Link from 'next/link';
 
-export default function Success() {
+export default function Register() {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="space-evenly m-3 flex justify-around gap-3 rounded-md bg-otb-yellow p-16 shadow-lg">
-        <div>
-          <div>
-            <Link href={'/'}>
-              <Image
-                src="/otb-logo-cropped.jpg"
-                width={350}
-                height={50}
-                alt="Outside the Box Logo"
-              />
-            </Link>
-          </div>
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="my-32 flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
+        <Image
+          src={'/otb-logo-cropped.jpg'}
+          alt={'Outside the box logo'}
+          width={400}
+          height={140}
+        />
 
-          <div>
-            <div className="mt-3">
-              <label className="block text-base">Username</label>
-              <input
-                type="text"
-                id="username"
-                className="w-80 rounded-lg p-2"
-                placeholder="Username"
-              />
-            </div>
-            <div className="mt-3">
-              <label className="block text-base">Password</label>
-              <input
-                type="password"
-                id="password"
-                className="w-80 rounded-lg p-2"
-                placeholder="Password"
-              />
-            </div>
-            <div className="mt-3">
-              <label className="block text-base">Confirm Password</label>
-              <input
-                type="password"
-                id="confirmPass"
-                className="w-80 rounded-lg p-2"
-                placeholder="Confirm Password"
-              />
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="mt-2">
-            <label className="block text-base">First Name</label>
+        <div className="w-full">
+          <form
+            method="post"
+            onSubmit={(e) => e.preventDefault()}
+            className="flex flex-col gap-4"
+          >
+            <input
+              type="text"
+              name="username"
+              id="username"
+              required
+              placeholder="Username e.g. joe123"
+              className="rounded-full border border-gray-300 px-6 py-4"
+            />
             <input
               type="password"
+              name="password"
+              id="password"
+              required
+              placeholder="Password"
+              className="rounded-full border border-gray-300 px-6 py-4"
+            />
+            <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              required
+              placeholder="Confirm Password"
+              className="rounded-full border border-gray-300 px-6 py-4"
+            />
+            <input
+              type="text"
+              name="firstName"
               id="firstName"
-              className="w-80 rounded-lg p-2 w-96"
-              placeholder="First Name"
+              required
+              placeholder="First name"
+              className="rounded-full border border-gray-300 px-6 py-4"
             />
-          </div>
-          <div className="mt-2">
-            <label className="block text-base">Last Name</label>
             <input
-              type="password"
+              type="text"
+              name="lastName"
               id="lastName"
-              className="w-80 rounded-lg p-2"
-              placeholder="Last Name"
+              required
+              placeholder="Last name"
+              className="rounded-full border border-gray-300 px-6 py-4"
             />
-          </div>
-          <div className="mt-2">
-            <label className="block text-base">Occupation</label>
             <select
               name="occupation"
               id="occupation"
-              className="w-80 rounded-lg p-2"
+              className="rounded-full border border-gray-300 px-5 py-4"
             >
-              <option value="student">Student</option>
-              <option value="student">Teacher</option>
-              <option value="student">Employee</option>
+              <option hidden>Occupation</option>
+              <option value="student" className="p-6">
+                Student
+              </option>
+              <option value="working-student">Working Student</option>
+              <option value="professional">Professional</option>
             </select>
-          </div>
-          <div className="mt-2">
-            <label className="block text-base">Affiliation</label>
             <input
-              type="password"
+              type="text"
+              name="affiliation"
               id="affiliation"
-              className="w-80 rounded-lg p-2"
+              required
               placeholder="Affiliation"
+              className="rounded-full border border-gray-300 px-6 py-4"
             />
-          </div>
-          <div className="mt-2">
-            <label className="block text-base">Mobile Number</label>
             <input
-              type="number"
-              id="mPhone"
-              className="w-80 rounded-lg p-2"
+              type="tel"
+              name="mobileNumber"
+              id="mobileNumber"
+              required
               placeholder="Mobile Number"
+              className="rounded-full border border-gray-300 px-6 py-4"
             />
-          </div>
-          <div className="mt-5 flex justify-around">
-            <Link href={'/login'} className="rounded bg-otb-blue px-5">
-              Submit
-            </Link>
-            <Link href={'/login'} className="rounded bg-otb-blue px-5">
-              Cancel
-            </Link>
-          </div>
+
+            <div className="mt-4 flex w-full flex-col gap-4">
+              <button className="rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+                Register
+              </button>
+
+              <span className="block text-center text-sm">
+                Already have an account?{' '}
+                <Link
+                  href="/login"
+                  className="font-bold text-otb-blue underline shadow-sm"
+                >
+                  Login
+                </Link>
+              </span>
+            </div>
+          </form>
         </div>
       </div>
     </div>

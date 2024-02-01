@@ -41,23 +41,23 @@ export default function Login() {
                 Forget Password
               </Link>
             </span>
+
+            <div className="mt-4 flex w-full flex-col gap-4">
+              <button className="rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+                Login
+              </button>
+
+              <span className="block text-center text-sm">
+                Don&apos;t have an account yet?{' '}
+                <Link
+                  href="/register"
+                  className="font-bold text-otb-blue underline shadow-sm"
+                >
+                  Register
+                </Link>
+              </span>
+            </div>
           </form>
-        </div>
-
-        <div className="flex w-full flex-col gap-4">
-          <button className="rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
-            Login
-          </button>
-
-          <span className="block text-center text-sm">
-            Don&apos;t have an account yet?{' '}
-            <Link
-              href="/register"
-              className="font-bold text-otb-blue underline shadow-sm"
-            >
-              Register
-            </Link>
-          </span>
         </div>
       </div>
     </div>
