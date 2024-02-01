@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Register() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex min-h-[85dvh] items-center justify-center">
       <div className="my-32 flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
         <Image
           src={'/otb-logo-cropped.jpg'}

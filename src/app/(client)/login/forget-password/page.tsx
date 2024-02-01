@@ -62,7 +62,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex min-h-[85dvh] items-center justify-center">
       <div className="flex max-w-lg flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
         <Image
           src={'/otb-logo-cropped.jpg'}

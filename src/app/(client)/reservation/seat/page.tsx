@@ -22,7 +22,7 @@ export default function Page() {
 
           <Link
             href={'/reservation/seat/payment'}
-            className="mt-8 w-full flex-1 rounded-full bg-otb-blue px-4 py-2 text-center"
+            className="mt-8 w-full cursor-pointer rounded-full bg-otb-blue px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Proceed
           </Link>
@@ -44,7 +44,7 @@ export default function Page() {
 
           <span
             onClick={() => setIsFormVisible(true)}
-            className="mt-8 w-full flex-1 cursor-pointer rounded-full bg-otb-blue px-4 py-2 text-center"
+            className="mt-8 w-full cursor-pointer rounded-full bg-otb-blue px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Try Again
           </span>
@@ -76,13 +76,21 @@ export default function Page() {
                   type="date"
                   name=""
                   id=""
-                  className="rounded-full px-4 py-2"
+                  className="rounded-full border border-gray-300 px-6 py-4"
                 />
-                <select name="" id="" className="rounded-full px-4 py-2">
+                <select
+                  name=""
+                  id=""
+                  className="rounded-full border border-gray-300 px-6 py-4"
+                >
                   <option value="">Time 1</option>
                   <option value="">Time 2</option>
                 </select>
-                <select name="" id="" className="rounded-full px-4 py-2">
+                <select
+                  name=""
+                  id=""
+                  className="rounded-full border border-gray-300 px-6 py-4"
+                >
                   <option value="">Service 1</option>
                   <option value="">Service 2</option>
                 </select>
@@ -90,7 +98,7 @@ export default function Page() {
 
               <button
                 type="submit"
-                className="mt-8 w-full flex-1 rounded-full bg-otb-blue px-4 py-2"
+                className="mt-8 w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
                 onClick={checkAvailability}
               >
                 Check Availability
