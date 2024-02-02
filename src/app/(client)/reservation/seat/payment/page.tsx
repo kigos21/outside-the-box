@@ -37,7 +37,7 @@ export default function Page() {
                     alt={'Gcash QR code'}
                     height={150}
                     width={150}
-                    className="rounded-3xl"
+                    className="rounded-lg"
                   />
                   <span className="text-lg font-bold uppercase">
                     {provider.name}
