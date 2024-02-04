@@ -10,7 +10,7 @@ export type RegularRateList = {
   price?: string;
 };
 
-// Reserve seat
+// Reserve Seat
 export type SeatReservationInputs = {};
 
 // Login / Register
@@ -31,5 +31,21 @@ export type NewPasswordFormProps = {
   handlePasswordChange: (value: string) => void;
   handleConfirmPasswordChange: (value: string) => void;
   newPassword: string;
+  confirmPassword: string;
+};
+
+// Backend
+type Map = {
+  [key: string]: string | undefined;
+};
+
+export type RegisterFormBody = Map & {
+  username: string;
+  firstname: string;
+  lastname: string;
+  occupation: string;
+  affiliation: string;
+  mobileNumber: string;
+  password: string;
   confirmPassword: string;
 };
