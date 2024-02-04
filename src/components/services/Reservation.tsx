@@ -12,7 +12,7 @@ export default function Reservation() {
         </p>
       </div>
 
-      <div className="flex min-w-[298px] basis-1/3 flex-col gap-4 rounded-3xl text-lg bg-otb-yellow p-12 text-center shadow-2xl">
+      <div className="flex min-w-[298px] basis-1/3 flex-col gap-4 rounded-3xl bg-otb-yellow p-12 text-center text-lg shadow-2xl">
         <div>
           <p>as of 2:00PM 12/25/2023</p>
           <p>
@@ -21,15 +21,18 @@ export default function Reservation() {
         </div>
 
         <Link href={'/reservation/seat'}>
-          <button className="rounded-2xl bg-otb-blue px-8 py-4 font-semibold uppercase shadow-lg transition-all hover:bg-black hover:text-white hover:shadow-none">
+          <button className="rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
             Reserve a Seat
           </button>
         </Link>
 
         <p>or</p>
 
-        <Link href="/reservation/otb" className="text-sm uppercase underline">
-          Reserve OTB
+        <Link
+          href="/reservation/otb"
+          className="text-sm font-bold uppercase text-otb-blue underline"
+        >
+          <span className="shadow-sm">Reserve OTB</span>
         </Link>
       </div>
     </div>
