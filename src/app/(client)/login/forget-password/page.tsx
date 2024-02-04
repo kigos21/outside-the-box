@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import UsernameForm from '@/components/login/UsernameForm';
-import OTPForm from '@/components/login/OTPForm';
+import OTPForm from '@/components/OTPForm';
 import NewPasswordForm from '@/components/login/NewPasswordForm';
 
 export default function Login() {
