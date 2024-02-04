@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'otb-yellow': '#ffde59',
+        'otb-yellow': '#FFDE59',
         'otb-blue': '#64bbfe',
       },
     },
