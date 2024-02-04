@@ -24,6 +24,7 @@ export type OTPFormProps = {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (value: string) => void;
   otp: string;
+  errorMessage?: string;
 };
 
 export type NewPasswordFormProps = {

@@ -4,6 +4,7 @@ export default function OTPForm({
   handleSubmit,
   handleChange,
   otp,
+  errorMessage,
 }: OTPFormProps) {
   return (
     <>
@@ -24,6 +25,12 @@ export default function OTPForm({
           value={otp}
           onChange={(e) => handleChange(e.target.value)}
         />
+        {errorMessage && (
+          <p role="alert" className="mt-[.25rem] px-6 text-xs text-red-500">
+            {errorMessage}
+          </p>
+        )}
+
         <button
           type="submit"
           className="my-4 w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
