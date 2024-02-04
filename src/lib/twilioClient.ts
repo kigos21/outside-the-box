@@ -21,3 +21,16 @@ export async function sendOTP(mobileNumber: string) {
     );
   }
 }
+
+export async function verifyOTP(mobileNumber: string, otp: string) {
+  try {
+    const verification = await twilio.verify.v2
+      .services(verifySid)
+      .verificationChecks.create({ to: mobileNumber, code: otp });
+
+    return verification;
+  } catch (error) {
+    console.log('TWILIO ERROR: ' + error);
+    throw new TwilioCreateError('There was an error verifying your OTP.');
+  }
+}
