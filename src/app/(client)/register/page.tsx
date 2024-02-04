@@ -4,11 +4,17 @@ import OTPForm from '@/components/OTPForm';
 import { RegisterFormBody } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 export default function Register() {
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  const [responseError, setResponseErrors] = useState<string>('');
+  const [mobileNumber, setMobileNumber] = useState<string>('');
+  const [otp, setOTP] = useState<string>('');
+  const [otpError, setOTPError] = useState<string>('');
+  const router = useRouter();
 
   const {
     register,
@@ -16,18 +22,57 @@ export default function Register() {
     watch,
     formState: { errors },
   } = useForm<RegisterFormBody>();
-  const onSubmit: SubmitHandler<RegisterFormBody> = (data) => {
-    console.log(data);
-    // setIsFormValid(true);
+  const onSubmit: SubmitHandler<RegisterFormBody> = async (data) => {
+    const res = await fetch('http://localhost:3000/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const { error } = await res.json();
+
+    if (!res.ok) {
+      setResponseErrors(error.name);
+    }
+
+    if (res.status === 200) {
+      setMobileNumber(data.mobileNumber);
+      setIsFormValid(true);
+    }
   };
 
-  const [otp, setOTP] = useState<string>('');
   const handleOTPChange = (value: string) => {
     setOTP(value);
   };
-  const handleOTPSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(otp);
+
+    const res = await fetch('http://localhost:3000/api/register/otp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ otp, mobileNumber }),
+    });
+
+    const { status, message } = await res.json();
+
+    if (!res.ok) {
+      setOTPError(message);
+      return;
+    }
+
+    if (status !== 'approved') {
+      setOTPError(message);
+    }
+
+    if (status === 'approved') {
+      router.push('/login?message=registered');
+    } else {
+      console.log('---\nThis should NOT log!\n---');
+    }
   };
 
   return (
@@ -43,7 +88,6 @@ export default function Register() {
         <div className="w-full">
           {!isFormValid ? (
             <form
-              method="post"
               onSubmit={handleSubmit(onSubmit)}
               className="flex max-w-md flex-col gap-4"
             >
@@ -240,6 +284,16 @@ export default function Register() {
                 </p>
               )}
 
+              {responseError && (
+                <p
+                  role="alert"
+                  className="mt-2 px-6 text-center text-xs text-red-500"
+                >
+                  Sorry! We cannot complete yout request at the moment. Error:{' '}
+                  {responseError}
+                </p>
+              )}
+
               <div className="mt-4 flex w-full flex-col gap-4">
                 <button
                   type="submit"
@@ -264,6 +318,7 @@ export default function Register() {
               handleSubmit={handleOTPSubmit}
               handleChange={handleOTPChange}
               otp={otp}
+              errorMessage={otpError}
             />
           )}
         </div>

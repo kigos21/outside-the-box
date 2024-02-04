@@ -7,15 +7,14 @@ export async function POST(req: Request) {
   // Check for missing fields
   const requiredFields = [
     'username',
-    'firstname',
-    'lastname',
+    'firstName',
+    'lastName',
     'occupation',
     'affiliation',
     'mobileNumber',
     'password',
     'confirmPassword',
   ];
-
   const missingFields = requiredFields.filter((field) => !body[field]);
 
   if (missingFields.length > 0) {
@@ -30,16 +29,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const {
-    username,
-    firstname,
-    lastname,
-    occupation,
-    affiliation,
-    mobileNumber,
-    password,
-    confirmPassword,
-  } = body;
+  const { mobileNumber, password, confirmPassword } = body;
 
   // Check if passwords match
   //   -> [Error code] I101: Passwords do not match
@@ -72,17 +62,14 @@ export async function POST(req: Request) {
   // @/lib/twilioClient
   //   -> [Error code] S201: TODO describe error here
   try {
-    const verification = await sendOTP(mobileNumber);
-    console.log(verification.status);
-
+    const verification = await sendOTP('+63' + mobileNumber.slice(1));
     return Response.json(verification, { status: 200 });
-    // redirect to verification of otp
   } catch (error: any) {
     console.log(
       `Logging from try/catch block at line 66 @ register/route.ts. ERROR: ${error.name}` +
         error,
     );
 
-    return Response.json({ error, errorCode: 'S201' }, { status: 400 });
+    return Response.json({ error, errorCode: 'S201' }, { status: 500 });
   }
 }
