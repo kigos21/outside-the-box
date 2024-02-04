@@ -8,6 +8,9 @@ export default function OTPForm({
   return (
     <>
       <h2>Enter OTP</h2>
+      <p className="text-sm">
+        We have sent an OTP to your mobile number. Enter them for verification.
+      </p>
       <form method="post" onSubmit={(e) => handleSubmit(e)}>
         <input
           type="number"
