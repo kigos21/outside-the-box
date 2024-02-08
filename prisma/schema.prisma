@@ -42,7 +42,7 @@ model Customer {
   lastName             String
   occupation           String
   affiliation          String
-  contactNumber        String
+  mobileNumber         String
   username             String                @unique
   password             String
   otps                 OTP[]
