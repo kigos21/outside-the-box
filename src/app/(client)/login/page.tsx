@@ -2,11 +2,21 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 export default function Login() {
+  const searchParams = useSearchParams();
+  const message = searchParams.get('message');
+
   return (
     <div className="flex min-h-[85dvh] items-center justify-center">
       <div className="flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
+        {message && (
+          <div className="w-full rounded-md border border-green-400 bg-green-50 p-4 text-center text-green-600">
+            {message}
+          </div>
+        )}
+
         <Image
           src={'/otb-logo-cropped.jpg'}
           alt={'Outside the box logo'}
