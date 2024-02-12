@@ -8,8 +8,8 @@ type NavLinkProps = {
 export default function AdminNavLink({ name, href, pathName }: NavLinkProps) {
   let linkClass =
     pathName === href
-      ? 'group relative font-bold text-stone-600 text-stone-950'
-      : 'group relative text-stone-600 hover:text-stone-950';
+      ? 'group relative font-bold text-black'
+      : 'group relative text-stone-600 hover:text-black';
   let underlineClass =
     pathName === href
       ? 'absolute left-0 h-[2px] w-full bg-otb-blue'
