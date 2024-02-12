@@ -50,3 +50,9 @@ export type RegisterFormBody = Map & {
   password: string;
   confirmPassword: string;
 };
+
+export type CreateLogRequestBody = {
+  firstName: string;
+  lastName: string;
+  serviceId: string;
+};

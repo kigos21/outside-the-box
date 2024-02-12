@@ -1,10 +1,6 @@
 import { prismaClient } from '@/lib/prismaClient';
 
-type CreateLogRequestBody = {
-  firstName: string;
-  lastName: string;
-  serviceId: string;
-};
+import { CreateLogRequestBody } from '@/types';
 
 export async function POST(req: Request) {
   try {
@@ -18,50 +14,36 @@ export async function POST(req: Request) {
       );
     }
 
-    try {
-      const customer = await prismaClient.customer.find({
-        where: {
-          firstName: body.firstName,
-          lastName: body.lastName,
-        },
-      });
+    const customer = await prismaClient.customer.findFirstOrThrow({
+      where: {
+        firstName: body.firstName,
+        lastName: body.lastName,
+      },
+    });
 
-      const service = await prismaClient.service.findUnique({
-        where: {
-          id: body.serviceId,
-        },
-      });
+    const service = await prismaClient.service.findUniqueOrThrow({
+      where: {
+        id: body.serviceId,
+      },
+    });
 
-      console.log(`Customer: ${JSON.stringify(customer)}`);
-      console.log(`Service: ${JSON.stringify(service)}`);
+    const dateTimeNow = new Date();
+    const computedTimeOut = new Date();
+    computedTimeOut.setHours(computedTimeOut.getHours() + service.hours);
 
-      return Response.json({ customer, service }, { status: 200 });
+    const log = await prismaClient.log.create({
+      data: {
+        customerId: customer.id,
+        serviceId: body.serviceId,
+        date: dateTimeNow,
+        timeIn: dateTimeNow,
+        timeOut: computedTimeOut,
+      },
+    });
 
-      // const dateTimeNow = new Date();
-
-      // const log = await prismaClient.log.create({
-      //   data: {
-      //     customerId: customer.id,
-      //     serviceId: body.serviceId,
-      //     date: dateTimeNow.toLocaleString(),
-      //     timeIn: dateTimeNow.toLocaleString(),
-      //     timeOut: dateTimeNow.setHours(dateTimeNow.getHours() + service.hours),
-      //   },
-      // });
-    } catch (error) {
-      console.log(error);
-      return Response.json({ message: error }, { status: 500 });
-    }
-
-    // truthy, falsey values
-    // "" => false // null, undefined, ""
-    // "a" => true
-
-    // 0 => false
-    // any other values => true
-
-    return Response.json({ body }, { status: 200 });
+    return Response.json({ log }, { status: 200 });
   } catch (error: any) {
     console.error(error);
+    return Response.json({ message: error }, { status: 404 });
   }
 }
