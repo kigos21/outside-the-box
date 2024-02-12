@@ -24,7 +24,7 @@ export default function Register() {
   } = useForm<RegisterFormBody>();
 
   const onSubmit: SubmitHandler<RegisterFormBody> = async (data) => {
-    const res = await fetch('http://localhost:3000/api/register', {
+    const res = await fetch('/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export default function Register() {
 
     const { confirmPassword, ...customer } = customerData!;
 
-    const res = await fetch('http://localhost:3000/api/register/otp', {
+    const res = await fetch('/api/register/otp', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
