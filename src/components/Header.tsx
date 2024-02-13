@@ -3,16 +3,22 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-
+import { hasCookie } from 'cookies-next';
 import NavLink from './NavLink';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
+  const [isAuthorized, setIsAuthorized] = useState<boolean | undefined>();
+
+  useEffect(() => {
+    setIsAuthorized(hasCookie('token'));
+  }, []);
+
   const pathname = usePathname();
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
-    { name: 'Login', path: '/login' },
   ];
 
   return (
@@ -35,6 +41,12 @@ export default function Header() {
               pathName={pathname}
             />
           ))}
+          {/* remove login Link whenever token is present in cookies */}
+          {isAuthorized != undefined && !isAuthorized ? (
+            <NavLink name={'Login'} href={'/login'} pathName={pathname} />
+          ) : (
+            <NavLink name={'Logout'} href={'/logout'} pathName={pathname} />
+          )}
         </ul>
       </nav>
     </header>
