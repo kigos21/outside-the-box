@@ -2,12 +2,13 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Customer, LoginFormBody } from '@/types';
 import { login } from '@/lib/utils/customer';
 
 export default function Login() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -21,7 +22,7 @@ export default function Login() {
       await login(username, password);
 
       console.log(`Logged in as: ${username}`);
-      redirect;
+      router.push('/');
     } catch (error) {
       console.log(error);
       console.log('Login failed.');

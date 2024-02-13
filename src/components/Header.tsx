@@ -32,7 +32,7 @@ export default function Header() {
         />
       </Link>
       <nav className="flex items-center justify-center">
-        <ul className="flex gap-12 font-bold">
+        <ul className="flex items-center gap-12 font-bold">
           {navLinks.map((link) => (
             <NavLink
               key={link.name}
@@ -49,6 +49,20 @@ export default function Header() {
           )}
         </ul>
       </nav>
+      {/* <Modal className={'font-normal'}>
+        <div>
+          <h2 className="mb-2">Logout</h2>
+          <p className="mb-4">You will be logged out of the site.</p>
+          <div className="flex justify-end gap-4">
+            <button className="rounded-md border border-slate-200 bg-slate-50 px-4 py-2 hover:bg-slate-100">
+              Cancel
+            </button>
+            <button className="rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600">
+              Confirm
+            </button>
+          </div>
+        </div>
+      </Modal> */}
     </header>
   );
 }
