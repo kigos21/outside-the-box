@@ -11,12 +11,20 @@ export function middleware(req: NextRequest) {
     return response;
   }
 
+  if (path.startsWith('/reservation')) {
+    // check if token is present in cookies
+    console.log('Checking token: ' + req.cookies.get('token'));
+    if (!req.cookies.has('token')) {
+      return NextResponse.redirect(new URL('/login', req.url));
+    }
+  }
+
   return NextResponse.next();
 }
 
 // ADD HERE PROTECTED PATHS
 // matcher can accept regexp of pathname
 export const config = {
-  matcher: ['/:path*'],
+  matcher: ['/logout', '/reservation/:path*'],
   // matcher: ['/about/:path*', '/dashboard/:path*'],
 };
