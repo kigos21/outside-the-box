@@ -6,6 +6,7 @@ import { SeatReservationFormBody } from '@/types';
 import styles from '@/styles/services.module.css';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { getCookie } from 'cookies-next';
 
 interface TimeOption {
   label: string;
@@ -29,8 +30,25 @@ export default function Page() {
     formState: { errors },
   } = useForm<SeatReservationFormBody>();
 
-  const onSubmit: SubmitHandler<SeatReservationFormBody> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<SeatReservationFormBody> = async (data) => {
+    console.log(data); // { date, time, service }
+
+    const res = await fetch('/api/reservation/seat/availability', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getCookie('token')}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok) {
+      setIsFormVisible(false);
+      setIsAvailable(true);
+    } else {
+      setIsFormVisible(false);
+      setIsAvailable(false);
+    }
   };
 
   useEffect(() => {
@@ -75,15 +93,6 @@ export default function Page() {
       ),
     );
   }, [isAvailable]);
-
-  const checkAvailability = () => {
-    // check if available
-    // setAvailability()
-    // render modal
-
-    setIsFormVisible(false);
-    setIsAvailable(true);
-  };
 
   return (
     <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center">
