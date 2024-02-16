@@ -65,3 +65,9 @@ export type LoginFormBody = Map & {
   username: string;
   password: string;
 };
+
+export type SeatReservationFormBody = {
+  date: string;
+  time: string;
+  service: string;
+};
