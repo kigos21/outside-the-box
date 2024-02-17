@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function Page() {
   return (
-    <main className="flex px-10 w-full">
-      <div className="w-1/2 mx-5">
+    <main className="flex w-full px-10">
+      <div className="mx-5 w-1/2">
         <Image
           src={'/otb-logo.jpg'}
           width={350}
@@ -12,9 +12,7 @@ export default function Page() {
           className={'m-auto'}
         />
       </div>
-      <div className="w-1/2 mx-5">
-        hello world
-      </div>
+      <div className="mx-5 w-1/2">hello world</div>
     </main>
   );
 }

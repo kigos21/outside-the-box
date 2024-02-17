@@ -1,12 +1,14 @@
 import { verifyOTP } from '@/lib/twilioClient';
+import { register } from '@/lib/utils/customer';
+import { Customer } from '@/types';
 
 export async function POST(req: Request) {
   const {
     otp,
-    mobileNumber,
+    customer,
   }: {
     otp: string;
-    mobileNumber: string;
+    customer: Customer;
   } = await req.json();
 
   // check if otp exists in the request
@@ -30,31 +32,82 @@ export async function POST(req: Request) {
     );
   }
 
+  try {
+    const newCustomer = await register(customer);
+    return Response.json(
+      {
+        message: 'Registered successfully!',
+        customer: newCustomer,
+      },
+      { status: 200 },
+    );
+  } catch (error: any) {
+    console.log(error);
+    return Response.json(
+      {
+        message: `There was an error registering your account. Error code: ${error.code}`,
+        errorCode: error.code,
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+
   // Send OTP through Twilio, and do verification checks. Check the functions within
   // @/lib/twilioClient
   //   -> [Error code] S201: TODO describe error here
+
+  /* *********************************************************************************************
+
+  TO BE MODIFIED DUE TO TWILIO PROBLEMS
+
   try {
-    const verification = await verifyOTP('+63' + mobileNumber.slice(1), otp);
+    const verification = await verifyOTP(
+      '+63' + customer.mobileNumber.slice(1),
+      otp,
+      );
 
     if (verification.status === 'pending') {
       return Response.json(
         { status: verification.status, message: 'Incorrect OTP, try again.' },
         { status: 200 },
-      );
+        );
     }
-
+    
     if (verification.status === 'approved') {
-      return Response.json(
-        { status: verification.status, message: 'Registered successfully!' },
-        { status: 200 },
-      );
+      try {
+        const newCustomer = await register(customer);
+        return Response.json(
+          {
+            status: verification.status,
+            message: 'Registered successfully!',
+            customer: newCustomer,
+          },
+          { status: 200 },
+        );
+      } catch (error) {
+        console.log(error);
+        return Response.json(
+          {
+            status: verification.status,
+            message:
+              'An error occured while creating a customer in the database. ERROR: ' +
+              error,
+            
+          },
+          { status: 500 },
+        );
+      }
     }
   } catch (error: any) {
     console.log(
-      `Logging from try/catch block at line 36 @ register/otp/route.ts. ERROR: ${error.name}` +
+      `Logging from try/catch block @ register/otp/route.ts. ERROR: ${error.name}` +
         error,
     );
 
     return Response.json({ error, errorCode: 'S201' }, { status: 500 });
-  }
+  } 
+  
+  ********************************************************************************************** */
 }

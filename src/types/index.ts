@@ -50,3 +50,24 @@ export type RegisterFormBody = Map & {
   password: string;
   confirmPassword: string;
 };
+
+export type Customer = {
+  username: string;
+  firstName: string;
+  lastName: string;
+  occupation: string;
+  affiliation: string;
+  mobileNumber: string;
+  password: string;
+};
+
+export type LoginFormBody = Map & {
+  username: string;
+  password: string;
+};
+
+export type SeatReservationFormBody = {
+  date: string;
+  time: string;
+  service: string;
+};

@@ -3,6 +3,7 @@ import { RegisterFormBody } from '@/types';
 
 export async function POST(req: Request) {
   const body: RegisterFormBody = await req.json();
+  console.log(body);
 
   // Check for missing fields
   const requiredFields = [
@@ -58,9 +59,14 @@ export async function POST(req: Request) {
     );
   }
 
+  return Response.json({ message: 'Enter your OTP' }, { status: 200 });
+
   // Send OTP through Twilio, and do verification checks. Check the functions within
   // @/lib/twilioClient
   //   -> [Error code] S201: TODO describe error here
+
+  /* *********************************************************************************************
+
   try {
     const verification = await sendOTP('+63' + mobileNumber.slice(1));
     return Response.json(verification, { status: 200 });
@@ -72,4 +78,6 @@ export async function POST(req: Request) {
 
     return Response.json({ error, errorCode: 'S201' }, { status: 500 });
   }
+
+  ********************************************************************************************* */
 }
