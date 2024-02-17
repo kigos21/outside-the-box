@@ -11,9 +11,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 export default function Register() {
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const [responseError, setResponseErrors] = useState<string>('');
-  const [mobileNumber, setMobileNumber] = useState<string>('');
   const [otp, setOTP] = useState<string>('');
   const [otpError, setOTPError] = useState<string>('');
+  const [customerData, setCustomerData] = useState<RegisterFormBody>();
   const router = useRouter();
 
   const {
@@ -22,8 +22,9 @@ export default function Register() {
     watch,
     formState: { errors },
   } = useForm<RegisterFormBody>();
+
   const onSubmit: SubmitHandler<RegisterFormBody> = async (data) => {
-    const res = await fetch('http://localhost:3000/api/register', {
+    const res = await fetch('/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -33,12 +34,14 @@ export default function Register() {
 
     const { error } = await res.json();
 
+    console.log(res.status);
+
     if (!res.ok) {
       setResponseErrors(error.name);
     }
 
     if (res.status === 200) {
-      setMobileNumber(data.mobileNumber);
+      setCustomerData(data);
       setIsFormValid(true);
     }
   };
@@ -46,15 +49,21 @@ export default function Register() {
   const handleOTPChange = (value: string) => {
     setOTP(value);
   };
+
   const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const res = await fetch('http://localhost:3000/api/register/otp', {
+    const { confirmPassword, ...customer } = customerData!;
+
+    const res = await fetch('/api/register/otp', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ otp, mobileNumber }),
+      body: JSON.stringify({
+        otp,
+        customer,
+      }),
     });
 
     const { status, message } = await res.json();
@@ -62,17 +71,27 @@ export default function Register() {
     if (!res.ok) {
       setOTPError(message);
       return;
+    } else {
+      const encodedMessage = encodeURIComponent(message);
+      router.push(`/login?message=${encodedMessage}`);
     }
+
+    /* *******************************************************
+
+    `status` here is the verification status from TWILIO
 
     if (status !== 'approved') {
       setOTPError(message);
     }
 
     if (status === 'approved') {
-      router.push('/login?message=registered');
+      const encodedMessage = encodeURIComponent(message);
+      router.push(`/login?message=${encodedMessage}`);
     } else {
       console.log('---\nThis should NOT log!\n---');
     }
+
+    ******************************************************* */
   };
 
   return (
