@@ -71,3 +71,9 @@ export type SeatReservationFormBody = {
   time: string;
   service: string;
 };
+
+export type CreateLogRequestBody = {
+  firstName: string;
+  lastName: string;
+  serviceId: string;
+};
