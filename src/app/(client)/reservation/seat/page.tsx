@@ -31,8 +31,6 @@ export default function Page() {
   } = useForm<SeatReservationFormBody>();
 
   const onSubmit: SubmitHandler<SeatReservationFormBody> = async (data) => {
-    console.log(data); // { date, time, service }
-
     const res = await fetch('/api/reservation/seat/availability', {
       method: 'POST',
       headers: {

@@ -13,7 +13,6 @@ export function middleware(req: NextRequest) {
 
   if (path.startsWith('/reservation')) {
     // check if token is present in cookies
-    console.log('Checking token: ' + req.cookies.get('token')?.value);
     if (!req.cookies.has('token')) {
       return NextResponse.redirect(new URL('/login', req.url));
     }
