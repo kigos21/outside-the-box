@@ -3,11 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import styles from '@/styles/services.module.css';
 
 export default function Page() {
   const [isPaid, setIsPaid] = useState<boolean>(false);
+  const searchParams = useSearchParams();
 
   const paymentProviders = [
     { qrcode: '/payment/qrcode/gcash.png', name: 'Gcash' },
@@ -15,8 +17,26 @@ export default function Page() {
     { qrcode: '/payment/qrcode/bpi.png', name: 'BPI' },
   ];
 
-  const handleClick = () => {
-    setIsPaid(true);
+  const handleClick = async () => {
+    const date = searchParams.get('date');
+    const time = searchParams.get('time');
+    const service = searchParams.get('service');
+
+    const res = await fetch('/api/reservation/seat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ date, time, service }),
+    });
+
+    const body = await res.json();
+
+    if (!body.success) {
+      // router push with router.push(`/here?params=params`)
+    } else {
+      setIsPaid(true);
+    }
   };
 
   return (
@@ -75,7 +95,9 @@ export default function Page() {
             <div
               className={`flex flex-col items-center justify-center gap-4 rounded-3xl bg-white p-8 ${styles.blueShadow}`}
             >
-              <p className="font-bold uppercase">Reservation Success!</p>
+              <p className="w-full rounded-lg border border-green-700 bg-green-100 px-3 py-2 text-center font-bold uppercase text-green-700">
+                Reservation Success!
+              </p>
 
               <div className="text-sm">
                 <p>Reminders for scheduling a reservation</p>

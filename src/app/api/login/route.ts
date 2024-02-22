@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       return Response.json(
         {
           success: false,
-          message: 'Username not found.',
+          message: 'Username not found. Register your account.',
         },
         { status: 401 },
       );
@@ -32,9 +32,6 @@ export async function POST(req: Request) {
     const token = jwt.sign(
       { id: customer.id, username: customer.username },
       process.env.JWT_SECRET_KEY!,
-      {
-        expiresIn: '10m',
-      },
     );
 
     return Response.json({ success: true, token, customer }, { status: 200 });

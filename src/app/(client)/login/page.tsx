@@ -6,8 +6,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Customer, LoginFormBody } from '@/types';
 import { login } from '@/lib/utils/customer';
+import { useState } from 'react';
 
 export default function Login() {
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
   const router = useRouter();
   const {
     register,
@@ -19,10 +22,18 @@ export default function Login() {
   const onSubmit: SubmitHandler<LoginFormBody> = async (data) => {
     try {
       const { username, password } = data;
-      await login(username, password);
+      const res = await login(username, password);
 
-      console.log(`Logged in as: ${username}`);
-      router.push('/');
+      if (res.ok) {
+        const { success, customer, token } = await res.json();
+
+        // Store the token securely in cookie
+        document.cookie = `token=${token}; path=/; Secure;`;
+        router.push('/');
+      } else {
+        const { message } = await res.json();
+        setErrorMessage(message);
+      }
     } catch (error) {
       console.log(error);
       console.log('Login failed.');
@@ -39,6 +50,13 @@ export default function Login() {
         {error && (
           <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-red-600">
             {error}
+          </div>
+        )}
+
+        {/* Sa Login errors to */}
+        {errorMessage && (
+          <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-red-600">
+            {errorMessage}
           </div>
         )}
 
