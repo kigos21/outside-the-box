@@ -18,6 +18,14 @@ export default function Page() {
   ];
 
   const handleClick = async () => {
+    const confirmed = confirm(
+      'By clicking OK, you assure that you have made your payment.',
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
     const date = searchParams.get('date');
     const time = searchParams.get('time');
     const service = searchParams.get('service');
