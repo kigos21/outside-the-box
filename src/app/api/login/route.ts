@@ -40,6 +40,10 @@ export async function POST(req: Request) {
 
     return Response.json({ success: true, token, customer }, { status: 200 });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return Response.json(
+      { success: false, message: JSON.stringify(error) },
+      { status: 500 },
+    );
   }
 }

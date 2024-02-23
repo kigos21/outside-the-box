@@ -50,7 +50,7 @@ export async function POST(req: Request) {
       { status: 200 },
     );
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
     return Response.json(
       {
         message: `There was an error registering your account. Error code: ${error.code}`,
@@ -95,7 +95,7 @@ export async function POST(req: Request) {
           { status: 200 },
         );
       } catch (error) {
-        console.log(error);
+        console.error(error);
         return Response.json(
           {
             status: verification.status,
@@ -109,7 +109,7 @@ export async function POST(req: Request) {
       }
     }
   } catch (error: any) {
-    console.log(
+    console.error(
       `Logging from try/catch block @ register/otp/route.ts. ERROR: ${error.name}` +
         error,
     );

@@ -35,7 +35,6 @@ export default function Register() {
 
     if (!usernameResponse.ok) {
       const data = await usernameResponse.json();
-      console.log(data);
       setRegisterError(data.error);
       return;
     }
@@ -49,8 +48,6 @@ export default function Register() {
     });
 
     const { error } = await res.json();
-
-    console.log(res.status);
 
     if (!res.ok) {
       setResponseErrors(error.name);
