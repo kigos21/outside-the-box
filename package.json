@@ -19,6 +19,7 @@
     "react-cookie": "^7.0.2",
     "react-dom": "^18",
     "react-hook-form": "^7.50.0",
+    "react-nice-scroll": "^1.0.0",
     "twilio": "^4.21.0"
   },
   "devDependencies": {
