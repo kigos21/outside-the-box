@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 
 import { LoginFormBody } from '@/types';
 import { prismaClient } from '@/lib/prismaClient';
+import * as bcrypt from 'bcrypt';
+import { comparePasswords } from '@/lib/utils/auth';
 
 export async function POST(req: Request) {
   const { username, password }: LoginFormBody = await req.json();
@@ -21,7 +23,9 @@ export async function POST(req: Request) {
       );
     }
 
-    if (customer.password !== password) {
+    const match = await comparePasswords(password, customer.password);
+
+    if (!match) {
       return Response.json(
         { success: false, message: 'Invalid credentials' },
         { status: 401 },

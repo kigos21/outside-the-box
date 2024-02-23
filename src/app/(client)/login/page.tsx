@@ -2,11 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Customer, LoginFormBody } from '@/types';
 import { login } from '@/lib/utils/customer';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -20,6 +20,8 @@ export default function Login() {
   } = useForm<LoginFormBody>();
 
   const onSubmit: SubmitHandler<LoginFormBody> = async (data) => {
+    router.push('/login'); // remove GET variables from URL
+
     try {
       const { username, password } = data;
       const res = await login(username, password);
@@ -48,20 +50,20 @@ export default function Login() {
     <div className="flex min-h-[85dvh] items-center justify-center">
       <div className="flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
         {error && (
-          <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-red-600">
+          <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-sm text-red-600">
             {error}
           </div>
         )}
 
         {/* Sa Login errors to */}
         {errorMessage && (
-          <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-red-600">
+          <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-sm text-red-600">
             {errorMessage}
           </div>
         )}
 
         {message && (
-          <div className="w-full rounded-md border border-green-400 bg-green-50 p-4 text-center text-green-600">
+          <div className="w-full rounded-md border border-green-400 bg-green-50 p-4 text-center text-sm text-green-600">
             {message}
           </div>
         )}
