@@ -36,6 +36,7 @@ export async function POST(req: Request) {
         expiresIn: '10m',
       },
     );
+    console.log('Generated JWT Token:', token);
 
     return Response.json({ success: true, token, customer }, { status: 200 });
   } catch (error) {
