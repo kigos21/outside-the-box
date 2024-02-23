@@ -11,13 +11,11 @@ export const checkAvailability = async (
     0,
     0,
   );
-  console.log(isoTime);
-  console.log(isoTime.toLocaleTimeString('en-US'));
 
   const reservation = await prismaClient.confirmedReservation.findFirst({
     where: {
       seatReservation: {
-        date: new Date(date),
+        // date: new Date(date),
         startTime: isoTime,
       },
     },
