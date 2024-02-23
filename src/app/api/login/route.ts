@@ -37,6 +37,7 @@ export async function POST(req: Request) {
       { id: customer.id, username: customer.username },
       process.env.JWT_SECRET_KEY!,
     );
+    console.log('Generated JWT Token:', token);
 
     return Response.json({ success: true, token, customer }, { status: 200 });
   } catch (error) {
