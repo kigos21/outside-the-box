@@ -5,7 +5,6 @@ import { CreateLogRequestBody } from '@/types';
 export async function POST(req: Request) {
   try {
     const body: CreateLogRequestBody = await req.json();
-    console.log(body);
 
     if (!body.firstName || !body.lastName || !body.serviceId) {
       return Response.json(

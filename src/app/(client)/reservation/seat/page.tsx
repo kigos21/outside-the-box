@@ -7,6 +7,7 @@ import styles from '@/styles/services.module.css';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/navigation';
 
 interface TimeOption {
   label: string;
@@ -22,6 +23,8 @@ export default function Page() {
   const [isFormVisible, setIsFormVisible] = useState<boolean>(true);
   const [modal, setModal] = useState(<div></div>);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
+  const [data, setData] = useState<SeatReservationFormBody | null>(null);
+  const router = useRouter();
 
   const {
     register,
@@ -41,6 +44,7 @@ export default function Page() {
     });
 
     if (res.ok) {
+      setData(data);
       setIsFormVisible(false);
       setIsAvailable(true);
     } else {
@@ -59,12 +63,17 @@ export default function Page() {
             Schedule available!
           </div>
 
-          <Link
-            href={'/reservation/seat/payment'}
+          <button
+            onClick={() => {
+              const { date, time, service } = data!;
+              router.push(
+                `/reservation/seat/payment?date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&service=${encodeURIComponent(service)}`,
+              );
+            }}
             className="mt-8 w-full cursor-pointer rounded-full bg-otb-blue px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Proceed
-          </Link>
+          </button>
 
           <span
             onClick={() => setIsFormVisible(true)}
@@ -113,7 +122,8 @@ export default function Page() {
                     required: true,
                     validate: {
                       futureDate: (value) =>
-                        new Date(value) >= new Date()
+                        new Date(value).setHours(0, 0, 0, 0) >=
+                        new Date().setHours(0, 0, 0, 0)
                           ? true
                           : 'Date must be today or in the future.',
                     },

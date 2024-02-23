@@ -26,7 +26,6 @@ export default function Login() {
 
   const handleUsernameSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(username);
 
     setIsEnteringUsername(false);
     setIsEnteringOTP(true);
@@ -38,7 +37,6 @@ export default function Login() {
 
   const handleOTPSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(otp);
 
     setIsEnteringOTP(false);
     setIsEnteringNewPassword(true);

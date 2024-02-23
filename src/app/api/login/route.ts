@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 
 import { LoginFormBody } from '@/types';
 import { prismaClient } from '@/lib/prismaClient';
+import * as bcrypt from 'bcrypt';
+import { comparePasswords } from '@/lib/utils/auth';
 
 export async function POST(req: Request) {
   const { username, password }: LoginFormBody = await req.json();
@@ -15,13 +17,15 @@ export async function POST(req: Request) {
       return Response.json(
         {
           success: false,
-          message: 'Username not found.',
+          message: 'Username not found. Register your account.',
         },
         { status: 401 },
       );
     }
 
-    if (customer.password !== password) {
+    const match = await comparePasswords(password, customer.password);
+
+    if (!match) {
       return Response.json(
         { success: false, message: 'Invalid credentials' },
         { status: 401 },
@@ -32,14 +36,15 @@ export async function POST(req: Request) {
     const token = jwt.sign(
       { id: customer.id, username: customer.username },
       process.env.JWT_SECRET_KEY!,
-      {
-        expiresIn: '10m',
-      },
     );
     console.log('Generated JWT Token:', token);
 
     return Response.json({ success: true, token, customer }, { status: 200 });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return Response.json(
+      { success: false, message: JSON.stringify(error) },
+      { status: 500 },
+    );
   }
 }
