@@ -78,7 +78,7 @@ export default function Home() {
     },
     {
       key: 3,
-      fName: 'Jinggoy',
+      fName: 'Melfred',
       lName: 'Estrada',
       service: 5,
       timeIn: '15:00',
