@@ -39,14 +39,16 @@ export default function Services() {
               <th>PRICE</th>
               <th>SERVICE TYPE</th>
               <th>
-                <AddButton IconComponent={PlusIcon} />
+                <div className="pl-4">
+                  <AddButton IconComponent={PlusIcon} />
+                </div>
               </th>
             </tr>
           </thead>
           <tbody>
             {testData.map((data) => (
               <tr
-                className="h-9 border border-solid border-black"
+                className="h-12 border border-solid border-black"
                 key={data.key}
               >
                 <td>{data.service}</td>
@@ -54,8 +56,14 @@ export default function Services() {
                 <td>{data.price}</td>
                 <td>{data.servicetype}</td>
                 <td>
-                  <EditButton IconComponent={PencilSquareIcon} />
-                  <DeleteButton IconComponent={XMarkIcon} />
+                  <div className="flex flex-row px-24">
+                    <div className="px-2">
+                      <EditButton IconComponent={PencilSquareIcon} />
+                    </div>
+                    <div className="px-2">
+                      <DeleteButton IconComponent={XMarkIcon} />
+                    </div>
+                  </div>
                 </td>
               </tr>
             ))}
