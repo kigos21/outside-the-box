@@ -1,3 +1,12 @@
+import {
+  PencilSquareIcon,
+  PlusIcon,
+  XMarkIcon,
+} from '@heroicons/react/16/solid';
+import EditButton from './EditButton';
+import DeleteButton from './DeleteButton';
+import AddButton from './AddButton';
+
 export default function Services() {
   const testData = [
     {
@@ -29,6 +38,9 @@ export default function Services() {
               <th>HOURS</th>
               <th>PRICE</th>
               <th>SERVICE TYPE</th>
+              <th>
+                <AddButton IconComponent={PlusIcon} />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -41,6 +53,10 @@ export default function Services() {
                 <td>{data.hours}</td>
                 <td>{data.price}</td>
                 <td>{data.servicetype}</td>
+                <td>
+                  <EditButton IconComponent={PencilSquareIcon} />
+                  <DeleteButton IconComponent={XMarkIcon} />
+                </td>
               </tr>
             ))}
           </tbody>
