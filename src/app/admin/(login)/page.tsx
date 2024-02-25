@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { LoginFormBody } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,9 +8,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 export default function AdminLogin() {
   const { register, handleSubmit } = useForm<LoginFormBody>();
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<LoginFormBody> = async () => {
     // back end keme
+    router.push('/admin/main');
     console.log();
   };
 
