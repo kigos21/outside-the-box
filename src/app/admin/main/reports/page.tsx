@@ -30,7 +30,7 @@ export default function Reports() {
           </select>
         </div>
         <div className="flex justify-end">
-          <button className="mr-12 rounded-md bg-otb-blue px-12 py-4 text-2xl font-bold">
+          <button className="mr-12 rounded-md bg-otb-blue px-12 py-4 text-xl font-bold">
             Generate
           </button>
         </div>
@@ -61,7 +61,7 @@ export default function Reports() {
           </select>
         </div>
         <div className="flex justify-end">
-          <button className="mr-12 rounded-md bg-otb-blue px-12 py-4 text-2xl font-bold">
+          <button className="mr-12 rounded-md bg-otb-blue px-12 py-4 text-xl font-bold">
             Generate
           </button>
         </div>
