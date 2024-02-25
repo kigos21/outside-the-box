@@ -25,7 +25,7 @@ export default function Register() {
   } = useForm<RegisterFormBody>();
 
   const onSubmit: SubmitHandler<RegisterFormBody> = async (data) => {
-    const usernameResponse = await fetch('/api/check/username', {
+    const usernameResponse = await fetch('/api/register/username-check', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
