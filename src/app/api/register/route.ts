@@ -3,7 +3,6 @@ import { RegisterFormBody } from '@/types';
 
 export async function POST(req: Request) {
   const body: RegisterFormBody = await req.json();
-  console.log(body);
 
   // Check for missing fields
   const requiredFields = [
@@ -71,7 +70,7 @@ export async function POST(req: Request) {
     const verification = await sendOTP('+63' + mobileNumber.slice(1));
     return Response.json(verification, { status: 200 });
   } catch (error: any) {
-    console.log(
+    console.error(
       `Logging from try/catch block at line 66 @ register/route.ts. ERROR: ${error.name}` +
         error,
     );

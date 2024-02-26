@@ -15,7 +15,7 @@ export async function sendOTP(mobileNumber: string) {
 
     return verification;
   } catch (error) {
-    console.log('TWILIO ERROR: ' + error);
+    console.error('TWILIO ERROR: ' + error);
     throw new TwilioCreateError(
       'There was an error sending an OTP to your number.',
     );
@@ -30,7 +30,7 @@ export async function verifyOTP(mobileNumber: string, otp: string) {
 
     return verification;
   } catch (error) {
-    console.log('TWILIO ERROR: ' + error);
+    console.error('TWILIO ERROR: ' + error);
     throw new TwilioCreateError('There was an error verifying your OTP.');
   }
 }

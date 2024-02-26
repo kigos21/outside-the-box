@@ -14,6 +14,7 @@ export default function Register() {
   const [otp, setOTP] = useState<string>('');
   const [otpError, setOTPError] = useState<string>('');
   const [customerData, setCustomerData] = useState<RegisterFormBody>();
+  const [registerError, setRegisterError] = useState<string>('');
   const router = useRouter();
 
   const {
@@ -24,6 +25,20 @@ export default function Register() {
   } = useForm<RegisterFormBody>();
 
   const onSubmit: SubmitHandler<RegisterFormBody> = async (data) => {
+    const usernameResponse = await fetch('/api/register/username-check', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username: data.username }),
+    });
+
+    if (!usernameResponse.ok) {
+      const data = await usernameResponse.json();
+      setRegisterError(data.error);
+      return;
+    }
+
     const res = await fetch('/api/register', {
       method: 'POST',
       headers: {
@@ -33,8 +48,6 @@ export default function Register() {
     });
 
     const { error } = await res.json();
-
-    console.log(res.status);
 
     if (!res.ok) {
       setResponseErrors(error.name);
@@ -311,6 +324,12 @@ export default function Register() {
                   Sorry! We cannot complete yout request at the moment. Error:{' '}
                   {responseError}
                 </p>
+              )}
+
+              {registerError && (
+                <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-red-600">
+                  {registerError}
+                </div>
               )}
 
               <div className="mt-4 flex w-full flex-col gap-4">
