@@ -28,9 +28,13 @@ export default function Services() {
   return (
     <div className="flex h-full flex-col space-y-5">
       <div className="h-full rounded-lg bg-white px-5 py-7 shadow-lg shadow-black/25">
-        <h3 className="mb-3 text-xl font-semibold">
-          Manage Services and Promos
-        </h3>
+        <div className="flex justify-between">
+          <h3 className="mb-3 text-xl font-semibold">
+            Manage Services and Promos
+          </h3>
+          <AddButton IconComponent={PlusIcon} />
+        </div>
+
         <table className="w-full table-fixed text-center">
           <thead className="">
             <tr>
@@ -38,11 +42,7 @@ export default function Services() {
               <th>HOURS</th>
               <th>PRICE</th>
               <th>SERVICE TYPE</th>
-              <th>
-                <div className="pl-4">
-                  <AddButton IconComponent={PlusIcon} />
-                </div>
-              </th>
+              <th></th>
             </tr>
           </thead>
           <tbody>

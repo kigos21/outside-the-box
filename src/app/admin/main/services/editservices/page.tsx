@@ -16,25 +16,25 @@ export default function AddServices() {
                 <label className="mb-2 block text-xl font-medium text-black ">
                   SERVICE / PROMO NAME
                 </label>
-                <input type="text" className="w-1/2 outline outline-2" />
+                <input type="text" className="w-1/2 outline outline-1" />
               </div>
               <div>
                 <label className="mb-2 block text-xl font-medium text-black ">
                   HOURS
                 </label>
-                <input type="text" className="w-1/2 outline outline-2" />
+                <input type="text" className="w-1/2 outline outline-1" />
               </div>
               <div>
                 <label className="mb-2 block text-xl font-medium text-black ">
                   PRICE
                 </label>
-                <input type="text" className="w-1/2 outline outline-2" />
+                <input type="text" className="w-1/2 outline outline-1" />
               </div>
               <div>
                 <label className="mb-2 block text-xl font-medium text-black ">
                   SERVICE TYPE
                 </label>
-                <input type="text" className="w-1/2 outline outline-2" />
+                <input type="text" className="w-1/2 outline outline-1" />
               </div>
             </form>
             <div className="float-right mr-20 mt-40">
