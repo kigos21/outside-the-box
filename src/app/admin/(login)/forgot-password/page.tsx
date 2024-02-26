@@ -13,12 +13,12 @@ export default function AdminLogin() {
 
   const handleReset = () => {
     setShowNewPassword(true);
-    setShowOTP(false); // Ensure OTP component is not rendered when showing new password
+    setShowOTP(false);
   };
 
   const handleOTPClick = () => {
     setShowOTP(true);
-    setShowNewPassword(false); // Ensure NewPassword component is not rendered when showing OTP
+    setShowNewPassword(false);
   };
 
   const onSubmit: SubmitHandler<LoginFormBody> = async () => {

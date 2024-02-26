@@ -72,7 +72,7 @@ export default function AdminLogin() {
           </form>
         </div>
 
-        {/* Logo beside the form */}
+
       </div>
     </main>
   );
