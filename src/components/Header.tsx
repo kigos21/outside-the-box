@@ -6,13 +6,23 @@ import { usePathname } from 'next/navigation';
 import { hasCookie } from 'cookies-next';
 import NavLink from './NavLink';
 import { useEffect, useState } from 'react';
-
+import { useCookies } from 'react-cookie';
 export default function Header() {
-  const [isAuthorized, setIsAuthorized] = useState<boolean | undefined>();
+  const [cookies, setCookie] = useCookies(['token']);
+  const [isAuthed, setIsAuthed] = useState(false);
 
   useEffect(() => {
-    setIsAuthorized(hasCookie('token'));
-  }, []);
+    setIsAuthed(!!cookies['token']);
+  }, [cookies]);
+
+  const handleLogout = () => {
+    setCookie('token', '', { path: '/' });
+  };
+  // const [isAuthorized, setIsAuthorized] = useState<boolean | undefined>();
+
+  // useEffect(() => {
+  //   setIsAuthorized(hasCookie('token'));
+  // }, []);
 
   const pathname = usePathname();
   const navLinks = [
@@ -20,7 +30,6 @@ export default function Header() {
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
   ];
-
   return (
     <header className="flex justify-between bg-otb-yellow px-[7%] py-6">
       <Link href={'/'}>
@@ -42,10 +51,12 @@ export default function Header() {
             />
           ))}
           {/* remove login Link whenever token is present in cookies */}
-          {isAuthorized != undefined && !isAuthorized ? (
-            <NavLink name={'Login'} href={'/login'} pathName={pathname} />
+          {isAuthed ? (
+            <span onClick={handleLogout}>
+              <NavLink name={'Logout'} href={'/logout'} pathName={pathname} />
+            </span>
           ) : (
-            <NavLink name={'Logout'} href={'/logout'} pathName={pathname} />
+            <NavLink name={'Login'} href={'/login'} pathName={pathname} />
           )}
         </ul>
       </nav>

@@ -7,7 +7,7 @@ export async function GET(req: Request) {
     const services = await prismaClient.service.findMany();
     return Response.json({ services }, { status: 200 });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return Response.json(
       { message: 'Error fetching services' },
       { status: 500 },

@@ -77,3 +77,10 @@ export type CreateLogRequestBody = {
   lastName: string;
   serviceId: string;
 };
+
+export type InquiryFormBody = {
+  email: string;
+  attendees: string;
+  purpose: string;
+  additionalInfo: string;
+};
