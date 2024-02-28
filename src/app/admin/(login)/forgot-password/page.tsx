@@ -8,17 +8,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 export default function AdminLogin() {
   const { register, handleSubmit } = useForm<LoginFormBody>();
-  const [showOTP, setShowOTP] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [otpValue, setOtpValue] = useState('');
 
-  const handleReset = () => {
+  const handleVerify = () => {
+    // Backend logic to verify OTP
     setShowNewPassword(true);
-    setShowOTP(false);
-  };
-
-  const handleOTPClick = () => {
-    setShowOTP(true);
-    setShowNewPassword(false);
   };
 
   const onSubmit: SubmitHandler<LoginFormBody> = async () => {
@@ -27,80 +22,62 @@ export default function AdminLogin() {
   };
 
   return (
-    <main className="flex min-h-[85vh] w-full items-center justify-center px-10">
-      {!showOTP && !showNewPassword && (
-        <div className="square-container flex flex-col items-center gap-8 rounded-3xl bg-white px-16 py-12 shadow-2xl">
+    <main className="flex min-h-[85vh] w-full items-center justify-center bg-white px-10">
+      {!showNewPassword && (
+        <div className="square-container flex flex-col items-center gap-5 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
           <div className="h-30 w-15">
             <Image
               src={'/otb-logo-cropped.jpg'}
               alt={'Outside the box logo'}
-              width={300}
-              height={300}
+              width={150}
+              height={150}
             />
           </div>
-          <div className="w-full text-center">
-            <h1 className="mb-4 text-xl font-bold">
-              An Email with an OTP has been sent to the inbox of the owner
-            </h1>
-            <span className="text-sm">
-              <Link href="/admin" className="underline">
-                Back to Login
-              </Link>
-            </span>
-            <span className="text-sm">
-              <a className="underline" onClick={handleOTPClick}>
-                OTP test
-              </a>
-            </span>
-          </div>
+          <h1 className="text-x2 mb-3 text-center">
+            An Email with an OTP has been sent to the <br /> email of the owner{' '}
+            <br />
+            <br />
+            Please Enter OTP:
+          </h1>
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+            {!showNewPassword && (
+              <div>
+                <input
+                  type="number"
+                  name="otp"
+                  id="otp"
+                  required
+                  placeholder="OTP"
+                  minLength={6}
+                  maxLength={6}
+                  value={otpValue}
+                  onChange={(e) => setOtpValue(e.target.value)}
+                  className="mt-3 w-full rounded-md border border-black px-6 py-4 text-center text-lg"
+                />
+              </div>
+            )}
+
+            <div className="mt-4 flex w-full flex-col gap-4">
+              <button
+                type="button"
+                onClick={handleVerify}
+                className="rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
       )}
-      {showOTP && <OTP onVerify={handleReset} />}
+
       {showNewPassword && <NewPassword />}
     </main>
   );
 }
 
-function OTP({ onVerify }: { onVerify: () => void }) {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    onVerify();
-  };
-
-  return (
-    <div className="square-container flex flex-col items-center gap-8 rounded-3xl bg-white px-16 py-12 shadow-2xl">
-      <Image
-        src={'/otb-logo-cropped.jpg'}
-        alt={'Outside the box logo'}
-        width={300}
-        height={300}
-        className="h-30 w-15"
-      />
-      <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          name="otp"
-          id="otp"
-          required
-          placeholder="OTP"
-          minLength={6}
-          maxLength={6}
-          className="mt-3 w-full rounded-full border border-gray-300 px-6 py-4 text-center text-lg"
-        />
-        <button
-          type="submit"
-          className="my-4 w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-        >
-          Verify
-        </button>
-      </form>
-    </div>
-  );
-}
-
 function NewPassword() {
   return (
-    <div className="square-container flex flex-col items-center gap-8 rounded-3xl bg-white px-16 py-12 shadow-2xl">
+    <div className="square-container flex max-w-md flex-col items-center gap-1 rounded-3xl bg-otb-yellow px-16 py-10 shadow-2xl">
       <Image
         src={'/otb-logo-cropped.jpg'}
         alt={'Outside the box logo'}
@@ -108,20 +85,38 @@ function NewPassword() {
         height={300}
         className="h-30 w-15"
       />
-      <h2>Enter New Password</h2>
-      <form method="post">
-        <input
-          type="password"
-          name="newPassword"
-          id="newPassword"
-          required
-          placeholder="New Password"
-          className="mt-3 w-full rounded-full border border-gray-300 px-6 py-4 text-center text-lg"
-        />
+      <h2 className="mb-4">Enter New Password</h2>
+      <form method="post" className="w-full">
+        <div className="mb-4 w-full">
+          <label htmlFor="newPassword" className="mb-1 block">
+            New Password
+          </label>
+          <input
+            type="password"
+            name="newPassword"
+            id="newPassword"
+            required
+            placeholder="New Password"
+            className="w-full rounded-md border border-black px-4 py-1 text-lg"
+          />
+        </div>
+        <div className="mb-4 w-full">
+          <label htmlFor="confirmPassword" className="mb-1 block">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            required
+            placeholder="Confirm Password"
+            className="w-full rounded-md border border-black px-6 py-1 text-lg"
+          />
+        </div>
         <Link href="/admin" passHref>
           <button
             type="submit"
-            className="my-4 w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className="w-full rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Reset
           </button>
