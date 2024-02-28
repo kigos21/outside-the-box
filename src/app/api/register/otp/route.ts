@@ -1,6 +1,7 @@
 import { verifyOTP } from '@/lib/twilioClient';
 import { register } from '@/lib/utils/customer';
 import { Customer } from '@/types';
+import * as bcrypt from 'bcrypt';
 
 export async function POST(req: Request) {
   const {
@@ -33,7 +34,14 @@ export async function POST(req: Request) {
   }
 
   try {
-    const newCustomer = await register(customer);
+    // hash password before registering
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(customer.password, saltRounds);
+
+    const newCustomer = await register({
+      ...customer,
+      password: hashedPassword,
+    });
     return Response.json(
       {
         message: 'Registered successfully!',
@@ -42,7 +50,7 @@ export async function POST(req: Request) {
       { status: 200 },
     );
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
     return Response.json(
       {
         message: `There was an error registering your account. Error code: ${error.code}`,
@@ -87,7 +95,7 @@ export async function POST(req: Request) {
           { status: 200 },
         );
       } catch (error) {
-        console.log(error);
+        console.error(error);
         return Response.json(
           {
             status: verification.status,
@@ -101,7 +109,7 @@ export async function POST(req: Request) {
       }
     }
   } catch (error: any) {
-    console.log(
+    console.error(
       `Logging from try/catch block @ register/otp/route.ts. ERROR: ${error.name}` +
         error,
     );
