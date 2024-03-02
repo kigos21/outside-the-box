@@ -20,14 +20,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen bg-otb-yellow p-8`}>
+      <body className={`${inter.className} h-screen bg-otb-yellow p-8`}>
         <Link href={'/admin/main'} className="block w-fit">
           <Image
             src="/otb-logo-cropped.jpg"
             width={160}
             height={57}
             alt="Outside the Box Logo"
-            className="mb-4"
+            className="mb-4 ml-8"
           />
         </Link>
         <div className="flex gap-5">
