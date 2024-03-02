@@ -17,7 +17,7 @@ export default function AdminLogin() {
   };
 
   return (
-    <main className="flex min-h-[85vh] w-full items-center justify-center px-10">
+    <main className="flex min-h-[85vh] w-full items-center justify-center gap-8 px-10">
       <div className="mx-5 flex flex-col items-center">
         <div className="mx-5">
           <Image
@@ -34,7 +34,7 @@ export default function AdminLogin() {
           <form
             method="post"
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
+            className="flex w-96 flex-col gap-4"
           >
             <div className="flex flex-col gap-1">
               <label htmlFor="username" className="font-semibold">
@@ -45,7 +45,7 @@ export default function AdminLogin() {
                 id="username"
                 required
                 placeholder="Username e.g. joe123"
-                className="rounded-md border border-black px-6 py-4"
+                className="rounded-md border border-gray-400 px-6 py-4"
                 {...register('username', { required: true })}
               />
             </div>
@@ -59,7 +59,7 @@ export default function AdminLogin() {
                 id="password"
                 required
                 placeholder="Password"
-                className="rounded-md border border-black px-6 py-4"
+                className="rounded-md border border-gray-400 px-6 py-4"
                 {...register('password', { required: true })}
               />
             </div>
