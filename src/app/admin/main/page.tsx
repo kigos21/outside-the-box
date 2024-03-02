@@ -116,9 +116,9 @@ export default function Home() {
 
   return (
     <div className="flex h-[86vh] flex-col gap-5">
-      <div className="h-[calc(86vh/2-10px)] rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <div className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
         <h3 className="mb-3 text-xl font-semibold">Recent Log Records</h3>
-        <div style={{ overflowY: 'scroll', maxHeight: 'calc(100% -  50px)' }}>
+        <div>
           <table className="relative w-full table-fixed text-center">
             <thead>
               <tr>
@@ -148,11 +148,11 @@ export default function Home() {
           </table>
         </div>
       </div>
-      <div className="h-[calc(86vh/2-10px)] rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <div className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
         <h3 className="mb-3 text-xl font-semibold">
           Reservations for Confirmation
         </h3>
-        <div style={{ overflowY: 'scroll', maxHeight: 'calc(100% -  50px)' }}>
+        <div>
           <table className="w-full table-fixed text-center">
             <thead className="">
               <tr>

@@ -40,10 +40,106 @@ export default function Reservation() {
       duration: '5 hours',
       timeIn: '13:11',
     },
+    {
+      rsID: 6,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 7,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 8,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 9,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 10,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 11,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 12,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 13,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 14,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 15,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 16,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
+    {
+      rsID: 17,
+      fName: 'Kevin',
+      lName: 'Corazers',
+      service: 'Study Buddy',
+      duration: '5 hours',
+      timeIn: '13:11',
+    },
   ];
   return (
     <div className="flex h-full flex-col gap-5">
-      <div className="flex-grow rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <div className="h-[calc(86vh-92px-1.25rem)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
         <h3 className="absolute top-10 text-3xl font-bold">
           Book Reservations
         </h3>
