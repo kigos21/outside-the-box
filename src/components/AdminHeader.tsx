@@ -9,25 +9,17 @@ import AdminNavLink from './AdminNavLink';
 export default function AdminHeader() {
   const pathname = usePathname();
   const navLinks = [
-    { name: 'HOMEPAGE', path: '/admin/main' },
-    { name: 'BOOK RESERVATIONS', path: '/admin/main/reservation' },
-    { name: 'MANAGE LOG RECORDS', path: '/admin/main/logs' },
-    { name: 'MANAGE SERVICES AND PROMOS', path: '/admin/main/services' },
-    { name: 'GENERATE REPORTS', path: '/admin/main/reports' },
-    { name: 'LOGIN/LOGOUT', path: '/admin/main/reports' },
+    { name: 'Homepage', path: '/admin/main' },
+    { name: 'Book Reservations', path: '/admin/main/reservation' },
+    { name: 'Manage Log Records', path: '/admin/main/logs' },
+    { name: 'Manage Services and Promos', path: '/admin/main/services' },
+    { name: 'Generate Reports', path: '/admin/main/reports' },
+    { name: 'Logout', path: '/admin/main/logout' },
   ];
 
   return (
-    <div className="basis-1/5 rounded-lg bg-white px-7 py-16 shadow-lg shadow-black/25">
-      <Link href={'/admin/main'} className="absolute top-4">
-        <Image
-          src="/otb-logo-cropped.jpg"
-          width={160}
-          height={57}
-          alt="Outside the Box Logo"
-        />
-      </Link>
-      <ul className="space-y-16 text-xl font-medium">
+    <div className="h-[86vh] basis-1/5 rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <ul className="text-md flex flex-col gap-4 font-bold">
         {navLinks.map((link) => (
           <AdminNavLink
             key={link.name}
