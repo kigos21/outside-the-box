@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Reservation() {
   const reserveData = [
     {
@@ -139,7 +141,7 @@ export default function Reservation() {
   ];
   return (
     <div className="flex h-full flex-col gap-5">
-      <div className="h-[calc(86vh-92px-1.25rem)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <div className="h-[calc(86vh-104px-1.25rem)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
         <h3 className="absolute top-10 text-3xl font-bold">
           Book Reservations
         </h3>
@@ -149,13 +151,13 @@ export default function Reservation() {
         <table className="relative w-full table-fixed text-center">
           <thead>
             <tr>
-              <th className="sticky top-0 bg-white">Reservation ID</th>
-              <th className="sticky top-0 bg-white">First Name</th>
-              <th className="sticky top-0 bg-white">Last Name</th>
-              <th className="sticky top-0 bg-white">Service</th>
-              <th className="sticky top-0 bg-white">Duration</th>
-              <th className="sticky top-0 bg-white">Time In</th>
-              <th className="sticky top-0 bg-white">Actions</th>
+              <th className="sticky top-[-1.5rem] bg-white">Reservation ID</th>
+              <th className="sticky top-[-1.5rem] bg-white">First Name</th>
+              <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
+              <th className="sticky top-[-1.5rem] bg-white">Service</th>
+              <th className="sticky top-[-1.5rem] bg-white">Duration</th>
+              <th className="sticky top-[-1.5rem] bg-white">Time In</th>
+              <th className="sticky top-[-1.5rem] bg-white">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -215,9 +217,12 @@ export default function Reservation() {
           <h3 className="self-center text-xl font-semibold">
             Reserve the Facility
           </h3>
-          <button className="h-min self-center rounded-lg bg-otb-blue px-10 py-2 text-lg font-semibold shadow-lg shadow-black/25">
+          <Link
+            href="/admin/main/reservation/facility"
+            className="rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+          >
             Proceed
-          </button>
+          </Link>
         </div>
       </div>
     </div>
