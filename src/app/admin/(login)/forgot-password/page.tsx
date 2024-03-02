@@ -24,7 +24,7 @@ export default function AdminLogin() {
   return (
     <main className="flex min-h-[85vh] w-full items-center justify-center bg-white px-10">
       {!showNewPassword && (
-        <div className="square-container flex flex-col items-center gap-5 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
+        <div className="square-container flex w-[480px] flex-col items-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
           <div className="h-30 w-15">
             <Image
               src={'/otb-logo-cropped.jpg'}
@@ -33,15 +33,15 @@ export default function AdminLogin() {
               height={150}
             />
           </div>
-          <h1 className="text-x2 mb-3 text-center">
-            An Email with an OTP has been sent to the <br /> email of the owner{' '}
-            <br />
-            <br />
-            Please Enter OTP:
-          </h1>
+          <div className="flex flex-col gap-4 text-center">
+            <p className="w-full rounded-lg border border-blue-500 bg-blue-100 px-3 py-2 text-center text-blue-500">
+              An OTP has been sent to the email of the owner.
+            </p>
+          </div>
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             {!showNewPassword && (
               <div>
+                <label htmlFor="otp">Please enter OTP:</label>
                 <input
                   type="number"
                   name="otp"
@@ -52,7 +52,7 @@ export default function AdminLogin() {
                   maxLength={6}
                   value={otpValue}
                   onChange={(e) => setOtpValue(e.target.value)}
-                  className="mt-3 w-full rounded-md border border-black px-6 py-4 text-center text-lg"
+                  className="mt-3 w-full rounded-md border border-gray-400 px-6 py-4 text-center text-lg"
                 />
               </div>
             )}
@@ -77,41 +77,43 @@ export default function AdminLogin() {
 
 function NewPassword() {
   return (
-    <div className="square-container flex max-w-md flex-col items-center gap-1 rounded-3xl bg-otb-yellow px-16 py-10 shadow-2xl">
+    <div className="square-container flex flex-col items-center gap-8 rounded-3xl bg-otb-yellow px-16 py-10 shadow-2xl">
       <Image
         src={'/otb-logo-cropped.jpg'}
         alt={'Outside the box logo'}
-        width={300}
-        height={300}
+        width={150}
+        height={150}
         className="h-30 w-15"
       />
-      <h2 className="mb-4">Enter New Password</h2>
-      <form method="post" className="w-full">
-        <div className="mb-4 w-full">
-          <label htmlFor="newPassword" className="mb-1 block">
-            New Password
-          </label>
-          <input
-            type="password"
-            name="newPassword"
-            id="newPassword"
-            required
-            placeholder="New Password"
-            className="w-full rounded-md border border-black px-4 py-1 text-lg"
-          />
-        </div>
-        <div className="mb-4 w-full">
-          <label htmlFor="confirmPassword" className="mb-1 block">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            required
-            placeholder="Confirm Password"
-            className="w-full rounded-md border border-black px-6 py-1 text-lg"
-          />
+      <p className="text-lg font-semibold">Enter New Password</p>
+      <form method="post" className="flex w-full flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <div className="flex w-full flex-col gap-1">
+            <label htmlFor="newPassword" className="text-sm">
+              New Password
+            </label>
+            <input
+              type="password"
+              name="newPassword"
+              id="newPassword"
+              required
+              placeholder="New Password"
+              className="w-full rounded-md border border-gray-400 px-6 py-4 text-center text-lg"
+            />
+          </div>
+          <div className="w-full">
+            <label htmlFor="confirmPassword" className="text-sm">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              required
+              placeholder="Confirm Password"
+              className="w-full rounded-md border border-gray-400 px-6 py-4 text-center text-lg"
+            />
+          </div>
         </div>
         <Link href="/admin" passHref>
           <button
