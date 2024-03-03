@@ -148,7 +148,7 @@ export default function Reservation() {
         <h3 className="absolute top-10 text-3xl font-bold">
           Book Reservations
         </h3>
-        <h3 className="mb-3 text-xl font-semibold">
+        <h3 className="mb-3 text-xl font-semibold text-gray-500">
           Reservations for Confirmation
         </h3>
         <table className="relative w-full table-fixed text-center">

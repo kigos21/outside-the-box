@@ -285,9 +285,9 @@ export default function Logs() {
     <div className="h-[calc(86vh)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
       <h3 className="absolute top-10 text-3xl font-bold">Manage Log Records</h3>
       <div className="flex justify-between">
-        <h3 className="mb-3 text-xl font-semibold">Logs</h3>
+        <h3 className="mb-3 text-xl font-semibold text-gray-500">Logs</h3>
         {/* <button className="rounded-md bg-otb-blue px-4 text-white">+</button> */}
-        <AddButton IconComponent={PlusIcon} />
+        <AddButton href="/admin/main" IconComponent={PlusIcon} />
       </div>
       <table className="w-full table-fixed text-center">
         <thead className="">

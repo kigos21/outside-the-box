@@ -118,7 +118,9 @@ export default function Home() {
     <div className="flex h-[86vh] flex-col gap-5">
       <div className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
         <h3 className="absolute top-10 text-3xl font-bold">Homepage</h3>
-        <h3 className="mb-3 text-xl font-semibold">Recent Log Records</h3>
+        <h3 className="mb-3 text-xl font-semibold text-gray-500">
+          Recent Log Records
+        </h3>
         <div>
           <table className="relative w-full table-fixed text-center">
             <thead>
@@ -150,7 +152,7 @@ export default function Home() {
         </div>
       </div>
       <div className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
-        <h3 className="mb-3 text-xl font-semibold">
+        <h3 className="mb-3 text-xl font-semibold text-gray-500">
           Reservations for Confirmation
         </h3>
         <div>
