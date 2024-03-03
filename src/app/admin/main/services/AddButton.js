@@ -6,7 +6,7 @@ const AddButton = ({ IconComponent, color = 'white' }) => {
     <Link href="/admin/main/services/addservices">
       <button>
         <div
-          className={`flex items-center justify-center rounded-lg bg-sky-300 p-2 text-white shadow-lg ${color}`}
+          className={`flex items-center justify-center rounded-lg bg-otb-blue p-2 text-white shadow-lg ${color}`}
         >
           <IconComponent className="h-8 w-8" />
         </div>
