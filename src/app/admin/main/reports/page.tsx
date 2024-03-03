@@ -1,7 +1,7 @@
 export default function Reports() {
   return (
     <div className="flex h-[86vh] flex-col gap-5">
-      <div className="flex h-[calc(86vh/2-10px)] flex-col overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <div className="flex h-[calc(86vh/2-10px)] flex-col rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
         <h3 className="absolute top-10 text-3xl font-bold">Generate Reports</h3>
         <h3 className="mb-3 text-xl font-semibold">Create Daily Report</h3>
         <div className="flex flex-grow flex-col">
@@ -45,7 +45,7 @@ export default function Reports() {
           </form>
         </div>
       </div>
-      <div className="flex h-[calc(86vh/2-10px)] flex-col overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <div className="flex h-[calc(86vh/2-10px)] flex-col rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
         <h3 className="mb-3 text-xl font-semibold">
           Create Custom Timeframe Report
         </h3>
