@@ -227,10 +227,8 @@ export default function Services() {
         <h3 className="absolute top-10 text-3xl font-bold">
           Manage Services and Promos
         </h3>
-        <div className="flex justify-between">
-          <h3 className="mb-3 text-xl font-semibold text-gray-500">
-            Your Services
-          </h3>
+        <div className="mb-3 flex justify-between">
+          <h3 className="text-xl font-semibold text-gray-500">Your Services</h3>
           <AddButton
             href="/admin/main/services/add-service"
             IconComponent={PlusIcon}

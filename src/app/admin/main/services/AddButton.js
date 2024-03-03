@@ -6,7 +6,7 @@ const AddButton = ({ IconComponent, color = 'white', href }) => {
     <Link href={href}>
       <button>
         <div
-          className={`flex items-center justify-center rounded-lg bg-otb-blue p-2 text-white shadow-lg ${color}`}
+          className={`flex items-center justify-center rounded-md bg-otb-blue p-2 text-white shadow-md transition-all hover:bg-sky-900 hover:shadow-none ${color}`}
         >
           <IconComponent className="h-8 w-8" />
         </div>

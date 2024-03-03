@@ -1,5 +1,6 @@
 import { PlusIcon } from '@heroicons/react/16/solid';
 import AddButton from '../services/AddButton';
+import Link from 'next/link';
 
 export default function Logs() {
   const logData = [
@@ -284,10 +285,17 @@ export default function Logs() {
   return (
     <div className="h-[calc(86vh)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
       <h3 className="absolute top-10 text-3xl font-bold">Manage Log Records</h3>
-      <div className="flex justify-between">
-        <h3 className="mb-3 text-xl font-semibold text-gray-500">Logs</h3>
-        {/* <button className="rounded-md bg-otb-blue px-4 text-white">+</button> */}
-        <AddButton href="/admin/main" IconComponent={PlusIcon} />
+      <div className="mb-3 flex justify-between">
+        <h3 className="text-xl font-semibold text-gray-500">Logs</h3>
+        <div className="flex gap-3">
+          <Link
+            href="/admin/main/logs/add-from-reservations"
+            className="flex items-center justify-center rounded-md border border-otb-blue bg-sky-50 px-4 py-2 text-otb-blue shadow-md transition-all hover:bg-sky-900 hover:text-white hover:shadow-none"
+          >
+            Create from reservation
+          </Link>
+          <AddButton href="/admin/main/logs/add-log" IconComponent={PlusIcon} />
+        </div>
       </div>
       <table className="w-full table-fixed text-center">
         <thead className="">
