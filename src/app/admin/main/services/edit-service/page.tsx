@@ -4,9 +4,7 @@ export default function AddServices() {
       <div className="flex h-full flex-col rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
         <h3 className="absolute top-10 text-3xl font-bold">Edit Service</h3>
 
-        <h3 className="mb-3 text-xl font-semibold">
-          Create New Service / Promo
-        </h3>
+        <h3 className="mb-3 text-xl font-semibold">Edit Service / Promo</h3>
 
         <form className="flex flex-grow flex-col justify-between">
           <div className="flex flex-col gap-4">

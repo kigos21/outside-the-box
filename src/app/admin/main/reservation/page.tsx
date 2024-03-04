@@ -1,9 +1,14 @@
+'use client';
+
 import Link from 'next/link';
-import EditButton from '../services/EditButton';
-import DeleteButton from '../services/DeleteButton';
-import { PencilSquareIcon, XMarkIcon } from '@heroicons/react/16/solid';
+import { XMarkIcon, CheckIcon } from '@heroicons/react/16/solid';
+import { useState } from 'react';
+import AdminModal from '@/components/AdminModal';
 
 export default function Reservation() {
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showArchiveModal, setShowArchiveModal] = useState(false);
+
   const reserveData = [
     {
       rsID: 1,
@@ -142,8 +147,72 @@ export default function Reservation() {
       timeIn: '13:11',
     },
   ];
+
   return (
     <div className="flex h-full flex-col gap-5">
+      {showConfirmModal && (
+        <AdminModal
+          title={'Confirm reservation?'}
+          handleConfirm={() => console.log('Confirm')}
+          handleCancel={() => setShowConfirmModal(false)}
+        >
+          <div className="flex flex-col gap-1">
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">Reservation ID</p>
+              <p className="basis-1/2 font-semibold">21</p>
+            </div>
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">First name</p>
+              <p className="basis-1/2 font-semibold">John</p>
+            </div>
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">Last name</p>
+              <p className="basis-1/2 font-semibold">Castro</p>
+            </div>
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">Service</p>
+              <p className="basis-1/2 font-semibold">5hrsReg</p>
+            </div>
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">Time in</p>
+              <p className="basis-1/2 font-semibold">14:00</p>
+            </div>
+          </div>
+        </AdminModal>
+      )}
+
+      {showArchiveModal && (
+        <AdminModal
+          title={'Archive reservation?'}
+          handleConfirm={() => console.log('Confirm')}
+          handleCancel={() => setShowArchiveModal(false)}
+          danger
+        >
+          <div className="flex flex-col gap-1">
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">Reservation ID</p>
+              <p className="basis-1/2 font-semibold">21</p>
+            </div>
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">First name</p>
+              <p className="basis-1/2 font-semibold">John</p>
+            </div>
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">Last name</p>
+              <p className="basis-1/2 font-semibold">Castro</p>
+            </div>
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">Service</p>
+              <p className="basis-1/2 font-semibold">5hrsReg</p>
+            </div>
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">Time in</p>
+              <p className="basis-1/2 font-semibold">14:00</p>
+            </div>
+          </div>
+        </AdminModal>
+      )}
+
       <div className="h-[calc(86vh-104px-1.25rem)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
         <h3 className="absolute top-10 text-3xl font-bold">
           Book Reservations
@@ -176,8 +245,18 @@ export default function Reservation() {
                 <td>{data.duration}</td>
                 <td>{data.timeIn}</td>
                 <td className="flex h-12 items-center justify-center gap-2">
-                  <EditButton IconComponent={PencilSquareIcon} />
-                  <DeleteButton IconComponent={XMarkIcon} />
+                  <button
+                    className="flex items-center justify-center rounded-lg bg-blue-700 p-2 text-white shadow-lg"
+                    onClick={() => setShowConfirmModal(true)}
+                  >
+                    <CheckIcon className="h-5 w-5" />
+                  </button>
+                  <button
+                    className="flex items-center justify-center rounded-lg bg-red-500 p-2 text-white shadow-lg"
+                    onClick={() => setShowArchiveModal(true)}
+                  >
+                    <XMarkIcon className="h-5 w-5" />
+                  </button>
                 </td>
               </tr>
             ))}

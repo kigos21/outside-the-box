@@ -3,6 +3,7 @@ interface ModalProps {
   children: React.ReactNode;
   handleConfirm: () => void;
   handleCancel: () => void;
+  danger?: boolean;
 }
 
 export default function AdminModal({
@@ -10,6 +11,7 @@ export default function AdminModal({
   children,
   handleConfirm,
   handleCancel,
+  danger,
 }: ModalProps) {
   return (
     <div
@@ -36,7 +38,7 @@ export default function AdminModal({
           </button>
           <button
             onClick={handleConfirm}
-            className="basis-1/2 rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className={`basis-1/2 rounded-md px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none ${danger ? 'bg-red-400' : 'bg-otb-blue'}`}
           >
             Confirm
           </button>
