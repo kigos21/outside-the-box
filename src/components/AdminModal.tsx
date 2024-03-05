@@ -24,7 +24,7 @@ export default function AdminModal({
       >
         <p className="text-xl font-bold">{title}</p>
 
-        <div className="text-sm">
+        <div className="text-sm text-gray-500">
           <p className="mb-2 text-base">Details:</p>
           {children}
         </div>
