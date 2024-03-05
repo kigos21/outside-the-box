@@ -2,9 +2,11 @@ import React from 'react';
 
 export default function About() {
   return (
-    <main className="p-20 text-center">
-      <h1 className="bg-otb-yellow-100 mb-20 text-7xl font-bold">About us!</h1>
-      <p className="mx-auto max-w-2xl text-center font-sans text-2xl">
+    <main className="p-5 text-center sm:p-10 md:p-20 lg:p-20">
+      <h1 className="bg-otb-yellow-100 mb-10 text-4xl font-bold sm:mb-20 sm:text-5xl md:text-6xl lg:text-7xl">
+        About us!
+      </h1>
+      <p className="mx-auto max-w-2xl text-center font-sans text-lg sm:text-2xl">
         At Outside The Box, we believe that productivity and creativity go
         hand-in-hand.
         <br />
@@ -38,14 +40,13 @@ export default function About() {
           style={{ maxWidth: '30%', height: 'auto', marginRight: '10px' }}
         />
       </div>
-
-      <div className="ml-4 mt-10 text-left ">
+      <div className="mt-10 text-left">
         <Rule />
       </div>
-      <div className="ml-4 mt-10 text-left ">
+      <div className="mt-10 text-left">
         <Pantry />
       </div>
-      <div className="ml-4 mt-10 text-left ">
+      <div className="mt-10 text-left">
         <Outside />
       </div>
     </main>
@@ -54,12 +55,11 @@ export default function About() {
 
 function Rule() {
   return (
-    <div className="items-right  flex">
-      <div className="mb-2 mt-9 h-9 w-9 bg-blue-400"></div>
-      <div className="flex-col">
-        <h1 className="mb-4 ml-11 mt-4 text-5xl font-bold"> House Rules </h1>
-
-        <p className="text-lg">
+    <div className="mt-10 flex items-center">
+      <div className="mr-4 h-4 w-4 bg-blue-400"></div>
+      <div>
+        <h1 className="text-xl font-bold sm:text-3xl">House Rules</h1>
+        <p className="text-sm sm:text-lg">
           1. Register at the front desk before availing of the services offered
           by Outside The Box.
           <br />
@@ -93,12 +93,11 @@ function Rule() {
 
 function Pantry() {
   return (
-    <div className="items-right  flex">
-      <div className="mb-2 mt-5 h-9 w-9 bg-blue-400"></div>
-      <div className="flex-col">
-        <h1 className="mb-4 ml-11 mt-4 text-5xl font-bold"> Pantry Rules </h1>
-
-        <p className="text-lg">
+    <div className="mt-5 flex items-center">
+      <div className="mr-4 h-4 w-4 bg-blue-400"></div>
+      <div>
+        <h1 className="text-xl font-bold sm:text-3xl">Pantry Rules</h1>
+        <p className="text-sm sm:text-lg">
           1. Clean as you go. Please wash your utensils, plates, and mugs.
           <br />
           2. Properly dispose of your garbage.
@@ -111,12 +110,11 @@ function Pantry() {
 
 function Outside() {
   return (
-    <div className="items-right  flex">
-      <div className="mb-2 mt-5 h-9 w-9 bg-blue-400"></div>
-      <div className="flex-col">
-        <h1 className="mb-4 ml-11 mt-4 text-5xl font-bold"> Outside Food</h1>
-
-        <p className="text-lg">
+    <div className="mt-5 flex items-center">
+      <div className="mr-4 h-4 w-4 bg-blue-400"></div>
+      <div>
+        <h1 className="text-xl font-bold sm:text-3xl">Outside Food</h1>
+        <p className="text-sm sm:text-lg">
           1. Outside food are allowed with no corkage fee.
           <br />
           2. However, strong foul-smelling food is prohibited.

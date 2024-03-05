@@ -22,7 +22,7 @@ export default function AdminLogin() {
   };
 
   return (
-    <main className="flex min-h-[85vh] w-full items-center justify-center bg-white px-10">
+    <main className="flex min-h-[100vh] w-full items-center justify-center bg-white px-10">
       {!showNewPassword && (
         <div className="square-container flex flex-col items-center gap-5 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
           <div className="h-30 w-15">
@@ -110,7 +110,7 @@ function NewPassword() {
             id="confirmPassword"
             required
             placeholder="Confirm Password"
-            className="w-full rounded-md border border-black px-6 py-1 text-lg"
+            className="w-full rounded-md border border-black px-4 py-1 text-lg"
           />
         </div>
         <Link href="/admin" passHref>
