@@ -1,13 +1,10 @@
 'use client';
 
-import Link from 'next/link';
-import { XMarkIcon, CheckIcon } from '@heroicons/react/16/solid';
-import { useState } from 'react';
 import AdminModal from '@/components/AdminModal';
+import { useState } from 'react';
 
-export default function Reservation() {
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [showArchiveModal, setShowArchiveModal] = useState(false);
+export default function AddFromReservations() {
+  const [showModal, setShowModal] = useState(false);
 
   const reserveData = [
     {
@@ -149,12 +146,14 @@ export default function Reservation() {
   ];
 
   return (
-    <div className="flex h-full flex-col gap-5">
-      {showConfirmModal && (
+    <div className="flex h-full flex-col">
+      {showModal && (
         <AdminModal
-          title={'Confirm reservation?'}
+          title={'Create log based on this reservation?'}
           handleConfirm={() => console.log('Confirm')}
-          handleCancel={() => setShowConfirmModal(false)}
+          handleCancel={() => {
+            setShowModal(false);
+          }}
         >
           <div className="flex flex-col gap-1">
             <div className="flex justify-between gap-4">
@@ -181,45 +180,15 @@ export default function Reservation() {
         </AdminModal>
       )}
 
-      {showArchiveModal && (
-        <AdminModal
-          title={'Archive reservation?'}
-          handleConfirm={() => console.log('Confirm')}
-          handleCancel={() => setShowArchiveModal(false)}
-          danger
-        >
-          <div className="flex flex-col gap-1">
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Reservation ID</p>
-              <p className="basis-1/2 font-semibold">21</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">First name</p>
-              <p className="basis-1/2 font-semibold">John</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Last name</p>
-              <p className="basis-1/2 font-semibold">Castro</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Service</p>
-              <p className="basis-1/2 font-semibold">5hrsReg</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Time in</p>
-              <p className="basis-1/2 font-semibold">14:00</p>
-            </div>
-          </div>
-        </AdminModal>
-      )}
-
-      <div className="h-[calc(86vh-104px-1.25rem)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <div className="flex h-[86vh] flex-col overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
         <h3 className="absolute top-10 text-3xl font-bold">
-          Book Reservations
+          Add Log from Reservation
         </h3>
+
         <h3 className="mb-3 text-xl font-semibold text-gray-500">
-          Reservations for Confirmation
+          Create New Log from Reservation
         </h3>
+
         <table className="relative w-full table-fixed text-center">
           <thead>
             <tr>
@@ -229,7 +198,7 @@ export default function Reservation() {
               <th className="sticky top-[-1.5rem] bg-white">Service</th>
               <th className="sticky top-[-1.5rem] bg-white">Duration</th>
               <th className="sticky top-[-1.5rem] bg-white">Time In</th>
-              <th className="sticky top-[-1.5rem] bg-white">Actions</th>
+              <th className="sticky top-[-1.5rem] bg-white">Create Log</th>
             </tr>
           </thead>
           <tbody>
@@ -246,36 +215,30 @@ export default function Reservation() {
                 <td>{data.timeIn}</td>
                 <td className="flex h-12 items-center justify-center gap-2">
                   <button
-                    className="flex items-center justify-center rounded-lg bg-blue-700 p-2 text-white shadow-lg"
-                    onClick={() => setShowConfirmModal(true)}
+                    className="rounded-lg bg-blue-700 p-1 text-white"
+                    onClick={() => setShowModal(true)}
+                    title="Create log"
                   >
-                    <CheckIcon className="h-5 w-5" />
-                  </button>
-                  <button
-                    className="flex items-center justify-center rounded-lg bg-red-500 p-2 text-white shadow-lg"
-                    onClick={() => setShowArchiveModal(true)}
-                  >
-                    <XMarkIcon className="h-5 w-5" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="h-6 w-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 4.5v15m7.5-7.5h-15"
+                      />
+                    </svg>
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-
-      <div className="flex rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
-        <div className="flex w-full justify-between">
-          <h3 className="self-center text-xl font-semibold">
-            Reserve the Facility
-          </h3>
-          <Link
-            href="/admin/main/reservation/facility"
-            className="rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-          >
-            Create Reservation
-          </Link>
-        </div>
       </div>
     </div>
   );

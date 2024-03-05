@@ -23,26 +23,226 @@ export default function Services() {
       price: '174.00',
       servicetype: 'Regular',
     },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 1,
+      service: '2hrsReg',
+      hours: '2',
+      price: '149.00',
+      servicetype: 'Regular',
+    },
+    {
+      key: 2,
+      service: '2hrsRegDT',
+      hours: '2',
+      price: '174.00',
+      servicetype: 'Regular',
+    },
   ];
 
   return (
-    <div className="flex h-full flex-col space-y-5">
-      <div className="h-full rounded-lg bg-white px-5 py-7 shadow-lg shadow-black/25">
-        <div className="flex justify-between">
-          <h3 className="mb-3 text-xl font-semibold">
-            Manage Services and Promos
-          </h3>
-          <AddButton IconComponent={PlusIcon} />
+    <div className="flex h-[86vh] flex-col gap-5">
+      <div className="h-[calc(86vh)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+        <h3 className="absolute top-10 text-3xl font-bold">
+          Manage Services and Promos
+        </h3>
+        <div className="mb-3 flex justify-between">
+          <h3 className="text-xl font-semibold text-gray-500">Your Services</h3>
+          <AddButton
+            href="/admin/main/services/add-service"
+            IconComponent={PlusIcon}
+          />
         </div>
 
         <table className="w-full table-fixed text-center">
           <thead className="">
             <tr>
-              <th>SERVICE / PROMO</th>
-              <th>HOURS</th>
-              <th>PRICE</th>
-              <th>SERVICE TYPE</th>
-              <th></th>
+              <th className="sticky top-[-1.5rem] bg-white">Service/Promo</th>
+              <th className="sticky top-[-1.5rem] bg-white">Hours</th>
+              <th className="sticky top-[-1.5rem] bg-white">Price</th>
+              <th className="sticky top-[-1.5rem] bg-white">Type</th>
+              <th className="sticky top-[-1.5rem] bg-white">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -55,15 +255,9 @@ export default function Services() {
                 <td>{data.hours}</td>
                 <td>{data.price}</td>
                 <td>{data.servicetype}</td>
-                <td>
-                  <div className="flex flex-row px-24">
-                    <div className="px-2">
-                      <EditButton IconComponent={PencilSquareIcon} />
-                    </div>
-                    <div className="px-2">
-                      <DeleteButton IconComponent={XMarkIcon} />
-                    </div>
-                  </div>
+                <td className="flex h-12 items-center justify-center gap-2">
+                  <EditButton IconComponent={PencilSquareIcon} />
+                  <DeleteButton IconComponent={XMarkIcon} />
                 </td>
               </tr>
             ))}
