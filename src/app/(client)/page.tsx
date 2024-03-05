@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main>
+    <>
       <div className="">
         <div className="mt-32 bg-otb-yellow text-center sm:mt-64 lg:mt-64">
           <h2 className="py-5 text-4xl font-bold sm:text-7xl lg:text-7xl">
@@ -105,6 +105,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </main>
+    </>
   );
 }
