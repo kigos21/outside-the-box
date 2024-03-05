@@ -22,7 +22,7 @@ export default function AdminLogin() {
   };
 
   return (
-    <main className="flex min-h-[85vh] w-full items-center justify-center bg-white px-10">
+    <main className="flex min-h-[100vh] w-full items-center justify-center bg-white px-10">
       {!showNewPassword && (
         <div className="square-container flex w-[480px] flex-col items-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
           <div className="h-30 w-15">

@@ -14,10 +14,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
-      <body className={`${inter.className} flex min-h-screen justify-center flex-col bg-otb-yellow`}
+      <body
+        className={`${inter.className} flex min-h-screen flex-col justify-center bg-otb-yellow`}
       >
         <main>{children}</main>
       </body>
