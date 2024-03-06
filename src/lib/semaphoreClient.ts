@@ -19,10 +19,9 @@ export const sendOTP = async (mobileNumber: string, message: string) => {
       throw new Error(response.data.error.message);
     }
     console.log('OTP sent successfully!');
+
     return Response.json(response, { status: 200 });
   } catch (error) {
     console.error('Error sending OTP:', error);
   }
 };
-
-export const verifyOTP = async () => {};

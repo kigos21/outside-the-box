@@ -61,8 +61,10 @@ export async function POST(req: Request) {
   const message = 'Your registration OTP is: {otp}';
 
   try {
-    await sendOTP(mobileNumber, message);
+    const verification = await sendOTP(mobileNumber, message);
     console.log('sendOTP called');
+    console.log(verification);
+    return Response.json(verification, {status: 200});
     // Show success message and handle further registration steps
   } catch (error) {
     console.error('Error sending OTP:', error);
