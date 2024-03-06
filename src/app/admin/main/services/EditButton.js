@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const EditButton = ({ IconComponent, color = 'white' }) => {
   return (
-    <Link href="/admin/main/services/editservices">
+    <Link href="/admin/main/services/edit-service">
       <button>
         <div
           className={`flex items-center justify-center rounded-lg bg-blue-700 p-2 text-white shadow-lg ${color}`}

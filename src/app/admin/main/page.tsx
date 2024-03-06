@@ -115,19 +115,22 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex h-full flex-col space-y-5">
-      <div className="h-2/5 rounded-lg bg-white px-5 py-7 shadow-lg shadow-black/25">
-        <h3 className="mb-3 text-xl font-semibold">Recent Log Records</h3>
-        <div style={{ overflowY: 'scroll', maxHeight: 'calc(100% -  50px)' }}>
+    <div className="flex h-[86vh] flex-col gap-5">
+      <div className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+        <h3 className="absolute top-10 text-3xl font-bold">Homepage</h3>
+        <h3 className="mb-3 text-xl font-semibold text-gray-500">
+          Recent Log Records
+        </h3>
+        <div>
           <table className="relative w-full table-fixed text-center">
             <thead>
               <tr>
-                <th className="sticky top-0 bg-white">First Name</th>
-                <th className="sticky top-0 bg-white">Last Name</th>
-                <th className="sticky top-0 bg-white">Service</th>
-                <th className="sticky top-0 bg-white">Time In</th>
-                <th className="sticky top-0 bg-white">Time Out</th>
-                <th className="sticky top-0 bg-white">Price</th>
+                <th className="sticky top-[-1.5rem] bg-white">First Name</th>
+                <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
+                <th className="sticky top-[-1.5rem] bg-white">Service</th>
+                <th className="sticky top-[-1.5rem] bg-white">Time In</th>
+                <th className="sticky top-[-1.5rem] bg-white">Time Out</th>
+                <th className="sticky top-[-1.5rem] bg-white">Price</th>
               </tr>
             </thead>
             <tbody>
@@ -148,20 +151,22 @@ export default function Home() {
           </table>
         </div>
       </div>
-      <div className="h-2/5 rounded-lg bg-white px-5 py-7 shadow-lg shadow-black/25">
-        <h3 className="mb-3 text-xl font-semibold">
+      <div className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+        <h3 className="mb-3 text-xl font-semibold text-gray-500">
           Reservations for Confirmation
         </h3>
-        <div style={{ overflowY: 'scroll', maxHeight: 'calc(100% -  50px)' }}>
+        <div>
           <table className="w-full table-fixed text-center">
             <thead className="">
               <tr>
-                <th className="sticky top-0 bg-white">Reservation ID</th>
-                <th className="sticky top-0 bg-white">First Name</th>
-                <th className="sticky top-0 bg-white">Last Name</th>
-                <th className="sticky top-0 bg-white">Service</th>
-                <th className="sticky top-0 bg-white">Time In</th>
-                <th className="sticky top-0 bg-white">Price</th>
+                <th className="sticky top-[-1.5rem] bg-white">
+                  Reservation ID
+                </th>
+                <th className="sticky top-[-1.5rem] bg-white">First Name</th>
+                <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
+                <th className="sticky top-[-1.5rem] bg-white">Service</th>
+                <th className="sticky top-[-1.5rem] bg-white">Time In</th>
+                <th className="sticky top-[-1.5rem] bg-white">Price</th>
               </tr>
             </thead>
             <tbody>
