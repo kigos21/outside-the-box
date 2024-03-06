@@ -47,8 +47,8 @@ export default function Login() {
   const error = searchParams.get('error');
 
   return (
-    <div className="flex min-h-[85dvh] items-center justify-center">
-      <div className="flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
+    <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16">
+      <div className="flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
         {error && (
           <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-sm text-red-600">
             {error}
@@ -73,6 +73,7 @@ export default function Login() {
           alt={'Outside the box logo'}
           width={400}
           height={140}
+          className="w-[240px] sm:w-[400px]"
         />
 
         <div className="w-full">
