@@ -7,7 +7,7 @@ import SpecialPromos from './SpecialPromos';
 export default function OfferedServices() {
   return (
     <div>
-      <h1 className="mb-12 text-7xl text-center">Our Services</h1>
+      <h1 className="mb-12 text-center">Our Services</h1>
       {/* <div className="grid grid-cols-2 gap-8"> */}
       <div className="flex gap-8">
         <div className="flex shrink-0 grow-0 flex-col gap-4 rounded-3xl bg-otb-yellow p-8 shadow-2xl">

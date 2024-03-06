@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import OfferedServices from '@/components/services/OfferedServices';
 import Reservation from '@/components/services/Reservation';
 
