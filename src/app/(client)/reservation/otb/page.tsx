@@ -32,8 +32,8 @@ export default function Page() {
   };
 
   return (
-    <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center">
-      <div className="mx-auto flex w-[664px] flex-col gap-8 rounded-3xl bg-otb-yellow p-16 pb-12 shadow-2xl">
+    <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16">
+      <div className="mx-auto flex w-[664px] flex-col gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
         <h2 className="text-center">Facility Reservation</h2>
 
         {!isInquirySent ? (

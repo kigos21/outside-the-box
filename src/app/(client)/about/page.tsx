@@ -29,21 +29,27 @@ export default function About() {
         <div className="h-1 w-20 bg-otb-blue" />
 
         <div className="flex flex-wrap gap-8 sm:flex-nowrap">
-          <img
-            src="about1.jpg"
-            alt="Image 1"
-            className="block w-full basis-full rounded-3xl shadow-xl sm:w-1/3 sm:basis-1/3"
-          />
-          <img
-            src="about2.jpg"
-            alt="Image 2"
-            className="block w-full basis-full rounded-3xl shadow-xl sm:w-1/3 sm:basis-1/3"
-          />
-          <img
-            src="about3.jpg"
-            alt="Image 3"
-            className="block w-full basis-full rounded-3xl shadow-xl sm:w-1/3 sm:basis-1/3"
-          />
+          <div>
+            <img
+              src="about1.jpg"
+              alt="Image 1"
+              className="block rounded-3xl shadow-xl"
+            />
+          </div>
+          <div>
+            <img
+              src="about2.jpg"
+              alt="Image 2"
+              className="block rounded-3xl shadow-xl"
+            />
+          </div>
+          <div>
+            <img
+              src="about3.jpg"
+              alt="Image 3"
+              className="block rounded-3xl shadow-xl"
+            />
+          </div>
         </div>
 
         <div className="h-1 w-20 bg-otb-blue" />

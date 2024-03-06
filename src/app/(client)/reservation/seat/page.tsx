@@ -102,8 +102,8 @@ export default function Page() {
   }, [isAvailable]);
 
   return (
-    <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center">
-      <div className="mx-auto flex min-w-[464px] flex-col gap-8 rounded-3xl bg-otb-yellow p-16 pb-12 shadow-2xl">
+    <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16">
+      <div className="mx-auto flex max-w-[464px] grow flex-col gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
         <h2 className="text-center">Pick a schedule</h2>
 
         <form
