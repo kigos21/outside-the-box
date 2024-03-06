@@ -2,7 +2,7 @@ import styles from '@/styles/about.module.css';
 
 export default function About() {
   return (
-    <div className="mx-auto flex max-w-screen-lg flex-col gap-20 py-16">
+    <div className="mx-auto flex max-w-screen-lg flex-col gap-20 px-[7%] py-16 xl:px-0">
       <div className="flex flex-col gap-4">
         <h1 className="">About us</h1>
         <div className="flex flex-col gap-2">
@@ -28,21 +28,21 @@ export default function About() {
       <div className="flex flex-col items-center gap-4">
         <div className="h-1 w-20 bg-otb-blue" />
 
-        <div className="flex gap-8">
+        <div className="flex flex-wrap gap-8 sm:flex-nowrap">
           <img
             src="about1.jpg"
             alt="Image 1"
-            className="block w-1/3 basis-1/3 rounded-3xl shadow-xl"
+            className="block w-full basis-full rounded-3xl shadow-xl sm:w-1/3 sm:basis-1/3"
           />
           <img
             src="about2.jpg"
             alt="Image 2"
-            className="block w-1/3 basis-1/3 rounded-3xl shadow-xl"
+            className="block w-full basis-full rounded-3xl shadow-xl sm:w-1/3 sm:basis-1/3"
           />
           <img
             src="about3.jpg"
             alt="Image 3"
-            className="block w-1/3 basis-1/3 rounded-3xl shadow-xl"
+            className="block w-full basis-full rounded-3xl shadow-xl sm:w-1/3 sm:basis-1/3"
           />
         </div>
 
