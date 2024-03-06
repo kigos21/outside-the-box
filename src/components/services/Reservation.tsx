@@ -4,9 +4,9 @@ export default function Reservation() {
   return (
     <div className="mx-auto flex max-w-7xl items-center gap-8">
       <div className="basis-2/3">
-        <h1 className="mb-4 text-7xl">Reserve Now</h1>
+        <h1 className="mb-4">Reserve Now</h1>
 
-        <p className="text-lg">
+        <p>
           Want to guarantee a seat when you get here? Reserve now and we&apos;ll
           make sure that you get right to work as soon as you arrive!
         </p>

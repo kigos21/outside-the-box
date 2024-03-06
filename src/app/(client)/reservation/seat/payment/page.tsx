@@ -48,13 +48,13 @@ export default function Page() {
   };
 
   return (
-    <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center">
-      <div className="mx-auto flex min-w-[464px] flex-col gap-8 rounded-3xl bg-otb-yellow p-16 pb-12 shadow-2xl">
+    <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16">
+      <div className="mx-auto flex min-w-[464px] flex-col gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
         <h2 className="text-center">Seat Reservation</h2>
 
         {!isPaid ? (
           <>
-            <div className="flex gap-12">
+            <div className="flex gap-8">
               {paymentProviders.map((provider) => (
                 <div
                   key={provider.name}
@@ -82,11 +82,11 @@ export default function Page() {
               >
                 Continue
               </button>
-              <div className="mt-3 text-center text-sm">
-                <p>
+              <div className="mt-3 text-center">
+                <p className="text-xs">
                   Press &quot;Continue&quot; once you have finished your payment
                 </p>
-                <p>
+                <p className="text-xs">
                   By continuing, you agree to our{' '}
                   <Link
                     href=""

@@ -10,6 +10,7 @@ import { useCookies } from 'react-cookie';
 export default function Header() {
   const [cookies, setCookie] = useCookies(['token']);
   const [isAuthed, setIsAuthed] = useState(false);
+  const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
     setIsAuthed(!!cookies['token']);
@@ -24,6 +25,10 @@ export default function Header() {
   //   setIsAuthorized(hasCookie('token'));
   // }, []);
 
+  const handleNavClick = () => {
+    setShowNav((state) => !state);
+  };
+
   const pathname = usePathname();
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -31,7 +36,7 @@ export default function Header() {
     { name: 'Services', path: '/services' },
   ];
   return (
-    <header className="flex justify-between bg-otb-yellow px-[7%] py-6">
+    <header className="flex items-center justify-between bg-otb-yellow px-[7%] py-6">
       <Link href={'/'}>
         <Image
           src="/otb-logo-cropped.jpg"
@@ -40,7 +45,73 @@ export default function Header() {
           alt="Outside the Box Logo"
         />
       </Link>
-      <nav className="flex items-center justify-center">
+
+      <button
+        className="rounded-md p-2 shadow-md md:hidden"
+        onClick={handleNavClick}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-5 w-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
+
+      {showNav && (
+        <>
+          <div
+            className="absolute bottom-0 left-0 right-0 top-0 z-30 bg-black/80"
+            onClick={() => setShowNav(false)}
+          />
+          <div className="absolute bottom-0 right-0 top-0 z-40 flex w-72 flex-col justify-center bg-white px-8">
+            <nav className="flex flex-col justify-center">
+              <ul className="flex flex-col gap-6 font-bold">
+                {navLinks.map((link) => (
+                  <NavLink
+                    key={link.name}
+                    name={link.name}
+                    href={link.path}
+                    pathName={pathname}
+                    className="text-xl"
+                    onClick={() => setShowNav(false)}
+                  />
+                ))}
+                {/* remove login Link whenever token is present in cookies */}
+                {isAuthed ? (
+                  <span onClick={handleLogout}>
+                    <NavLink
+                      name={'Logout'}
+                      href={'/logout'}
+                      pathName={pathname}
+                      className="text-xl"
+                      onClick={() => setShowNav(false)}
+                    />
+                  </span>
+                ) : (
+                  <NavLink
+                    name={'Login'}
+                    href={'/login'}
+                    pathName={pathname}
+                    className="text-xl"
+                    onClick={() => setShowNav(false)}
+                  />
+                )}
+              </ul>
+            </nav>
+          </div>
+        </>
+      )}
+
+      <nav className="hidden items-center justify-center md:flex">
         <ul className="flex items-center gap-12 font-bold">
           {navLinks.map((link) => (
             <NavLink
