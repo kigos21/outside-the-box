@@ -23,8 +23,6 @@ export async function middleware(req: NextRequest) {
     response.headers.set('Refresh', '0;url=/'); // Redirect to homepage
     return response;
   } else if (path === '/login' || path === '/register') {
-    console.log('test');
-    console.log(req.cookies.get('token'));
     if (req.cookies.has('token')) {
       return NextResponse.redirect(new URL('/', req.url));
     }
