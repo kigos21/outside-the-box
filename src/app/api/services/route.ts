@@ -5,7 +5,10 @@ export async function GET(req: Request) {
 
   try {
     const services = await prismaClient.service.findMany();
-    return Response.json({ services }, { status: 200 });
+    return Response.json(
+      { success: true, services: services },
+      { status: 200 },
+    );
   } catch (error) {
     console.error(error);
     return Response.json(
