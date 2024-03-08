@@ -1,184 +1,101 @@
 'use client';
 import { ScrollContainer } from 'react-nice-scroll';
+import React, { useState, useEffect } from 'react';
+import fetch from 'node-fetch'; // Assuming server-side rendering
+
 // import Scroll from 'react-scroll';
 
 export default function Home() {
-  const testData = [
-    {
-      key: 1,
-      fName: 'Melfred',
-      lName: 'Fonclara',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 2,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 3,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 1,
-      fName: 'Melfred',
-      lName: 'Fonclara',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 2,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 3,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 1,
-      fName: 'Melfred',
-      lName: 'Fonclara',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 2,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 3,
-      fName: 'Melfred',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 1,
-      fName: 'Melfred',
-      lName: 'Fonclara',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 2,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 3,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-  ];
+
+  const [logs, setLogs] = useState<any[]>([]); // Initialize state for logs
+
+  const fetchLogs = async () => {
+    try {
+      const response = await fetch('/api/logs'); // API endpoint URL
+      const data = await response.json();
+
+      if (data.success) {
+        setLogs(data.logs); //sets the logs state value
+      } else {
+        console.error('Error fetching logs:', data.error);
+      }
+    } catch (error) {
+      console.error('Error fetching logs:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLogs();
+  }, []);
+
+  const hasLogsToday = () => {
+    if (logs.length > 0) {
+      return logs.map((log) => (
+        <tr className="h-9 border border-solid border-black" key={log.id}>
+          <td>{log.customer.firstName}</td>
+          <td>{log.customer.lastName}</td>
+          <td>{log.service.serviceName}</td>
+          <td>{log.timeIn}</td>
+          <td>{log.timeOut}</td>
+          <td>{log.service.servicePrice}</td>
+        </tr>
+      ));
+    } else {
+      return (
+        <tr className="h-9 border border-solid border-black" key="0">
+          <td>empty</td>
+          <td>empty</td>
+          <td>empty</td>
+          <td>empty</td>
+          <td>empty</td>
+          <td>empty</td>
+        </tr>
+      );
+    }
+  };
 
   return (
-    <div className="flex h-full flex-col space-y-5">
-      <div className="h-2/5 rounded-lg bg-white px-5 py-7 shadow-lg shadow-black/25">
-        <h3 className="mb-3 text-xl font-semibold">Recent Log Records</h3>
-        <div style={{ overflowY: 'scroll', maxHeight: 'calc(100% -  50px)' }}>
+    <div className="flex h-[86vh] flex-col gap-5">
+      <div className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+        <h3 className="absolute top-10 text-3xl font-bold">Homepage</h3>
+        <h3 className="mb-3 text-xl font-semibold text-gray-500">
+          Recent Log Records
+        </h3>
+        <div>
           <table className="relative w-full table-fixed text-center">
             <thead>
               <tr>
-                <th className="sticky top-0 bg-white">First Name</th>
-                <th className="sticky top-0 bg-white">Last Name</th>
-                <th className="sticky top-0 bg-white">Service</th>
-                <th className="sticky top-0 bg-white">Time In</th>
-                <th className="sticky top-0 bg-white">Time Out</th>
-                <th className="sticky top-0 bg-white">Price</th>
+                <th className="sticky top-[-1.5rem] bg-white">First Name</th>
+                <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
+                <th className="sticky top-[-1.5rem] bg-white">Service</th>
+                <th className="sticky top-[-1.5rem] bg-white">Time In</th>
+                <th className="sticky top-[-1.5rem] bg-white">Time Out</th>
+                <th className="sticky top-[-1.5rem] bg-white">Price</th>
               </tr>
             </thead>
-            <tbody>
-              {testData.map((data) => (
-                <tr
-                  className="h-9 border border-solid border-black"
-                  key={data.key}
-                >
-                  <td>{data.fName}</td>
-                  <td>{data.lName}</td>
-                  <td>{data.service} hours</td>
-                  <td>{data.timeIn}</td>
-                  <td>{data.timeOut}</td>
-                  <td>{data.price}</td>
-                </tr>
-              ))}
-            </tbody>
+            <tbody>{hasLogsToday()}</tbody>
           </table>
         </div>
       </div>
-      <div className="h-2/5 rounded-lg bg-white px-5 py-7 shadow-lg shadow-black/25">
-        <h3 className="mb-3 text-xl font-semibold">
+      <div className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+        <h3 className="mb-3 text-xl font-semibold text-gray-500">
           Reservations for Confirmation
         </h3>
-        <div style={{ overflowY: 'scroll', maxHeight: 'calc(100% -  50px)' }}>
+        <div>
           <table className="w-full table-fixed text-center">
             <thead className="">
               <tr>
-                <th className="sticky top-0 bg-white">Reservation ID</th>
-                <th className="sticky top-0 bg-white">First Name</th>
-                <th className="sticky top-0 bg-white">Last Name</th>
-                <th className="sticky top-0 bg-white">Service</th>
-                <th className="sticky top-0 bg-white">Time In</th>
-                <th className="sticky top-0 bg-white">Price</th>
+                <th className="sticky top-[-1.5rem] bg-white">
+                  Reservation ID
+                </th>
+                <th className="sticky top-[-1.5rem] bg-white">First Name</th>
+                <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
+                <th className="sticky top-[-1.5rem] bg-white">Service</th>
+                <th className="sticky top-[-1.5rem] bg-white">Time In</th>
+                <th className="sticky top-[-1.5rem] bg-white">Price</th>
               </tr>
             </thead>
-            <tbody>
-              {testData.map((data) => (
-                <tr
-                  className="h-9 border border-solid border-black"
-                  key={data.key}
-                >
-                  <td>{data.fName}</td>
-                  <td>{data.lName}</td>
-                  <td>{data.service}</td>
-                  <td>{data.timeIn}</td>
-                  <td>{data.timeOut}</td>
-                  <td>{data.price}</td>
-                </tr>
-              ))}
-            </tbody>
+            <tbody>{hasLogsToday()}</tbody>
           </table>
         </div>
       </div>

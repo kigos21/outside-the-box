@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // This function can be marked `async` if using `await` inside
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
   if (path === '/logout') {
@@ -22,17 +22,11 @@ export function middleware(req: NextRequest) {
     // Force page reload after logout
     response.headers.set('Refresh', '0;url=/'); // Redirect to homepage
     return response;
-  }
-
-  if (path === '/login' || path === '/register') {
-    console.log('test');
-    console.log(req.cookies.get('token'));
+  } else if (path === '/login' || path === '/register') {
     if (req.cookies.has('token')) {
       return NextResponse.redirect(new URL('/', req.url));
     }
-  }
-
-  if (path.startsWith('/reservation')) {
+  } else if (path.startsWith('/reservation')) {
     // check if token is present in cookies
     if (!req.cookies.has('token')) {
       return NextResponse.redirect(new URL('/login', req.url));
@@ -46,5 +40,4 @@ export function middleware(req: NextRequest) {
 // matcher can accept regexp of pathname
 export const config = {
   matcher: ['/login', '/register', '/logout', '/reservation/:path*'],
-  // matcher: ['/about/:path*', '/dashboard/:path*'],
 };

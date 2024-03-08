@@ -7,8 +7,8 @@ export default function UsernameForm({
 }: UsernameFormProps) {
   return (
     <>
-      <h2>Forget Password</h2>
-      <p>We will send an OTP through your SMS</p>
+      <p className="font-bold">Forget Password</p>
+      <p className="text-sm">We will send an OTP through your SMS</p>
       <form method="post" onSubmit={(e) => handleSubmit(e)}>
         <input
           type="text"

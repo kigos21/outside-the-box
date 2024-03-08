@@ -3,9 +3,15 @@ type NavLinkProps = {
   name: string;
   href: string;
   pathName: string;
+  className?: string;
 };
 
-export default function AdminNavLink({ name, href, pathName }: NavLinkProps) {
+export default function AdminNavLink({
+  name,
+  href,
+  pathName,
+  className,
+}: NavLinkProps) {
   let linkClass =
     pathName === href
       ? 'group relative font-bold text-black'
@@ -17,7 +23,7 @@ export default function AdminNavLink({ name, href, pathName }: NavLinkProps) {
 
   return (
     <li>
-      <Link href={href} className={linkClass}>
+      <Link href={href} className={`${linkClass} ${className}`}>
         {name}
         <div className={underlineClass}></div>
       </Link>

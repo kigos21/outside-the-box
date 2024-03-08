@@ -108,20 +108,21 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-[85dvh] items-center justify-center">
-      <div className="my-32 flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
+    <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16">
+      <div className="flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
         <Image
           src={'/otb-logo-cropped.jpg'}
           alt={'Outside the box logo'}
           width={400}
           height={140}
+          className="w-[240px] sm:w-[400px]"
         />
 
         <div className="w-full">
           {!isFormValid ? (
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex max-w-md flex-col gap-4"
+              className="mx-auto flex max-w-md flex-col gap-4"
             >
               <input
                 type="text"

@@ -98,6 +98,7 @@ model SeatReservation {
   startTime            DateTime
   endTime              DateTime
   ConfirmedReservation ConfirmedReservation[]
+  ArchivedReservation  ArchivedReservation[]
 }
 
 model Service {
@@ -117,7 +118,8 @@ model Report {
 }
 
 model ArchivedReservation {
-  id                String   @id @default(uuid())
+  id                String          @id @default(uuid())
+  seatReservation   SeatReservation @relation(fields: [seatReservationId], references: [id], onDelete: Cascade)
   seatReservationId String
-  archivedAt        DateTime @default(now())
+  archivedAt        DateTime        @default(now())
 }

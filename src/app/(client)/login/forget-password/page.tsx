@@ -60,13 +60,14 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-[85dvh] items-center justify-center">
-      <div className="flex max-w-lg flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
+    <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16">
+      <div className="flex max-w-lg flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl sm:px-16 sm:py-12">
         <Image
           src={'/otb-logo-cropped.jpg'}
           alt={'Outside the box logo'}
           width={400}
           height={140}
+          className="w-[240px] sm:w-[400px]"
         />
 
         <div>

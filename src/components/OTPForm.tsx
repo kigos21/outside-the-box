@@ -8,7 +8,7 @@ export default function OTPForm({
 }: OTPFormProps) {
   return (
     <>
-      <h2>Enter OTP</h2>
+      <p className="font-bold">Enter OTP</p>
       <p className="text-sm">
         We have sent an OTP to your mobile number. Enter them for verification.
       </p>
