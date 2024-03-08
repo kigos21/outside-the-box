@@ -6,7 +6,6 @@ import fetch from 'node-fetch'; // Assuming server-side rendering
 // import Scroll from 'react-scroll';
 
 export default function Home() {
-
   const [logs, setLogs] = useState<any[]>([]); // Initialize state for logs
 
   const fetchLogs = async () => {
@@ -30,16 +29,21 @@ export default function Home() {
 
   const hasLogsToday = () => {
     if (logs.length > 0) {
-      return logs.map((log) => (
-        <tr className="h-9 border border-solid border-black" key={log.id}>
-          <td>{log.customer.firstName}</td>
-          <td>{log.customer.lastName}</td>
-          <td>{log.service.serviceName}</td>
-          <td>{log.timeIn}</td>
-          <td>{log.timeOut}</td>
-          <td>{log.service.servicePrice}</td>
-        </tr>
-      ));
+      return logs.map((log) => {
+        const [hoursIn, minutesIn, meridianIn] = log.timeIn.split(':');
+        const [hoursOut, minutesOut, meridianOut] = log.timeOut.split(':');
+
+        return (
+          <tr className="h-9 border border-solid border-black" key={log.id}>
+            <td>{log.customer.firstName}</td>
+            <td>{log.customer.lastName}</td>
+            <td>{log.service.serviceName}</td>
+            <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
+            <td>{`${hoursOut}:${minutesOut} ${meridianOut.substring(2)}`}</td>
+            <td>{log.service.servicePrice}</td>
+          </tr>
+        );
+      });
     } else {
       return (
         <tr className="h-9 border border-solid border-black" key="0">
@@ -95,7 +99,7 @@ export default function Home() {
                 <th className="sticky top-[-1.5rem] bg-white">Price</th>
               </tr>
             </thead>
-            <tbody>{hasLogsToday()}</tbody>
+            <tbody>{}</tbody>
           </table>
         </div>
       </div>
