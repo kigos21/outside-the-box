@@ -15,6 +15,7 @@ export async function POST(req: Request) {
     'password',
     'confirmPassword',
   ];
+
   const missingFields = requiredFields.filter((field) => !body[field]);
 
   if (missingFields.length > 0) {
@@ -64,7 +65,7 @@ export async function POST(req: Request) {
     const verification = await sendOTP(mobileNumber, message);
     console.log('sendOTP called');
     console.log(verification);
-    return Response.json(verification, {status: 200});
+    return Response.json(verification, { status: 200 });
     // Show success message and handle further registration steps
   } catch (error) {
     console.error('Error sending OTP:', error);
