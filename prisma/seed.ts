@@ -12,7 +12,7 @@ async function main() {
     create: {
       id: adminId,
       username: 'admin',
-      password: 'Qwer123!',
+      password: '$2b$10$tMVYz3YhD4iIGTF9I4qe/OeTQmIOhdGMROM8R2Mm1pjbA/jJ98lpW',
       contactNumber: '09994290018',
     },
   });
@@ -32,7 +32,7 @@ async function main() {
       affiliation: 'UST',
       mobileNumber: '09271779395',
       username: 'alice',
-      password: 'Pa$$w0rd',
+      password: '$2b$10$XlakXNmazGAL61w3G2aFsOUE3Q40Znyeo8uAvw97eU/mHFv0J43ke',
     },
   });
 
@@ -48,7 +48,7 @@ async function main() {
       affiliation: 'FEU',
       mobileNumber: '09271779395',
       username: 'bob',
-      password: 'Pa$$w0rd',
+      password: '$2b$10$XlakXNmazGAL61w3G2aFsOUE3Q40Znyeo8uAvw97eU/mHFv0J43ke',
     },
   });
 
