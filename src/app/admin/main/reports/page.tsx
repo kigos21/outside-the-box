@@ -1,4 +1,28 @@
+// Reports.js
+'use client';
+import { useState } from 'react';
+
 export default function Reports() {
+  const [logs, setLogs] = useState([]);
+
+  const handleExport = async () => {
+    try {
+      const response = await fetch('/api/logs');
+      if (response.ok) {
+        const logsData = await response.json();
+        exportToCSV(logsData, 'logs.csv');
+      } else {
+        console.error('Failed to fetch logs:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching logs:', error);
+    }
+  };
+
+  const exportToCSV = (data: any, fileName: string) => {
+    // Convert data to CSV format and initiate download
+  };
+
   return (
     <div className="flex h-full flex-col space-y-5">
       <div className="basis-1/2 rounded-lg bg-white px-16 py-8 shadow-lg shadow-black/25">
