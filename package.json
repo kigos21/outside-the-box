@@ -2,6 +2,9 @@
   "name": "outside-the-box",
   "version": "0.1.0",
   "private": true,
+  "prisma": {
+    "seed": "npx ts-node prisma/seed.ts"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
