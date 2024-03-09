@@ -11,7 +11,7 @@ interface Service {
 }
 
 export default async function ServicesPage() {
-  const services: Service[] = await prismaClient.service.findMany({
+  const services = await prismaClient.service.findMany({
     select: {
       id: true,
       name: true,

@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import {
   PencilSquareIcon,
   PlusIcon,
@@ -19,8 +18,6 @@ interface Service {
 }
 
 export default function Services({ services }: { services: Service[] }) {
-  const [servicesState, setServicesState] = useState(services);
-
   return (
     <div className="flex h-[86vh] flex-col gap-5">
       <div className="h-[calc(86vh)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
@@ -46,7 +43,7 @@ export default function Services({ services }: { services: Service[] }) {
             </tr>
           </thead>
           <tbody>
-            {servicesState.map((service) => (
+            {services.map((service) => (
               <tr
                 className="h-12 border border-solid border-black"
                 key={service.id}
