@@ -46,3 +46,13 @@ export async function POST(req: Request) {
     return Response.json({ message: error }, { status: 404 });
   }
 }
+
+export async function GET() {
+  try {
+    const services = await prismaClient.service.findMany();
+    return Response.json({ success: true, services: services }, { status: 200 });
+  } catch (error: any) {
+    console.error(error)
+    return Response.json({error}, {status: 500});
+  }
+}

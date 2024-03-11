@@ -1,118 +1,58 @@
 'use client';
 import { ScrollContainer } from 'react-nice-scroll';
+import React, { useState, useEffect } from 'react';
+import fetch from 'node-fetch'; // Assuming server-side rendering
+
 // import Scroll from 'react-scroll';
 
 export default function Home() {
-  const testData = [
-    {
-      key: 1,
-      fName: 'Melfred',
-      lName: 'Fonclara',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 2,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 3,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 1,
-      fName: 'Melfred',
-      lName: 'Fonclara',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 2,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 3,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 1,
-      fName: 'Melfred',
-      lName: 'Fonclara',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 2,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 3,
-      fName: 'Melfred',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 1,
-      fName: 'Melfred',
-      lName: 'Fonclara',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 2,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-    {
-      key: 3,
-      fName: 'Jinggoy',
-      lName: 'Estrada',
-      service: 5,
-      timeIn: '15:00',
-      timeOut: '20:00',
-      price: '250.00',
-    },
-  ];
+
+  const [logs, setLogs] = useState<any[]>([]); // Initialize state for logs
+
+  const fetchLogs = async () => {
+    try {
+      const response = await fetch('/api/logs'); // API endpoint URL
+      const data = await response.json();
+
+      if (data.success) {
+        setLogs(data.logs); //sets the logs state value
+      } else {
+        console.error('Error fetching logs:', data.error);
+      }
+    } catch (error) {
+      console.error('Error fetching logs:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLogs();
+  }, []);
+
+  const hasLogsToday = () => {
+    if (logs.length > 0) {
+      return logs.map((log) => (
+        <tr className="h-9 border border-solid border-black" key={log.id}>
+          <td>{log.customer.firstName}</td>
+          <td>{log.customer.lastName}</td>
+          <td>{log.service.serviceName}</td>
+          <td>{log.timeIn}</td>
+          <td>{log.timeOut}</td>
+          <td>{log.service.servicePrice}</td>
+        </tr>
+      ));
+    } else {
+      return (
+        <tr className="h-9 border border-solid border-black" key="0">
+          <td>empty</td>
+          <td>empty</td>
+          <td>empty</td>
+          <td>empty</td>
+          <td>empty</td>
+          <td>empty</td>
+        </tr>
+      );
+    }
+  };
 
   return (
     <div className="flex h-[86vh] flex-col gap-5">
@@ -133,21 +73,7 @@ export default function Home() {
                 <th className="sticky top-[-1.5rem] bg-white">Price</th>
               </tr>
             </thead>
-            <tbody>
-              {testData.map((data) => (
-                <tr
-                  className="h-9 border border-solid border-black"
-                  key={data.key}
-                >
-                  <td>{data.fName}</td>
-                  <td>{data.lName}</td>
-                  <td>{data.service} hours</td>
-                  <td>{data.timeIn}</td>
-                  <td>{data.timeOut}</td>
-                  <td>{data.price}</td>
-                </tr>
-              ))}
-            </tbody>
+            <tbody>{hasLogsToday()}</tbody>
           </table>
         </div>
       </div>
@@ -169,21 +95,7 @@ export default function Home() {
                 <th className="sticky top-[-1.5rem] bg-white">Price</th>
               </tr>
             </thead>
-            <tbody>
-              {testData.map((data) => (
-                <tr
-                  className="h-9 border border-solid border-black"
-                  key={data.key}
-                >
-                  <td>{data.fName}</td>
-                  <td>{data.lName}</td>
-                  <td>{data.service}</td>
-                  <td>{data.timeIn}</td>
-                  <td>{data.timeOut}</td>
-                  <td>{data.price}</td>
-                </tr>
-              ))}
-            </tbody>
+            <tbody>{hasLogsToday()}</tbody>
           </table>
         </div>
       </div>
