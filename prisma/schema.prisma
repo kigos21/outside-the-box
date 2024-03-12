@@ -36,6 +36,22 @@ model OTP {
   expiresAt  DateTime  @default(dbgenerated("NOW() + INTERVAL '10 minutes'"))
 }
 
+model FacilityReservation {
+  id         String   @id @default(uuid())
+  customer   Customer @relation(name: "Customer", fields: [customerId], references: [id], onDelete: Cascade)
+  customerId String
+  date       DateTime
+  startTime  DateTime
+  endTime    DateTime
+  price      Float
+  // Details for reservation
+  email          String
+  attendees      String
+  purpose        String
+  additionalInfo String
+}
+
+
 model Customer {
   id                   String                @id @default(uuid())
   firstName            String
@@ -46,25 +62,9 @@ model Customer {
   username             String                @unique
   password             String
   otps                 OTP[]
-  facilityReservations FacilityReservation[]
+  facilityReservations FacilityReservation[] @relation("Customer")
   Log                  Log[]
   SeatReservation      SeatReservation[]
-}
-
-model FacilityReservation {
-  id         String   @id @default(uuid())
-  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  customerId String
-  date       DateTime
-  startTime  DateTime
-  endTime    DateTime
-  price      Float
-
-  // Details for reservation
-  email          String
-  attendees      String
-  purpose        String
-  additionalInfo String
 }
 
 model Log {

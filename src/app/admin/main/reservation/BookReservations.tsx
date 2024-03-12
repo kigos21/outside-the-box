@@ -22,32 +22,44 @@ interface SeatReserves {
   endTime: Date;
 }
 
-const prisma = new PrismaClient();
+// interface BookReservationsProps {
+//   reserves: SeatReserves[];
+//   handleExports: (reserves: SeatReserves[]) => Promise<void>;
+// }
 
-const handleConfirmReservations = async (reservationId: string) => {
-  try {
-    const conRes = await prisma.confirmedReservation.create({
-      data: {
-        seatReservation: {
-          connect: {
-            id: reservationId,
-          },
-        },
-        date: new Date(),
-      },
-    });
-    console.log('Reservation confirmed successfully!', conRes);
-  } catch (error) {
-    console.error('Error confirming reservation:', error);
-    // Handle error
-  }
-};
+// const prisma = new PrismaClient();
 
-export default function BookReservations({
-  reserves,
-}: {
-  reserves: SeatReserves[];
-}) {
+// const handleConfirmReservations = async (reservationId: string) => {
+//   try {
+//     const conRes = await prisma.confirmedReservation.create({
+//       data: {
+//         seatReservation: {
+//           connect: {
+//             id: reservationId,
+//           },
+//         },
+//         date: new Date(),
+//       },
+//     });
+//     console.log('Reservation confirmed successfully!', conRes);
+//   } catch (error) {
+//     console.error('Error confirming reservation:', error);
+//     // Handle error
+//   }
+// };
+
+// function BookReservations(props: BookReservationsProps) {
+//   const [showConfirmModal, setShowConfirmModal] = useState(false);
+//   const [showArchiveModal, setShowArchiveModal] = useState(false);
+//   const [seatReservation, setSeatReservationState] = useState(props.reserves);
+//   const [selectedReservationId, setSelectedReservationId] =
+//     useState<string>('');
+
+//   const [handleExportCSV, setHandleExportCSV] = useState(
+//     () => props.handleExports,
+//   );
+
+function BookReservations({ reserves }: { reserves: SeatReserves[] }) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [seatReservation, setSeatReservationState] = useState(reserves);
@@ -59,10 +71,11 @@ export default function BookReservations({
       {showConfirmModal && (
         <AdminModal
           title={'Confirm reservation?'}
-          handleConfirm={() => {
-            handleConfirmReservations(selectedReservationId);
-            setShowConfirmModal(false);
-          }}
+          handleConfirm={() => setShowConfirmModal(false)}
+          // handleConfirm={() => {
+          //   handleConfirmReservations(selectedReservationId);
+          //   setShowConfirmModal(false);
+          // }}
           handleCancel={() => setShowConfirmModal(false)}
         >
           <div className="flex flex-col gap-1">
@@ -208,3 +221,4 @@ export default function BookReservations({
     </div>
   );
 }
+export default BookReservations;
