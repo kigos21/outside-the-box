@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 
 import { LoginFormBody } from '@/types';
 import { prismaClient } from '@/lib/prismaClient';
-import * as bcrypt from 'bcrypt';
 import { comparePasswords } from '@/lib/utils/auth';
 
 export async function POST(req: Request) {
@@ -37,7 +36,6 @@ export async function POST(req: Request) {
       { id: customer.id, username: customer.username },
       process.env.JWT_SECRET_KEY!,
     );
-    console.log('Generated JWT Token:', token);
 
     return Response.json({ success: true, token, customer }, { status: 200 });
   } catch (error) {

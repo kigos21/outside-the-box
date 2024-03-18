@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { hasCookie } from 'cookies-next';
 import NavLink from './NavLink';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
@@ -19,11 +18,6 @@ export default function Header() {
   const handleLogout = () => {
     setCookie('token', '', { path: '/' });
   };
-  // const [isAuthorized, setIsAuthorized] = useState<boolean | undefined>();
-
-  // useEffect(() => {
-  //   setIsAuthorized(hasCookie('token'));
-  // }, []);
 
   const handleNavClick = () => {
     setShowNav((state) => !state);
