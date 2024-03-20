@@ -6,13 +6,7 @@ import { SeatReservationFormBody } from '@/types';
 import styles from '@/styles/services.module.css';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-
-interface TimeOption {
-  label: string;
-  value: string;
-}
 
 interface ServiceOption {
   id: string;
@@ -38,7 +32,6 @@ export default function Page() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${getCookie('token')}`,
       },
       body: JSON.stringify(data),
     });
@@ -48,6 +41,9 @@ export default function Page() {
       setIsFormVisible(false);
       setIsAvailable(true);
     } else {
+      const { message } = await res.json(); // if server side function fails
+      console.log(message);
+
       setIsFormVisible(false);
       setIsAvailable(false);
     }
@@ -146,7 +142,11 @@ export default function Page() {
                   </p>
                 )}
 
-                <TimeDropdown register={register} errors={errors} />
+                <TimeDropdown
+                  register={register}
+                  errors={errors}
+                  date={watch('date')}
+                />
                 <ServiceDropdown register={register} errors={errors} />
               </div>
 
@@ -173,21 +173,59 @@ export default function Page() {
 interface DropdownProps {
   register: any;
   errors: any;
+  date?: any;
 }
 
-const TimeDropdown: React.FC<DropdownProps> = ({ register, errors }) => {
-  const generateTimeOptions: () => TimeOption[] = () => {
-    const options: TimeOption[] = [];
-    for (let hour = 9; hour <= 18; hour++) {
-      for (let minute = 0; minute <= 30; minute += 30) {
-        const formattedTime =
-          hour <= 12
-            ? `${hour}:${minute.toString().padStart(2, '0')} ${hour === 12 ? 'PM' : 'AM'}`
-            : `${hour - 12}:${minute.toString().padStart(2, '0')} PM`;
-        options.push({ label: formattedTime, value: formattedTime });
-      }
+const TimeDropdown: React.FC<DropdownProps> = ({ register, errors, date }) => {
+  const weekdayTimeOptions = [
+    '1:00 AM',
+    '2:00 AM',
+    '3:00 AM',
+    '4:00 AM',
+    '5:00 AM',
+    '10:00 AM',
+    '11:00 AM',
+    '12:00 PM',
+    '1:00 PM',
+    '2:00 PM',
+    '3:00 PM',
+    '4:00 PM',
+    '5:00 PM',
+    '6:00 PM',
+    '7:00 PM',
+    '8:00 PM',
+    '9:00 PM',
+    '10:00 PM',
+    '11:00 PM',
+    '12:00 AM',
+  ];
+
+  const weekendTimeOptions = [
+    '12:00 AM',
+    '1:00 AM',
+    '12:00 PM',
+    '1:00 PM',
+    '2:00 PM',
+    '3:00 PM',
+    '4:00 PM',
+    '5:00 PM',
+    '6:00 PM',
+    '7:00 PM',
+    '8:00 PM',
+    '9:00 PM',
+    '10:00 PM',
+    '11:00 PM',
+  ];
+
+  const getTimeOptions = () => {
+    // if date is weekend, return weekendTimeOptions, else return weekdayTimeOptions
+    if (!date) {
+      return [];
     }
-    return options;
+
+    const isWeekend =
+      new Date(date).getDay() === 0 || new Date(date).getDay() === 6;
+    return isWeekend ? weekendTimeOptions : weekdayTimeOptions;
   };
 
   return (
@@ -203,9 +241,9 @@ const TimeDropdown: React.FC<DropdownProps> = ({ register, errors }) => {
         <option value="" hidden>
           Select a time
         </option>
-        {generateTimeOptions().map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
+        {getTimeOptions().map((option) => (
+          <option key={option} value={option}>
+            {option}
           </option>
         ))}
       </select>

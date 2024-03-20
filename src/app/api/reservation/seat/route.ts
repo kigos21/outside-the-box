@@ -45,34 +45,29 @@ export async function POST(req: NextRequest) {
     });
 
     // prepare time format for database insertion
-    let dateTime = new Date(date);
+    const startDateTime = new Date(date);
+    startDateTime.setHours(
+      parseInt(time.split(':')[0]),
+      parseInt(time.split(':')[1]),
+      0,
+      0,
+    );
 
-    // Split the time string into hours and minutes
-    const [hours, minutes] = time.split(':');
-
-    // Convert hours and minutes to numbers
-    const parsedHours = parseInt(hours, 10);
-    const parsedMinutes = parseInt(minutes, 10);
-
-    dateTime.setHours(parsedHours, parsedMinutes, 0, 0);
-
-    const computedEndTime = new Date(dateTime.toISOString());
+    const computedEndTime = new Date(startDateTime.toISOString());
     computedEndTime.setHours(computedEndTime.getHours() + serviceData.hours);
 
     // reserve the seat
     const seatReservation = await reserveSeat(
       customer.id,
       service,
-      dateTime,
-      dateTime,
+      startDateTime,
       computedEndTime,
     );
 
-    if (!seatReservation) {
-      return Response.json({ success: false });
-    }
-
-    return Response.json({ success: true }, { status: 200 });
+    return Response.json(
+      { success: true, reservation: seatReservation },
+      { status: 200 },
+    );
   } catch (error) {
     console.error(error);
     return Response.json({ success: false, message: error }, { status: 500 });

@@ -5,6 +5,7 @@ import { InquiryFormBody } from '@/types';
 
 export async function POST(req: NextRequest) {
   let customerToken;
+
   // get customer identity by jwt token
   try {
     let token = req.cookies.get('token')!.value;
@@ -45,25 +46,37 @@ export async function POST(req: NextRequest) {
     await req.json();
 
   try {
-    const facilityReservation = await prismaClient.facilityReservation.create({
-      data: {
-        customerId: customer.id,
-        // TODO: di malaman kung kelan kasi wala naman sa form
-        date: new Date(),
-        startTime: new Date(),
-        endTime: new Date(),
-        price: 0,
-        // END TODO
+    // TODO: send email containing the email, attendees, purpose, additionalInfo
+    // Import the Nodemailer module
+    const nodemailer = require('nodemailer');
 
-        email,
-        attendees,
-        purpose,
-        additionalInfo,
+    // Create a transporter object using SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      port: 587,
+      secure: false,
+      auth: {
+        user: 'coursescape.do.not.reply@gmail.com',
+        pass: process.env.TRANSPORTER_PASS!,
       },
     });
 
-    console.log(`\n\n\n FACILITY RESERVATION CREATED: `);
-    console.log(facilityReservation);
+    // Define email content
+    let mailOptions = {
+      from: 'coursescape.do.not.reply@gmail.com',
+      to: email,
+      subject: 'Facility Reservation Request',
+      html: `<p>Attendees: ${attendees}</p><p>Purpose: ${purpose}</p><p>Additional Information: ${additionalInfo}</p>`,
+    };
+
+    // Send email
+    await transporter.sendMail(mailOptions, (error: any, info: any) => {
+      if (error) {
+        console.error('Error sending email: ', error);
+      } else {
+        console.log('Email sent: ', info.response);
+      }
+    });
 
     return Response.json({ success: true }, { status: 200 });
   } catch (error) {
