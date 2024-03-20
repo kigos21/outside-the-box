@@ -5,11 +5,14 @@ export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
   if (path === '/logout') {
+    // There would be no token if client is not logged in.
+    // Therefore, redirect them to login page.
     if (!req.cookies.has('token')) {
       return NextResponse.redirect(new URL('/login', req.url));
     }
 
-    // Respond with an empty cookie with the same name and maxAge set to 0
+    // Expire the token.
+    // Respond with an empty cookie with the same name and maxAge set to 0.
     const response = NextResponse.next();
     response.cookies.set('token', '', { maxAge: 0 });
 
