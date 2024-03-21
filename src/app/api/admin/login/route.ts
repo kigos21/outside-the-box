@@ -4,7 +4,7 @@ import { LoginFormBody } from '@/types';
 import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
 
-export default async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const { username, password }: LoginFormBody = await req.json();
 
   try {
@@ -36,9 +36,16 @@ export default async function POST(req: NextRequest) {
       { id: admin.id, username: admin.username },
       process.env.JWT_SECRET_KEY!,
     );
-    console.log('Generated JWT Token:', adminToken);
 
-    return Response.json({ success: true, adminToken, admin }, { status: 200 });
+    return Response.json(
+      { success: true, adminToken },
+      {
+        status: 200,
+        headers: {
+          'Set-Cookie': `adminToken=${adminToken}; Path=/; Secure; SameSite=Strict;`,
+        },
+      },
+    );
   } catch (error) {
     console.error(error);
     return Response.json(
