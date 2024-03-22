@@ -1,5 +1,4 @@
 import { prismaClient } from '@/lib/prismaClient';
-import { TodayInstance } from 'twilio/lib/rest/api/v2010/account/usage/record/today';
 
 export async function GET() {
   try {
