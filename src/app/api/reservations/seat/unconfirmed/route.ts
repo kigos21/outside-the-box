@@ -5,7 +5,12 @@ export async function GET() {
     const unconfirmedReservations = await prismaClient.seatReservation.findMany(
       {
         where: {
-          NOT: { ConfirmedReservation: { some: {} } },
+          NOT: {
+            OR: [
+              { ConfirmedReservation: { some: {} } },
+              { ArchivedReservation: { some: {} } },
+            ],
+          },
         },
         include: {
           customer: { select: { firstName: true, lastName: true } },

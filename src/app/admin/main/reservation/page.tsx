@@ -2,214 +2,161 @@
 
 import Link from 'next/link';
 import { XMarkIcon, CheckIcon } from '@heroicons/react/16/solid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdminModal from '@/components/AdminModal';
+
+interface ReservationForConfirmation {
+  id: string;
+  customerId: string;
+  serviceId: string;
+  startDateTime: string;
+  endDateTime: string;
+  customer: {
+    firstName: string;
+    lastName: string;
+  };
+  service: {
+    name: string;
+    price: number;
+  };
+}
 
 export default function Reservation() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
+  const [reserveData, setReserveData] = useState<ReservationForConfirmation[]>(
+    [],
+  );
+  const [selectedData, setSelectedData] =
+    useState<ReservationForConfirmation>();
 
-  const reserveData = [
-    {
-      rsID: 1,
-      fName: 'Melfred',
-      lName: 'Fonclarers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 2,
-      fName: 'Noel',
-      lName: 'Cansiners',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 3,
-      fName: 'Karl',
-      lName: 'Taculers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 4,
-      fName: 'John',
-      lName: 'De Castrers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 5,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 6,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 7,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 8,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 9,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 10,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 11,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 12,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 13,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 14,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 15,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 16,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 17,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-  ];
+  useEffect(() => {
+    fetchUnconfirmed();
+  }, []);
+
+  const fetchUnconfirmed = async () => {
+    try {
+      const response = await fetch('/api/reservations/seat/unconfirmed');
+      const data = await response.json();
+
+      if (response.ok) {
+        // format the time
+        let unconfirmedReservations = data.unconfirmedReservations.map(
+          (reservation: any) => {
+            const current = reservation;
+            return {
+              ...current,
+              startDateTime: new Date(
+                current.startDateTime,
+              ).toLocaleTimeString(),
+              endDateTime: new Date(current.endDateTime).toLocaleTimeString(),
+            };
+          },
+        );
+
+        setReserveData(unconfirmedReservations);
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCreate = async (id: string) => {
+    const response = await fetch('/api/admin/reservation/confirm', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      setShowConfirmModal(false);
+      fetchUnconfirmed();
+    } else {
+      console.error(data.message);
+    }
+  };
+
+  const handleArchive = async (id: string) => {
+    const response = await fetch('/api/admin/reservation/archive', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      setShowArchiveModal(false);
+      fetchUnconfirmed();
+    } else {
+      console.error(data.message);
+    }
+  };
+
+  const formatModalContent = (data: ReservationForConfirmation) => {
+    const [hoursIn, minutesIn, meridianIn] = data.startDateTime.split(':');
+    const [hoursOut, minutesOut, meridianOut] = data.endDateTime.split(':');
+
+    return (
+      <div className="flex flex-col gap-1" key={data.id}>
+        <div className="flex justify-between gap-4">
+          <p className="basis-1/2">Reservation ID</p>
+          <p className="basis-1/2 font-semibold" title={data.id}>
+            {data.id.substring(0, 13)}...
+          </p>
+        </div>
+        <div className="flex justify-between gap-4">
+          <p className="basis-1/2">First name</p>
+          <p className="basis-1/2 font-semibold">{data.customer.firstName}</p>
+        </div>
+        <div className="flex justify-between gap-4">
+          <p className="basis-1/2">Last name</p>
+          <p className="basis-1/2 font-semibold">{data.customer.lastName}</p>
+        </div>
+        <div className="flex justify-between gap-4">
+          <p className="basis-1/2">Service</p>
+          <p className="basis-1/2 font-semibold">{data.service.name}</p>
+        </div>
+        <div className="flex justify-between gap-4">
+          <p className="basis-1/2">Time in</p>
+          <p className="basis-1/2 font-semibold">{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</p>
+        </div>
+        <div className="flex justify-between gap-4">
+          <p className="basis-1/2">Price</p>
+          <p className="basis-1/2 font-semibold">{data.service.price}</p>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="flex h-full flex-col gap-5">
       {showConfirmModal && (
         <AdminModal
           title={'Confirm reservation?'}
-          handleConfirm={() => console.log('Confirm')}
+          handleConfirm={() => handleCreate(selectedData!.id)}
           handleCancel={() => setShowConfirmModal(false)}
         >
-          <div className="flex flex-col gap-1">
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Reservation ID</p>
-              <p className="basis-1/2 font-semibold">21</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">First name</p>
-              <p className="basis-1/2 font-semibold">John</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Last name</p>
-              <p className="basis-1/2 font-semibold">Castro</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Service</p>
-              <p className="basis-1/2 font-semibold">5hrsReg</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Time in</p>
-              <p className="basis-1/2 font-semibold">14:00</p>
-            </div>
-          </div>
+          {selectedData && formatModalContent(selectedData)}
         </AdminModal>
       )}
 
       {showArchiveModal && (
         <AdminModal
           title={'Archive reservation?'}
-          handleConfirm={() => console.log('Confirm')}
+          handleConfirm={() => handleArchive(selectedData!.id)}
           handleCancel={() => setShowArchiveModal(false)}
           danger
         >
-          <div className="flex flex-col gap-1">
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Reservation ID</p>
-              <p className="basis-1/2 font-semibold">21</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">First name</p>
-              <p className="basis-1/2 font-semibold">John</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Last name</p>
-              <p className="basis-1/2 font-semibold">Castro</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Service</p>
-              <p className="basis-1/2 font-semibold">5hrsReg</p>
-            </div>
-            <div className="flex justify-between gap-4">
-              <p className="basis-1/2">Time in</p>
-              <p className="basis-1/2 font-semibold">14:00</p>
-            </div>
-          </div>
+          {selectedData && formatModalContent(selectedData)}
         </AdminModal>
       )}
 
@@ -227,39 +174,52 @@ export default function Reservation() {
               <th className="sticky top-[-1.5rem] bg-white">First Name</th>
               <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
               <th className="sticky top-[-1.5rem] bg-white">Service</th>
-              <th className="sticky top-[-1.5rem] bg-white">Duration</th>
               <th className="sticky top-[-1.5rem] bg-white">Time In</th>
+              <th className="sticky top-[-1.5rem] bg-white">Price</th>
               <th className="sticky top-[-1.5rem] bg-white">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {reserveData.map((data) => (
-              <tr
-                className="h-9 border border-solid border-black"
-                key={data.rsID}
-              >
-                <td>{data.rsID}</td>
-                <td>{data.fName}</td>
-                <td>{data.lName}</td>
-                <td>{data.service}</td>
-                <td>{data.duration}</td>
-                <td>{data.timeIn}</td>
-                <td className="flex h-12 items-center justify-center gap-2">
-                  <button
-                    className="flex items-center justify-center rounded-lg bg-blue-700 p-2 text-white shadow-lg"
-                    onClick={() => setShowConfirmModal(true)}
-                  >
-                    <CheckIcon className="h-5 w-5" />
-                  </button>
-                  <button
-                    className="flex items-center justify-center rounded-lg bg-red-500 p-2 text-white shadow-lg"
-                    onClick={() => setShowArchiveModal(true)}
-                  >
-                    <XMarkIcon className="h-5 w-5" />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {reserveData.map((data) => {
+              const [hoursIn, minutesIn, meridianIn] =
+                data.startDateTime.split(':');
+              const [hoursOut, minutesOut, meridianOut] =
+                data.endDateTime.split(':');
+
+              return (
+                <tr
+                  className="h-9 border border-solid border-black"
+                  key={data.id}
+                >
+                  <td title={data.id}>{data.id.substring(0, 8)}...</td>
+                  <td>{data.customer.firstName}</td>
+                  <td>{data.customer.lastName}</td>
+                  <td>{data.service.name}</td>
+                  <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
+                  <td>{data.service.price}</td>
+                  <td className="flex h-12 items-center justify-center gap-2">
+                    <button
+                      className="flex items-center justify-center rounded-lg bg-blue-700 p-2 text-white shadow-lg"
+                      onClick={() => {
+                        setSelectedData(data);
+                        setShowConfirmModal(true);
+                      }}
+                    >
+                      <CheckIcon className="h-5 w-5" />
+                    </button>
+                    <button
+                      className="flex items-center justify-center rounded-lg bg-red-500 p-2 text-white shadow-lg"
+                      onClick={() => {
+                        setSelectedData(data);
+                        setShowArchiveModal(true);
+                      }}
+                    >
+                      <XMarkIcon className="h-5 w-5" />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
