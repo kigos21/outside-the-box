@@ -18,8 +18,6 @@ export default function Home() {
       const response = await fetch('/api/logs'); // API endpoint URL
       const data = await response.json();
 
-      console.log({ data });
-
       if (data.success) {
         setLogs(data.logs); //sets the logs state value
       } else {
@@ -34,9 +32,6 @@ export default function Home() {
     try {
       const response = await fetch('/api/reservations/seat/unconfirmed');
       const data = await response.json();
-
-      console.log('DATA:');
-      console.log({ data });
 
       if (response.ok) {
         // format the time
