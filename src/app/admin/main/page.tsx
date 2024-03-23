@@ -1,13 +1,17 @@
 'use client';
-import { ScrollContainer } from 'react-nice-scroll';
+
 import React, { useState, useEffect } from 'react';
 import fetch from 'node-fetch'; // Assuming server-side rendering
 
-// import Scroll from 'react-scroll';
-
 export default function Home() {
-
   const [logs, setLogs] = useState<any[]>([]); // Initialize state for logs
+  const [reservationsForConfirmation, setReservationsForConfirmation] =
+    useState<any[]>([]);
+
+  useEffect(() => {
+    fetchLogs();
+    fetchUnconfirmed();
+  }, []);
 
   const fetchLogs = async () => {
     try {
@@ -24,31 +28,93 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    fetchLogs();
-  }, []);
+  const fetchUnconfirmed = async () => {
+    try {
+      const response = await fetch('/api/reservations/seat/unconfirmed');
+      const data = await response.json();
+
+      if (response.ok) {
+        // format the time
+        let unconfirmedReservations = data.unconfirmedReservations.map(
+          (reservation: any) => {
+            const current = reservation;
+            return {
+              ...current,
+              startDateTime: new Date(
+                current.startDateTime,
+              ).toLocaleTimeString(),
+              endDateTime: new Date(current.endDateTime).toLocaleTimeString(),
+            };
+          },
+        );
+
+        setReservationsForConfirmation(unconfirmedReservations);
+      } else {
+        console.error(data.message);
+        // setError
+      }
+    } catch (error) {
+      console.error(error);
+      // setError
+    }
+  };
 
   const hasLogsToday = () => {
     if (logs.length > 0) {
-      return logs.map((log) => (
-        <tr className="h-9 border border-solid border-black" key={log.id}>
-          <td>{log.customer.firstName}</td>
-          <td>{log.customer.lastName}</td>
-          <td>{log.service.serviceName}</td>
-          <td>{log.timeIn}</td>
-          <td>{log.timeOut}</td>
-          <td>{log.service.servicePrice}</td>
-        </tr>
-      ));
+      return logs.map((log) => {
+        const [hoursIn, minutesIn, meridianIn] = log.timeIn.split(':');
+        const [hoursOut, minutesOut, meridianOut] = log.timeOut.split(':');
+
+        return (
+          <tr className="h-9 border border-solid border-black" key={log.id}>
+            <td>{log.customer.firstName}</td>
+            <td>{log.customer.lastName}</td>
+            <td>{log.service.serviceName}</td>
+            <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
+            <td>{`${hoursOut}:${minutesOut} ${meridianOut.substring(2)}`}</td>
+            <td>{log.service.servicePrice}</td>
+          </tr>
+        );
+      });
     } else {
       return (
-        <tr className="h-9 border border-solid border-black" key="0">
-          <td>empty</td>
-          <td>empty</td>
-          <td>empty</td>
-          <td>empty</td>
-          <td>empty</td>
-          <td>empty</td>
+        <tr className="h-9" key="0">
+          <td colSpan={6} className="pt-[8%] opacity-50">
+            No logs for today
+          </td>
+        </tr>
+      );
+    }
+  };
+
+  const hasReservationsForConfirmation = () => {
+    if (reservationsForConfirmation.length > 0) {
+      return reservationsForConfirmation.map((reservation) => {
+        const [hoursIn, minutesIn, meridianIn] =
+          reservation.startDateTime.split(':');
+        const [hoursOut, minutesOut, meridianOut] =
+          reservation.endDateTime.split(':');
+
+        return (
+          <tr
+            className="h-9 border border-solid border-black"
+            key={reservation.id}
+          >
+            <td title={reservation.id}>{reservation.id.substring(0, 13)}...</td>
+            <td>{reservation.customer.firstName}</td>
+            <td>{reservation.customer.lastName}</td>
+            <td>{reservation.service.name}</td>
+            <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
+            <td>{reservation.service.price}</td>
+          </tr>
+        );
+      });
+    } else {
+      return (
+        <tr className="h-9" key="0">
+          <td colSpan={6} className="pt-[8%] opacity-50">
+            No logs for today
+          </td>
         </tr>
       );
     }
@@ -95,7 +161,7 @@ export default function Home() {
                 <th className="sticky top-[-1.5rem] bg-white">Price</th>
               </tr>
             </thead>
-            <tbody>{hasLogsToday()}</tbody>
+            <tbody>{hasReservationsForConfirmation()}</tbody>
           </table>
         </div>
       </div>

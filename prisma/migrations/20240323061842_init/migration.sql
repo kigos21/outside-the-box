@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "ServiceType" AS ENUM ('Regular', 'Promo');
+
 -- CreateTable
 CREATE TABLE "Admin" (
     "id" TEXT NOT NULL,
@@ -27,7 +30,7 @@ CREATE TABLE "Customer" (
     "lastName" TEXT NOT NULL,
     "occupation" TEXT NOT NULL,
     "affiliation" TEXT NOT NULL,
-    "contactNumber" TEXT NOT NULL,
+    "mobileNumber" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
 
@@ -38,9 +41,8 @@ CREATE TABLE "Customer" (
 CREATE TABLE "FacilityReservation" (
     "id" TEXT NOT NULL,
     "customerId" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
-    "startTime" TIMESTAMP(3) NOT NULL,
-    "endTime" TIMESTAMP(3) NOT NULL,
+    "startDateTime" TIMESTAMP(3) NOT NULL,
+    "endDateTime" TIMESTAMP(3) NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "FacilityReservation_pkey" PRIMARY KEY ("id")
@@ -51,7 +53,6 @@ CREATE TABLE "Log" (
     "id" TEXT NOT NULL,
     "customerId" TEXT NOT NULL,
     "serviceId" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
     "timeIn" TIMESTAMP(3) NOT NULL,
     "timeOut" TIMESTAMP(3) NOT NULL,
     "confirmedReservationId" TEXT,
@@ -63,7 +64,7 @@ CREATE TABLE "Log" (
 CREATE TABLE "ConfirmedReservation" (
     "id" TEXT NOT NULL,
     "seatReservationId" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "ConfirmedReservation_pkey" PRIMARY KEY ("id")
 );
@@ -73,9 +74,8 @@ CREATE TABLE "SeatReservation" (
     "id" TEXT NOT NULL,
     "customerId" TEXT NOT NULL,
     "serviceId" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
-    "startTime" TIMESTAMP(3) NOT NULL,
-    "endTime" TIMESTAMP(3) NOT NULL,
+    "startDateTime" TIMESTAMP(3) NOT NULL,
+    "endDateTime" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "SeatReservation_pkey" PRIMARY KEY ("id")
 );
@@ -86,7 +86,7 @@ CREATE TABLE "Service" (
     "name" TEXT NOT NULL,
     "hours" INTEGER NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
-    "type" TEXT NOT NULL,
+    "type" "ServiceType" NOT NULL,
 
     CONSTRAINT "Service_pkey" PRIMARY KEY ("id")
 );
@@ -94,7 +94,6 @@ CREATE TABLE "Service" (
 -- CreateTable
 CREATE TABLE "Report" (
     "id" TEXT NOT NULL,
-    "logIds" TEXT[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Report_pkey" PRIMARY KEY ("id")
@@ -119,28 +118,31 @@ CREATE UNIQUE INDEX "OTP_otp_key" ON "OTP"("otp");
 CREATE UNIQUE INDEX "Customer_username_key" ON "Customer"("username");
 
 -- AddForeignKey
-ALTER TABLE "OTP" ADD CONSTRAINT "OTP_adminId_fkey" FOREIGN KEY ("adminId") REFERENCES "Admin"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "OTP" ADD CONSTRAINT "OTP_adminId_fkey" FOREIGN KEY ("adminId") REFERENCES "Admin"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "OTP" ADD CONSTRAINT "OTP_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "OTP" ADD CONSTRAINT "OTP_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "FacilityReservation" ADD CONSTRAINT "FacilityReservation_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "FacilityReservation" ADD CONSTRAINT "FacilityReservation_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Log" ADD CONSTRAINT "Log_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Log" ADD CONSTRAINT "Log_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Log" ADD CONSTRAINT "Log_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "Service"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Log" ADD CONSTRAINT "Log_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "Service"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Log" ADD CONSTRAINT "Log_confirmedReservationId_fkey" FOREIGN KEY ("confirmedReservationId") REFERENCES "ConfirmedReservation"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Log" ADD CONSTRAINT "Log_confirmedReservationId_fkey" FOREIGN KEY ("confirmedReservationId") REFERENCES "ConfirmedReservation"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ConfirmedReservation" ADD CONSTRAINT "ConfirmedReservation_seatReservationId_fkey" FOREIGN KEY ("seatReservationId") REFERENCES "SeatReservation"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ConfirmedReservation" ADD CONSTRAINT "ConfirmedReservation_seatReservationId_fkey" FOREIGN KEY ("seatReservationId") REFERENCES "SeatReservation"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "SeatReservation" ADD CONSTRAINT "SeatReservation_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "SeatReservation" ADD CONSTRAINT "SeatReservation_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "SeatReservation" ADD CONSTRAINT "SeatReservation_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "Service"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "SeatReservation" ADD CONSTRAINT "SeatReservation_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "Service"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ArchivedReservation" ADD CONSTRAINT "ArchivedReservation_seatReservationId_fkey" FOREIGN KEY ("seatReservationId") REFERENCES "SeatReservation"("id") ON DELETE CASCADE ON UPDATE CASCADE;

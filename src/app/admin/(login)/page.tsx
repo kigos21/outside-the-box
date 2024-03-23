@@ -5,15 +5,33 @@ import { LoginFormBody } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useState } from 'react';
 
 export default function AdminLogin() {
+  const [error, setError] = useState('');
+
   const { register, handleSubmit } = useForm<LoginFormBody>();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<LoginFormBody> = async () => {
-    // back end keme
-    router.push('/admin/main');
-    console.log();
+  const onSubmit: SubmitHandler<LoginFormBody> = async ({
+    username,
+    password,
+  }) => {
+    const response = await fetch('/api/admin/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const { success, message } = await response.json();
+
+    if (response.ok) {
+      router.push('/admin/main');
+    } else {
+      setError(message);
+    }
   };
 
   return (
@@ -65,6 +83,11 @@ export default function AdminLogin() {
             </div>
 
             <div className="mt-4 flex flex-col gap-4">
+              {error && (
+                <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-sm text-red-600">
+                  {error}
+                </div>
+              )}
               <button className=" rounded-md bg-otb-yellow px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
                 Login
               </button>
