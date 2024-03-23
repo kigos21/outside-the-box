@@ -44,10 +44,6 @@ CREATE TABLE "FacilityReservation" (
     "startDateTime" TIMESTAMP(3) NOT NULL,
     "endDateTime" TIMESTAMP(3) NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
-    "email" TEXT NOT NULL,
-    "attendees" TEXT NOT NULL,
-    "purpose" TEXT NOT NULL,
-    "additionalInfo" TEXT NOT NULL,
 
     CONSTRAINT "FacilityReservation_pkey" PRIMARY KEY ("id")
 );

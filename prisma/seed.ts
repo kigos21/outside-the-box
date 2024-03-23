@@ -72,10 +72,6 @@ async function main() {
       startDateTime: startTime,
       endDateTime: endTime,
       price: 200.0,
-      email: 'decastrojohndaniel21@gmail.com',
-      attendees: 'Students',
-      purpose: 'Organization Meeting',
-      additionalInfo: 'We need a projector. Willing to pay.',
     },
   });
 
@@ -92,10 +88,6 @@ async function main() {
       startDateTime: startTime,
       endDateTime: endTime,
       price: 300.0,
-      email: 'decastrojohndaniel21@gmail.com',
-      attendees: 'Capstone Team',
-      purpose: 'Discuss and brainstorm Capstone project',
-      additionalInfo: "We'll be noisy.",
     },
   });
 

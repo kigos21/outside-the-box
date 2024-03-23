@@ -58,12 +58,6 @@ model FacilityReservation {
   startDateTime DateTime
   endDateTime   DateTime
   price         Float
-
-  // Details for reservation
-  email          String
-  attendees      String
-  purpose        String
-  additionalInfo String
 }
 
 model Log {
