@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         'otb-yellow': '#FFDE59',
         'otb-blue': '#64bbfe',
+        'cs-white': '#e9e4da',
       },
     },
   },
