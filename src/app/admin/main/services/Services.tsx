@@ -8,6 +8,14 @@ import {
 import EditButton from './EditButton';
 import DeleteButton from './DeleteButton';
 import AddButton from './AddButton';
+import { ForwardRefExoticComponent, SVGProps } from 'react';
+
+type IconComponentType = ForwardRefExoticComponent<
+  SVGProps<SVGSVGElement> & {
+    title?: string;
+    titleId?: string;
+  }
+>;
 
 interface Service {
   id: string;
@@ -15,6 +23,12 @@ interface Service {
   hours: number;
   price: number;
   type: string;
+}
+
+interface EditButtonProps {
+  IconComponent: IconComponentType;
+  serviceData: Service;
+  color?: string;
 }
 
 export default function Services({ services }: { services: Service[] }) {
@@ -53,7 +67,10 @@ export default function Services({ services }: { services: Service[] }) {
                 <td>{service.price}</td>
                 <td>{service.type}</td>
                 <td className="flex h-12 items-center justify-center gap-2">
-                  <EditButton IconComponent={PencilSquareIcon} />
+                  <EditButton
+                    IconComponent={PencilSquareIcon}
+                    serviceData={service}
+                  />
                   <DeleteButton IconComponent={XMarkIcon} />
                 </td>
               </tr>
