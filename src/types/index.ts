@@ -84,3 +84,12 @@ export type InquiryFormBody = {
   purpose: string;
   additionalInfo: string;
 };
+
+export interface FacilityReservation {
+  firstName: string;
+  lastName: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  price: string;
+}
