@@ -104,6 +104,7 @@ async function main() {
       hours: 1,
       price: 89,
       type: 'Regular',
+      archived: false,
     },
   });
 
@@ -117,6 +118,7 @@ async function main() {
       hours: 2,
       price: 149,
       type: 'Regular',
+      archived: false,
     },
   });
 
@@ -130,6 +132,7 @@ async function main() {
       hours: 3,
       price: 169,
       type: 'Regular',
+      archived: false,
     },
   });
 
@@ -143,6 +146,7 @@ async function main() {
       hours: 5,
       price: 269,
       type: 'Regular',
+      archived: false,
     },
   });
 
@@ -156,6 +160,7 @@ async function main() {
       hours: 7,
       price: 329,
       type: 'Regular',
+      archived: false,
     },
   });
 
@@ -169,6 +174,7 @@ async function main() {
       hours: 24,
       price: 500,
       type: 'Regular',
+      archived: false,
     },
   });
 

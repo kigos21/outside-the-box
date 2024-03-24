@@ -102,6 +102,7 @@ model Service {
   name            String
   hours           Int
   price           Float
+  archived        Boolean
   type            ServiceType
   logs            Log[]
   SeatReservation SeatReservation[]

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const DeleteButton = ({ IconComponent, color = 'white' }) => {
+const DeleteButton = ({ IconComponent, color = 'white', onDelete }) => {
   return (
-    <button>
+    <button onClick={onDelete}>
       <div
         className={`flex items-center justify-center rounded-lg bg-red-500 p-2 text-white shadow-lg ${color}`}
       >

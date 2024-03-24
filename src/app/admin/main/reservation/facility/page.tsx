@@ -9,10 +9,7 @@ export default function FacilityReservation() {
   const [message, setMessage] = useState<string>('');
 
   const modal = (
-    <div
-      className="absolute bottom-0 left-0 right-0 top-0 z-10 flex items-center justify-center bg-black/75"
-      onClick={() => setShowModal(false)}
-    >
+    <div className="absolute bottom-0 left-0 right-0 top-0 z-10 flex items-center justify-center bg-black/75">
       <div
         className="mb-12 flex w-[28rem] flex-col gap-8 rounded-lg bg-white px-8 py-6"
         onClick={(e) => e.stopPropagation()}
@@ -28,7 +25,7 @@ export default function FacilityReservation() {
             onClick={() => setShowModal(false)}
             className={`basis-full rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none`}
           >
-            Confirm
+            OK
           </button>
         </div>
       </div>

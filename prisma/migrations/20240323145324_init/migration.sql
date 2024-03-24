@@ -86,6 +86,7 @@ CREATE TABLE "Service" (
     "name" TEXT NOT NULL,
     "hours" INTEGER NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
+    "archived" BOOLEAN NOT NULL,
     "type" "ServiceType" NOT NULL,
 
     CONSTRAINT "Service_pkey" PRIMARY KEY ("id")

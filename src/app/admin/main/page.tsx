@@ -100,7 +100,7 @@ export default function Home() {
             className="h-9 border border-solid border-black"
             key={reservation.id}
           >
-            <td title={reservation.id}>{reservation.id.substring(0, 13)}...</td>
+            <td title={reservation.id}>{reservation.id.substring(0, 8)}...</td>
             <td>{reservation.customer.firstName}</td>
             <td>{reservation.customer.lastName}</td>
             <td>{reservation.service.name}</td>

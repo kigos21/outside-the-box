@@ -93,3 +93,10 @@ export interface FacilityReservation {
   endTime: string;
   price: string;
 }
+
+export type ServiceFormBody = {
+  name: string;
+  hours: string;
+  price: string;
+  type: string;
+};
