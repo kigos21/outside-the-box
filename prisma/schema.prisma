@@ -36,22 +36,6 @@ model OTP {
   expiresAt  DateTime  @default(dbgenerated("NOW() + INTERVAL '10 minutes'"))
 }
 
-model FacilityReservation {
-  id         String   @id @default(uuid())
-  customer   Customer @relation(name: "Customer", fields: [customerId], references: [id], onDelete: Cascade)
-  customerId String
-  date       DateTime
-  startTime  DateTime
-  endTime    DateTime
-  price      Float
-  // Details for reservation
-  email          String
-  attendees      String
-  purpose        String
-  additionalInfo String
-}
-
-
 model Customer {
   id                   String                @id @default(uuid())
   firstName            String
@@ -62,9 +46,18 @@ model Customer {
   username             String                @unique
   password             String
   otps                 OTP[]
-  facilityReservations FacilityReservation[] @relation("Customer")
+  facilityReservations FacilityReservation[]
   Log                  Log[]
   SeatReservation      SeatReservation[]
+}
+
+model FacilityReservation {
+  id            String   @id @default(uuid())
+  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customerId    String
+  startDateTime DateTime
+  endDateTime   DateTime
+  price         Float
 }
 
 model Log {
@@ -73,7 +66,6 @@ model Log {
   customerId             String
   service                Service               @relation(fields: [serviceId], references: [id], onDelete: Cascade)
   serviceId              String
-  date                   DateTime
   timeIn                 DateTime
   timeOut                DateTime
   confirmedReservation   ConfirmedReservation? @relation(fields: [confirmedReservationId], references: [id], onDelete: Cascade)
@@ -84,7 +76,7 @@ model ConfirmedReservation {
   id                String          @id @default(uuid())
   seatReservation   SeatReservation @relation(fields: [seatReservationId], references: [id], onDelete: Cascade)
   seatReservationId String
-  date              DateTime
+  date              DateTime        @default(now())
   Log               Log[]
 }
 
@@ -94,11 +86,15 @@ model SeatReservation {
   customerId           String
   service              Service                @relation(fields: [serviceId], references: [id], onDelete: Cascade)
   serviceId            String
-  date                 DateTime
-  startTime            DateTime
-  endTime              DateTime
+  startDateTime        DateTime
+  endDateTime          DateTime
   ConfirmedReservation ConfirmedReservation[]
   ArchivedReservation  ArchivedReservation[]
+}
+
+enum ServiceType {
+  Regular
+  Promo
 }
 
 model Service {
@@ -106,14 +102,14 @@ model Service {
   name            String
   hours           Int
   price           Float
-  type            String
+  archived        Boolean
+  type            ServiceType
   logs            Log[]
   SeatReservation SeatReservation[]
 }
 
 model Report {
   id        String   @id @default(uuid())
-  logIds    String[]
   createdAt DateTime @default(now())
 }
 

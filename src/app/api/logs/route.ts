@@ -1,5 +1,4 @@
 import { prismaClient } from '@/lib/prismaClient';
-import { TodayInstance } from 'twilio/lib/rest/api/v2010/account/usage/record/today';
 
 export async function GET() {
   try {
@@ -7,7 +6,7 @@ export async function GET() {
 
     const logs = await prismaClient.log.findMany({
       where: {
-        date: {
+        timeIn: {
           gte: new Date(today).toISOString(), // Convert today to ISO-8601 with TZ
           lt: new Date(`${today}T23:59:59`).toISOString(), // Include milliseconds
         },
@@ -27,8 +26,8 @@ export async function GET() {
         success: true,
         logs: logs.map((log) => ({
           id: log.id,
-          timeIn: log.timeIn,
-          timeOut: log.timeOut,
+          timeIn: log.timeIn.toLocaleTimeString(),
+          timeOut: log.timeOut.toLocaleTimeString(),
           customer: {
             firstName: log.customer.firstName,
             lastName: log.customer.lastName,

@@ -52,8 +52,6 @@ export type RegisterFormBody = Map & {
 };
 
 export type Customer = {
-  id: string;
-  customerId: string;
   username: string;
   firstName: string;
   lastName: string;
@@ -87,12 +85,18 @@ export type InquiryFormBody = {
   additionalInfo: string;
 };
 
-export type CreateFacilityReservationFormBody = {
+export interface FacilityReservation {
   firstName: string;
   lastName: string;
   date: string;
-  timeFrom: string;
-  timeTo: string;
-  price: number;
-  id: string;
+  startTime: string;
+  endTime: string;
+  price: string;
+}
+
+export type ServiceFormBody = {
+  name: string;
+  hours: string;
+  price: string;
+  type: string;
 };

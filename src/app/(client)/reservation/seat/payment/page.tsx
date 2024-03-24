@@ -10,6 +10,7 @@ import styles from '@/styles/services.module.css';
 export default function Page() {
   const [isPaid, setIsPaid] = useState<boolean>(false);
   const searchParams = useSearchParams();
+  const [error, setError] = useState('');
 
   const paymentProviders = [
     { qrcode: '/payment/qrcode/gcash.png', name: 'Gcash' },
@@ -41,7 +42,10 @@ export default function Page() {
     const body = await res.json();
 
     if (!body.success) {
-      // router push with router.push(`/here?params=params`)
+      setError(
+        `There was a problem while doing the operation: ${body.message} \n` +
+          `Contact us immediately: 0956 025 4032 | otbcoworkingph@gmail.com`,
+      );
     } else {
       setIsPaid(true);
     }
@@ -75,6 +79,11 @@ export default function Page() {
             </div>
 
             <div>
+              {error && (
+                <div className="mb-2 w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-sm text-red-600">
+                  {error}
+                </div>
+              )}
               <button
                 type="button"
                 className="w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
@@ -103,13 +112,15 @@ export default function Page() {
             <div
               className={`flex flex-col items-center justify-center gap-4 rounded-3xl bg-white p-8 ${styles.blueShadow}`}
             >
-              <p className="w-full rounded-lg border border-green-700 bg-green-100 px-3 py-2 text-center font-bold uppercase text-green-700">
+              <p className="w-full rounded-lg border border-green-700 bg-green-100 px-3 py-2 text-center font-bold text-green-700">
                 Reservation Success!
               </p>
 
               <div className="text-sm">
-                <p>Reminders for scheduling a reservation</p>
-                <ul className="list-inside list-disc">
+                <p className="text-base">
+                  Reminders for scheduling a reservation
+                </p>
+                <ul className="list-inside list-disc pl-4">
                   <li>Show up on time</li>
                   <li>Be mindful of other guests</li>
                   <li>Observe our house rules</li>

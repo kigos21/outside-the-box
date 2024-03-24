@@ -2,11 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Customer, LoginFormBody } from '@/types';
-import { login } from '@/lib/utils/customer';
-import { useCallback, useEffect, useState } from 'react';
+import { LoginFormBody } from '@/types';
+import { useState } from 'react';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -15,7 +14,6 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<LoginFormBody>();
 
@@ -24,13 +22,22 @@ export default function Login() {
 
     try {
       const { username, password } = data;
-      const res = await login(username, password);
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
 
       if (res.ok) {
-        const { success, customer, token } = await res.json();
+        const { token } = await res.json();
 
         // Store the token securely in cookie
-        document.cookie = `token=${token}; path=/; Secure;`;
+        document.cookie = `token=${token}; path=/; Secure; SameSite=Strict;`;
         router.push('/');
       } else {
         const { message } = await res.json();
@@ -38,23 +45,16 @@ export default function Login() {
       }
     } catch (error) {
       console.error(error);
-      console.log('Login failed.');
+      setErrorMessage(JSON.stringify(message));
     }
   };
 
   const searchParams = useSearchParams();
   const message = searchParams.get('message');
-  const error = searchParams.get('error');
 
   return (
     <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16">
       <div className="flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
-        {error && (
-          <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-sm text-red-600">
-            {error}
-          </div>
-        )}
-
         {/* Sa Login errors to */}
         {errorMessage && (
           <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-sm text-red-600">

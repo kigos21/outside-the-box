@@ -1,95 +1,37 @@
-import { sendOTP } from '@/lib/semaphoreClient';
-import { RegisterFormBody } from '@/types';
+import { register } from '@/lib/utils/customer';
+import { Customer } from '@/types';
+import * as bcrypt from 'bcrypt';
 
 export async function POST(req: Request) {
-  const body: RegisterFormBody = await req.json();
-
-  // Check for missing fields
-  const requiredFields = [
-    'username',
-    'firstName',
-    'lastName',
-    'occupation',
-    'affiliation',
-    'mobileNumber',
-    'password',
-    'confirmPassword',
-  ];
-  const missingFields = requiredFields.filter((field) => !body[field]);
-
-  if (missingFields.length > 0) {
-    return Response.json(
-      {
-        error: `Missing fields: ${missingFields.join(', ')}`,
-        missing: [...missingFields],
-      },
-      {
-        status: 400,
-      },
-    );
-  }
-
-  const { mobileNumber, password, confirmPassword } = body;
-
-  // Check if passwords match
-  //   -> [Error code] I101: Passwords do not match
-  if (password !== confirmPassword) {
-    return Response.json(
-      { error: 'Passwords do not match', errorCode: 'I101' },
-      { status: 400 },
-    );
-  }
-
-  // Check if password is complex (at least 8 characters long, at least 1 lowercase letter,
-  // 1 uppercase letter, 1 digit, and 1 special character)
-  //   -> [Error code] I102: Low password strength
-  const complexPasswordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-  if (!complexPasswordRegex.test(password)) {
-    return Response.json(
-      {
-        error:
-          'Password must be at least 8 characters long and include at least one lowercase ' +
-          'letter, one uppercase letter, one digit, and one special character',
-        errorCode: 'I102',
-      },
-      { status: 400 },
-    );
-  }
-
-  const message = 'Your registration OTP is: {otp}';
+  const customer: Customer = await req.json();
 
   try {
-    const verification = await sendOTP(mobileNumber, message);
-    console.log('sendOTP called');
-    console.log(verification);
-    return Response.json(verification, {status: 200});
-    // Show success message and handle further registration steps
-  } catch (error) {
-    console.error('Error sending OTP:', error);
-    // Show error message to the user
-  }
+    // hash password before registering
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(customer.password, saltRounds);
 
-  return Response.json({ message: 'Enter your OTP' }, { status: 200 });
+    const newCustomer = await register({
+      ...customer,
+      password: hashedPassword,
+    });
 
-  // Send OTP through Twilio, and do verification checks. Check the functions within
-  // @/lib/twilioClient
-  //   -> [Error code] S201: TODO describe error here
-
-  /* *********************************************************************************************
-
-  try {
-    const verification = await sendOTP('+63' + mobileNumber.slice(1));
-    return Response.json(verification, { status: 200 });
+    return Response.json(
+      {
+        success: true,
+        message: 'Account registered successfully!',
+        customer: newCustomer,
+      },
+      { status: 200 },
+    );
   } catch (error: any) {
-    console.error(
-      `Logging from try/catch block at line 66 @ register/route.ts. ERROR: ${error.name}` +
-        error,
+    console.error(error);
+    return Response.json(
+      {
+        message: `There was an error registering your account. ${JSON.stringify(error)}`,
+      },
+      {
+        status: 500,
+      },
     );
-
-    return Response.json({ error, errorCode: 'S201' }, { status: 500 });
   }
-
-  ********************************************************************************************* */
 }

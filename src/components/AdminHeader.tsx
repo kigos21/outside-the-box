@@ -19,7 +19,6 @@ export default function AdminHeader({
     { name: 'Manage Log Records', path: '/admin/main/logs' },
     { name: 'Manage Services and Promos', path: '/admin/main/services' },
     { name: 'Generate Reports', path: '/admin/main/reports' },
-    // { name: 'Logout', path: '/admin/main/logout' },
   ];
 
   return (

@@ -4,19 +4,20 @@ export const checkAvailability = async (
   date: string,
   time: string,
 ): Promise<boolean> => {
-  const isoTime = new Date(date);
-  isoTime.setHours(
+  const startDateTime = new Date(date);
+  startDateTime.setHours(
     parseInt(time.split(':')[0]),
     parseInt(time.split(':')[1]),
     0,
     0,
   );
 
+  // TODO: Check if there are a lot of reservations at that time.
+  // For now, check if there is a single reservation at the given time.
   const reservation = await prismaClient.confirmedReservation.findFirst({
     where: {
       seatReservation: {
-        // date: new Date(date),
-        startTime: isoTime,
+        startDateTime,
       },
     },
   });
@@ -32,17 +33,15 @@ export const checkAvailability = async (
 export const reserveSeat = async (
   customerId: string,
   serviceId: string,
-  date: Date,
-  startTime: Date,
-  endTime: Date,
+  startDateTime: Date,
+  endDateTime: Date,
 ) => {
   const seatReservation = await prismaClient.seatReservation.create({
     data: {
       customerId,
       serviceId,
-      date,
-      startTime,
-      endTime,
+      startDateTime,
+      endDateTime,
     },
   });
 
