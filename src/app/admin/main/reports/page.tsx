@@ -16,9 +16,6 @@ export default function Reports(e: any) {
       date: '23/03/2024',
       timeIn: '06:00',
       timeOut: '09:00',
-      payment: 'GCASH',
-      price: '349',
-      confirmReservation: 'YES',
     },
     {
       id: '246813579',
@@ -30,9 +27,6 @@ export default function Reports(e: any) {
       date: '23/03/2024',
       timeIn: '06:00',
       timeOut: '09:00',
-      payment: 'CASH',
-      price: '349',
-      confirmReservation: 'NO',
     },
     {
       id: '987654321',
@@ -44,9 +38,6 @@ export default function Reports(e: any) {
       date: '25/03/2024',
       timeIn: '10:00',
       timeOut: '01:00',
-      payment: 'CASH',
-      price: '299',
-      confirmReservation: 'YES',
     },
     {
       id: '789456123',
@@ -58,9 +49,6 @@ export default function Reports(e: any) {
       date: '27/03/2024',
       timeIn: '22:00',
       timeOut: '06:00',
-      payment: 'CASH',
-      price: '699',
-      confirmReservation: 'NO',
     },
   ];
 
@@ -190,6 +178,10 @@ export default function Reports(e: any) {
     setShowModal(true);
   };
 
+  const refreshParent = (e: any) => {
+    e.window.reload();
+  };
+
   return (
     <div className="flex h-[86vh] flex-col gap-5">
       {showModal && (
@@ -200,6 +192,7 @@ export default function Reports(e: any) {
           dataToExport={dataToUse}
           userDate={userDate}
           customDate={customDate}
+          refreshParent={() => ''}
         >
           <table className="w-full border-collapse border-2 border-solid border-black">
             <thead>
@@ -211,8 +204,6 @@ export default function Reports(e: any) {
                 <th className={styles}>Date</th>
                 <th className={styles}>Time In</th>
                 <th className={styles}>Time Out</th>
-                <th className={styles}>Method of Payment</th>
-                <th className={styles}>Price</th>
 
                 {/* Add more headers based on your data */}
               </tr>
@@ -228,8 +219,6 @@ export default function Reports(e: any) {
                   <td className={styles}>{item.date}</td>
                   <td className={styles}>{item.timeIn}</td>
                   <td className={styles}>{item.timeOut}</td>
-                  <td className={styles}>{item.payment}</td>
-                  <td className={styles}>{item.price}</td>
                 </tr>
               ))}
             </tbody>
@@ -253,6 +242,7 @@ export default function Reports(e: any) {
                 <select
                   name="timeOfDay"
                   id="timeOfDay"
+                  required
                   className="basis-3/12 rounded-md border border-gray-400 bg-white px-6 py-4"
                   onChange={handleTimeOfDayChange}
                 >
@@ -271,6 +261,7 @@ export default function Reports(e: any) {
                   type="date"
                   name="date"
                   id="date"
+                  required
                   className="basis-3/12 rounded-md border border-gray-400 px-6 py-4"
                   onChange={handleDateChange}
                 />
@@ -304,6 +295,7 @@ export default function Reports(e: any) {
                   type="date"
                   name="startDate"
                   id="startDate"
+                  required
                   className="basis-3/12 rounded-md border border-gray-400 px-6 py-4"
                   onChange={handleStartDate}
                 />
@@ -316,6 +308,7 @@ export default function Reports(e: any) {
                   type="date"
                   name="startDate"
                   id="startDate"
+                  required
                   className="basis-3/12 rounded-md border border-gray-400 px-6 py-4"
                   onChange={handleEndDate}
                 />
