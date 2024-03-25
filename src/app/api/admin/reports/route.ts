@@ -27,10 +27,19 @@ export async function GET(req: Request) {
       },
     });
     const formattedLogs = logs.map((log) => {
-      const dateTimeIn = new Date(log.timeIn).toISOString();
+      const dateTimeIn = new Date(log.timeIn).toISOString().slice(0, 10);
+      const newDate = dateTimeIn.split('-').reverse().join('/');
       const timeIn = new Date(log.timeIn).toISOString();
       const timeOut = new Date(log.timeOut).toISOString();
-      return { ...log, dateTimeIn, timeIn, timeOut };
+      const localTimeIn = new Date(timeIn).toLocaleString('en-US', {
+        timeZone: 'Asia/Singapore', // Adjust timeZone according to your requirements
+        hour12: false, // Use 24-hour format
+      });
+      const localTimeOut = new Date(timeOut).toLocaleString('en-US', {
+        timeZone: 'Asia/Singapore', // Adjust timeZone according to your requirements
+        hour12: false, // Use 24-hour format
+      });
+      return { ...log, newDate, localTimeIn, localTimeOut };
     });
 
     console.log(formattedLogs);
@@ -40,9 +49,9 @@ export async function GET(req: Request) {
         success: true,
         logs: formattedLogs.map((log) => ({
           id: log.id,
-          date: log.dateTimeIn,
-          timeIn: log.timeIn,
-          timeOut: log.timeOut,
+          date: log.newDate,
+          timeIn: log.localTimeIn,
+          timeOut: log.localTimeOut,
           customer: {
             firstName: log.customer.firstName,
             lastName: log.customer.lastName,
