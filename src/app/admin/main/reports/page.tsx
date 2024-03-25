@@ -1,11 +1,33 @@
 // Reports.js
 'use client';
 import ReportsModal from '@/components/ReportsModal';
+import { time } from 'console';
 import { useEffect, useState } from 'react';
 import React from 'react';
 
 export default function Reports(e: any) {
-  const data = [
+  const [reports, setReports] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetchReports();
+  }, []);
+
+  const fetchReports = async () => {
+    try {
+      const response = await fetch('/api/admin/reports'); //API
+      const data = await response.json();
+
+      if (data.success) {
+        setReports(data.reports); //set reports to state value
+      } else {
+        console.error('Error fetching logs:', data.error);
+      }
+    } catch (error) {
+      console.error('Error fetching logs:' + error);
+    }
+  };
+
+  const dummyData = [
     {
       id: '1234556789',
       firstName: 'Noel',
@@ -14,8 +36,8 @@ export default function Reports(e: any) {
       service: 'Study Buddy',
       serviceID: 2,
       date: '23/03/2024',
-      timeIn: '06:00',
-      timeOut: '09:00',
+      timeIn: '2024-03-24T03:00:00.000Z',
+      timeOut: '2024-03-25T06:00:00.000Z',
     },
     {
       id: '246813579',
@@ -25,8 +47,8 @@ export default function Reports(e: any) {
       service: 'Study Buddy',
       serviceID: 2,
       date: '23/03/2024',
-      timeIn: '06:00',
-      timeOut: '09:00',
+      timeIn: '2024-03-23T10:00:00.000Z',
+      timeOut: '2024-03-23T13:00:00.000Z',
     },
     {
       id: '987654321',
@@ -36,8 +58,8 @@ export default function Reports(e: any) {
       service: 'Solo Molo',
       serviceID: 1,
       date: '25/03/2024',
-      timeIn: '10:00',
-      timeOut: '01:00',
+      timeIn: '2024-03-23T02:00:00.000Z',
+      timeOut: '2024-03-23T05:00:00.000Z',
     },
     {
       id: '789456123',
@@ -47,11 +69,10 @@ export default function Reports(e: any) {
       service: 'Deep Sleep',
       serviceID: 4,
       date: '27/03/2024',
-      timeIn: '22:00',
-      timeOut: '06:00',
+      timeIn: '2024-03-23T14:00:00.000Z',
+      timeOut: '2024-03-23T21:00:00.000Z',
     },
   ];
-
   const styles = 'border border-solid border-black px-2 py-2';
   const [dailyFormData, setDailyFormData] = useState({
     timeOfDay: '',
@@ -76,24 +97,45 @@ export default function Reports(e: any) {
     setCustomData({ ...customData, endDate: newFormat });
   };
 
-  const userDate = data.filter((item) => {
-    const isAM = dailyFormData.timeOfDay === 'AM';
-    const isPM = dailyFormData.timeOfDay === 'PM';
+  const userDate = reports
+    ? reports.filter((item) => {
+        const isAM = dailyFormData.timeOfDay === 'AM';
+        const isPM = dailyFormData.timeOfDay === 'PM';
 
-    const itemTimeInHour = item.timeIn.split(':')[0];
-    const itemTimeOutHour = item.timeOut.split(':')[0];
+        let localTime = new Date(item.timeIn).toLocaleString('en-US', {
+          timeZone: 'Asia/Singapore', // Adjust timezone to GMT+8 (Asia/Singapore)
+          hour12: true, // Use 12-hour format
+          hour: 'numeric', // Display hour
+          minute: 'numeric', // Display minute
+        });
 
-    const isWithinHours =
-      (isAM && itemTimeInHour >= '00' && itemTimeInHour <= '11') ||
-      (isPM && itemTimeInHour >= '12' && itemTimeInHour <= '23');
+        //const hour = item.timeIn.split('T')[1];
+        if (localTime) {
+          const convertToLocal = localTime.split(' ')[0];
+          let hour = convertToLocal.split(':')[0];
+          if (hour.length != 2) {
+            hour = '0' + hour;
+          }
+          console.log('In ISO format:', item.timeIn);
+          console.log('In local time  & 12 hour format:', localTime);
+          console.log('24 Hour format:', convertToLocal); // Log convertToLocal if hour is
+          console.log('Get hour:', hour);
+          const isWithinHours =
+            (isAM && hour >= '00' && hour <= '11') ||
+            (isPM && hour >= '12' && hour <= '23');
+          return item.date === dailyFormData.date && isWithinHours;
+        } else {
+          console.log('hour is undefined. Cannot split further.');
+        }
+      })
+    : [];
 
-    return item.date === dailyFormData.date && isWithinHours;
-  });
-
-  const customDate = data.filter(
-    (item) =>
-      item.date >= customData.startDate && item.date <= customData.endDate,
-  );
+  const customDate = reports
+    ? reports.filter(
+        (item) =>
+          item.date >= customData.startDate && item.date <= customData.endDate,
+      )
+    : [];
   const [showModal, setShowModal] = useState(false);
   const [reportType, setReportType] = useState<'daily' | 'custom'>('daily');
   const dataToUse = reportType === 'daily' ? userDate : customDate;
@@ -201,6 +243,7 @@ export default function Reports(e: any) {
                 <th className={styles}>First Name</th>
                 <th className={styles}>Last Name</th>
                 <th className={styles}>Service</th>
+                <th className={styles}>Price</th>
                 <th className={styles}>Date</th>
                 <th className={styles}>Time In</th>
                 <th className={styles}>Time Out</th>
@@ -212,13 +255,28 @@ export default function Reports(e: any) {
               {/* Loop through the data and render rows */}
               {dataToUse.map((item: any) => (
                 <tr key={item.id}>
-                  <td className={styles}>{item.id}</td>
+                  <td className={styles}>{item.customer.customerID}</td>
                   <td className={styles}>{item.firstName}</td>
                   <td className={styles}>{item.lastName}</td>
                   <td className={styles}>{item.service}</td>
+                  <td className={styles}>{item.price}</td>
                   <td className={styles}>{item.date}</td>
-                  <td className={styles}>{item.timeIn}</td>
-                  <td className={styles}>{item.timeOut}</td>
+                  <td className={styles}>
+                    {' '}
+                    {new Date(item.timeIn).toLocaleString('en-US', {
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      hour12: true,
+                    })}
+                  </td>
+                  <td className={styles}>
+                    {' '}
+                    {new Date(item.timeOut).toLocaleString('en-US', {
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      hour12: true,
+                    })}
+                  </td>
                 </tr>
               ))}
             </tbody>

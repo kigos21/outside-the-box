@@ -8,6 +8,7 @@ interface ModalProps {
   userDate: any;
   customDate: any;
   dataToExport: any;
+  refreshParent: () => void;
 }
 
 export default function ReportsModal({
@@ -17,12 +18,17 @@ export default function ReportsModal({
   handleCancel,
   userDate,
   customDate,
-  dataToExport,
+  refreshParent,
 }: ModalProps) {
+  const handleCancelAndRefresh = () => {
+    handleCancel();
+    refreshParent();
+  };
+
   return (
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25"
-      onClick={handleCancel}
+      onClick={handleCancelAndRefresh}
     >
       <div className="rounded-lg border-2 border-solid border-black bg-white p-8 text-center shadow-lg">
         <h3 className="mb-4 text-lg font-semibold">{title}</h3>
@@ -41,7 +47,7 @@ export default function ReportsModal({
         </button>
         <button
           className="mt-2 rounded-md bg-gray-300 px-4 py-2"
-          onClick={handleCancel}
+          onClick={handleCancelAndRefresh}
         >
           Cancel
         </button>
