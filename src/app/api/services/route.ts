@@ -1,8 +1,6 @@
 import { prismaClient } from '@/lib/prismaClient';
 
 export async function GET(req: Request) {
-  // TODO: Token handling in the middleware
-
   try {
     const services = await prismaClient.service.findMany({
       where: { archived: false },

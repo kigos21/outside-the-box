@@ -1,156 +1,95 @@
 'use client';
 
 import AdminModal from '@/components/AdminModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+interface ConfirmedReservation {
+  id: string;
+  seatReservationId: string;
+  date: Date;
+  seatReservation: {
+    id: string;
+    customerId: string;
+    serviceId: string;
+    startDateTime: Date;
+    endDateTime: Date;
+    customer: {
+      firstName: string;
+      lastName: string;
+    };
+    service: {
+      name: string;
+      hours: number;
+    };
+  };
+}
+
+interface ModalData {
+  id: string;
+  firstName: string;
+  lastName: string;
+  service: string;
+  startDateTime: string;
+}
+
+interface SubmitData {
+  customerId: string;
+  serviceId: string;
+  timeIn: Date;
+  timeOut: Date;
+  confirmedReservationId: string;
+}
 
 export default function AddFromReservations() {
   const [showModal, setShowModal] = useState(false);
+  const [reserveData, setReserveData] = useState<ConfirmedReservation[]>([]);
+  const [modalData, setModalData] = useState<ModalData>();
+  const [submitData, setSubmitData] = useState<SubmitData>();
 
-  const reserveData = [
-    {
-      rsID: 1,
-      fName: 'Melfred',
-      lName: 'Fonclarers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 2,
-      fName: 'Noel',
-      lName: 'Cansiners',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 3,
-      fName: 'Karl',
-      lName: 'Taculers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 4,
-      fName: 'John',
-      lName: 'De Castrers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 5,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 6,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 7,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 8,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 9,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 10,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 11,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 12,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 13,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 14,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 15,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 16,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-    {
-      rsID: 17,
-      fName: 'Kevin',
-      lName: 'Corazers',
-      service: 'Study Buddy',
-      duration: '5 hours',
-      timeIn: '13:11',
-    },
-  ];
+  useEffect(() => {
+    fetchConfirmedReservations();
+  }, []);
+
+  const fetchConfirmedReservations = async () => {
+    const response = await fetch('/api/reservations/confirmed');
+
+    if (response.ok) {
+      const { confirmedReservations } = await response.json();
+      setReserveData(confirmedReservations);
+    } else {
+      const message = await response.text();
+      console.error(message);
+      alert(message);
+    }
+  };
+
+  const createLogFromReservation = async (data: SubmitData) => {
+    const response = await fetch('/api/logs/create-from-reservation', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      fetchConfirmedReservations();
+      setShowModal(false);
+    } else {
+      const message = await response.text();
+      console.error(message);
+      alert(message);
+    }
+  };
 
   return (
     <div className="flex h-full flex-col">
-      {showModal && (
+      {showModal && modalData && (
         <AdminModal
           title={'Create log based on this reservation?'}
-          handleConfirm={() => console.log('Confirm')}
+          handleConfirm={() =>
+            submitData && createLogFromReservation(submitData)
+          }
           handleCancel={() => {
             setShowModal(false);
           }}
@@ -158,23 +97,27 @@ export default function AddFromReservations() {
           <div className="flex flex-col gap-1">
             <div className="flex justify-between gap-4">
               <p className="basis-1/2">Reservation ID</p>
-              <p className="basis-1/2 font-semibold">21</p>
+              <p className="basis-1/2 font-semibold" title={modalData.id}>
+                {modalData.id.substring(0, 8)}...
+              </p>
             </div>
             <div className="flex justify-between gap-4">
               <p className="basis-1/2">First name</p>
-              <p className="basis-1/2 font-semibold">John</p>
+              <p className="basis-1/2 font-semibold">{modalData.firstName}</p>
             </div>
             <div className="flex justify-between gap-4">
               <p className="basis-1/2">Last name</p>
-              <p className="basis-1/2 font-semibold">Castro</p>
+              <p className="basis-1/2 font-semibold">{modalData.lastName}</p>
             </div>
             <div className="flex justify-between gap-4">
               <p className="basis-1/2">Service</p>
-              <p className="basis-1/2 font-semibold">5hrsReg</p>
+              <p className="basis-1/2 font-semibold">{modalData.service}</p>
             </div>
             <div className="flex justify-between gap-4">
               <p className="basis-1/2">Time in</p>
-              <p className="basis-1/2 font-semibold">14:00</p>
+              <p className="basis-1/2 font-semibold">
+                {modalData.startDateTime}
+              </p>
             </div>
           </div>
         </AdminModal>
@@ -196,47 +139,69 @@ export default function AddFromReservations() {
               <th className="sticky top-[-1.5rem] bg-white">First Name</th>
               <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
               <th className="sticky top-[-1.5rem] bg-white">Service</th>
-              <th className="sticky top-[-1.5rem] bg-white">Duration</th>
               <th className="sticky top-[-1.5rem] bg-white">Time In</th>
               <th className="sticky top-[-1.5rem] bg-white">Create Log</th>
             </tr>
           </thead>
           <tbody>
-            {reserveData.map((data) => (
-              <tr
-                className="h-9 border border-solid border-black"
-                key={data.rsID}
-              >
-                <td>{data.rsID}</td>
-                <td>{data.fName}</td>
-                <td>{data.lName}</td>
-                <td>{data.service}</td>
-                <td>{data.duration}</td>
-                <td>{data.timeIn}</td>
-                <td className="flex h-12 items-center justify-center gap-2">
-                  <button
-                    className="rounded-lg bg-blue-700 p-1 text-white"
-                    onClick={() => setShowModal(true)}
-                    title="Create log"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="h-6 w-6"
+            {reserveData.map((data) => {
+              const [hoursIn, minutesIn, meridianIn] = new Date(
+                data.seatReservation.startDateTime,
+              )
+                .toLocaleTimeString()
+                .split(':');
+
+              return (
+                <tr
+                  className="h-9 border border-solid border-black"
+                  key={data.id}
+                >
+                  <td title={data.id}>{data.id.substring(0, 8)}...</td>
+                  <td>{data.seatReservation.customer.firstName}</td>
+                  <td>{data.seatReservation.customer.lastName}</td>
+                  <td>{data.seatReservation.service.name}</td>
+                  <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
+                  <td className="flex h-12 items-center justify-center gap-2">
+                    <button
+                      className="rounded-lg bg-blue-700 p-1 text-white"
+                      onClick={() => {
+                        setModalData({
+                          id: data.id,
+                          firstName: data.seatReservation.customer.firstName,
+                          lastName: data.seatReservation.customer.lastName,
+                          service: data.seatReservation.service.name,
+                          startDateTime: `${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`,
+                        });
+                        setSubmitData({
+                          confirmedReservationId: data.id,
+                          customerId: data.seatReservation.customerId,
+                          serviceId: data.seatReservation.serviceId,
+                          timeIn: data.seatReservation.startDateTime,
+                          timeOut: data.seatReservation.endDateTime,
+                        });
+                        setShowModal(true);
+                      }}
+                      title="Create log"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 4.5v15m7.5-7.5h-15"
-                      />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-            ))}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="h-6 w-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 4.5v15m7.5-7.5h-15"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
