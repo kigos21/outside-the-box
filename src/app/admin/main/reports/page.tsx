@@ -40,7 +40,6 @@ export default function Reports(e: any) {
 
       if (data.success) {
         setReports(data.logs); //set reports to state value
-        console.log('wtf is this', data.logs);
       } else {
         console.error('Error fetching logs:', data.error);
       }
@@ -53,7 +52,6 @@ export default function Reports(e: any) {
     reports: [],
   };
 
-  // Iterate through each report object and push the data to the new container
   reports.forEach((report) => {
     objectContainer.reports.push({
       customer: { ...report.customer },
@@ -64,7 +62,6 @@ export default function Reports(e: any) {
       timeOut: report.timeOut,
     });
   });
-  // Now you can use the newContainer object for further processing
 
   const styles = 'border border-solid border-black px-2 py-2';
 
@@ -73,8 +70,6 @@ export default function Reports(e: any) {
     const newFormat = date.split('-').reverse().join('/');
     setCustomData({ ...customData, startDate: newFormat });
   };
-
-  console.log('customData:', customData.startDate);
 
   const handleEndDate = (e: any) => {
     const date = e.target.value;
@@ -86,8 +81,6 @@ export default function Reports(e: any) {
     if (userDate.length === 0) {
       console.log('No date selected');
       return;
-    } else {
-      console.log(userDate);
     }
     setReportType('daily');
     setShowModal(false);
@@ -131,6 +124,7 @@ export default function Reports(e: any) {
 
     setDailyFormData({ ...dailyFormData, date: newFormat });
   };
+
   const userDate = objectContainer.reports.filter((item: any) => {
     const isAM = dailyFormData.timeOfDay === 'AM';
     const isPM = dailyFormData.timeOfDay === 'PM';
@@ -140,14 +134,9 @@ export default function Reports(e: any) {
       hour: 'numeric', // Display hour
       minute: 'numeric', // Display minute
     });
-    //const hour = item.timeIn.split('T')[1];
     if (localTime) {
       const convertToLocal = localTime.split(' ')[0];
       const getHourTime = item.timeIn.slice(11, 13);
-      console.log('In ISO format:', item.timeIn);
-      console.log('GetHourTime', getHourTime);
-      console.log('In local time  & 12 hour format:', localTime);
-      console.log('24 Hour format:', convertToLocal); // Log convertToLocal if hour is
       const isWithinHours =
         (isAM && getHourTime >= '00' && getHourTime <= '11') ||
         (isPM && getHourTime >= '12' && getHourTime <= '23');
@@ -157,8 +146,6 @@ export default function Reports(e: any) {
     }
   });
 
-  console.log(reports);
-
   const customDate = reports
     ? reports.filter(
         (item) =>
@@ -167,7 +154,6 @@ export default function Reports(e: any) {
     : [];
 
   const dataToUse = reportType === 'daily' ? userDate : customDate;
-  console.log('ANO LABAS', customDate);
 
   function confirmExport(data: any) {
     const csvContent = coverToCSV(data);
@@ -220,13 +206,7 @@ export default function Reports(e: any) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const updatedDataToUse = reportType === 'daily' ? userDate : customDate;
-    console.log('Updated dataToUse:', updatedDataToUse);
     setShowModal(true);
-    console.log(dailyFormData);
-    console.log(userDate);
-    console.log(customData);
-    console.log(customDate);
-    console.log(dataToUse);
   };
 
   const refreshParent = (e: any) => {

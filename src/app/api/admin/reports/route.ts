@@ -32,12 +32,12 @@ export async function GET(req: Request) {
       const timeIn = new Date(log.timeIn).toISOString();
       const timeOut = new Date(log.timeOut).toISOString();
       const localTimeIn = new Date(timeIn).toLocaleString('en-US', {
-        timeZone: 'Asia/Singapore', // Adjust timeZone according to your requirements
-        hour12: false, // Use 24-hour format
+        timeZone: 'Asia/Singapore',
+        hour12: false,
       });
       const localTimeOut = new Date(timeOut).toLocaleString('en-US', {
-        timeZone: 'Asia/Singapore', // Adjust timeZone according to your requirements
-        hour12: false, // Use 24-hour format
+        timeZone: 'Asia/Singapore',
+        hour12: false,
       });
       return { ...log, newDate, localTimeIn, localTimeOut };
     });
