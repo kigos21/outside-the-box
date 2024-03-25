@@ -3,28 +3,35 @@ import { prismaClient } from '@/lib/prismaClient';
 import { CreateLogRequestBody } from '@/types';
 
 export async function POST(req: Request) {
+  const { firstName, lastName, serviceId }: CreateLogRequestBody =
+    await req.json();
   try {
-    const body: CreateLogRequestBody = await req.json();
+    const customer = await prismaClient.customer.findFirst({
+      where: {
+        firstName,
+        lastName,
+      },
+    });
 
-    if (!body.firstName || !body.lastName || !body.serviceId) {
-      return Response.json(
-        { message: 'Incomplete data, try again.' },
-        { status: 400 },
-      );
+    if (!customer) {
+      return Response.json({ message: 'Customer not found.' }, { status: 404 });
     }
 
-    const customer = await prismaClient.customer.findFirstOrThrow({
+    const service = await prismaClient.service.findUnique({
       where: {
-        firstName: body.firstName,
-        lastName: body.lastName,
+        id: serviceId,
       },
     });
 
-    const service = await prismaClient.service.findUniqueOrThrow({
-      where: {
-        id: body.serviceId,
-      },
-    });
+    if (!service) {
+      return Response.json(
+        {
+          message:
+            'Service not found, ID must have been modified. Try reloading the page.',
+        },
+        { status: 404 },
+      );
+    }
 
     const dateTimeNow = new Date();
     const computedTimeOut = new Date();
@@ -33,26 +40,18 @@ export async function POST(req: Request) {
     const log = await prismaClient.log.create({
       data: {
         customerId: customer.id,
-        serviceId: body.serviceId,
-        date: dateTimeNow,
+        serviceId: serviceId,
         timeIn: dateTimeNow,
         timeOut: computedTimeOut,
       },
     });
 
-    return Response.json({ log }, { status: 200 });
-  } catch (error: any) {
+    return Response.json(
+      { message: 'Log successfully created.' },
+      { status: 200 },
+    );
+  } catch (error) {
     console.error(error);
-    return Response.json({ message: error }, { status: 404 });
-  }
-}
-
-export async function GET() {
-  try {
-    const services = await prismaClient.service.findMany();
-    return Response.json({ success: true, services: services }, { status: 200 });
-  } catch (error: any) {
-    console.error(error)
-    return Response.json({error}, {status: 500});
+    return Response.json({ message: error }, { status: 500 });
   }
 }

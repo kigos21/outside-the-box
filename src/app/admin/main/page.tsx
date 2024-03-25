@@ -15,7 +15,7 @@ export default function Home() {
 
   const fetchLogs = async () => {
     try {
-      const response = await fetch('/api/logs'); // API endpoint URL
+      const response = await fetch('/api/logs/today'); // API endpoint URL
       const data = await response.json();
 
       if (data.success) {
