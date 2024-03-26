@@ -1,3 +1,4 @@
+// src/app/admin/main/reports/page.tsx
 'use client';
 import ReportsModal from '@/components/ReportsModal';
 import { time } from 'console';
@@ -127,8 +128,8 @@ export default function Reports(e: any) {
     }
   });
 
-  const customDate = reports
-    ? reports.filter(
+  const customDate = objectContainer.reports
+    ? objectContainer.reports.filter(
         (item) =>
           item.date >= customData.startDate && item.date <= customData.endDate,
       )
@@ -206,9 +207,10 @@ export default function Reports(e: any) {
           handleConfirm={confirmExport}
           handleCancel={() => setShowModal(false)}
           dataToExport={dataToExport}
-          userDate={userDate} // Pass userDate prop
-          customDate={customDate} // Pass customDate prop
+          userDate={userDate}
+          customDate={customDate}
           refreshParent={() => ''}
+          reportType={reportType} // Pass the reportType prop
         >
           <table className="w-full border-collapse border-2 border-solid border-black">
             <thead>
