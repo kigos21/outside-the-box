@@ -1,4 +1,4 @@
-// server.js
+//src/app/admin/main/reports/Report.tsx
 import { PrismaClient } from '@prisma/client';
 
 const express = require('express');

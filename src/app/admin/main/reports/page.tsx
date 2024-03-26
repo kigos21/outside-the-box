@@ -1,4 +1,3 @@
-// Reports.js
 'use client';
 import ReportsModal from '@/components/ReportsModal';
 import { time } from 'console';
@@ -15,6 +14,7 @@ interface ObjectContainer {
     timeOut: string;
   }[];
 }
+
 export default function Reports(e: any) {
   const [reports, setReports] = useState<any[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -29,17 +29,19 @@ export default function Reports(e: any) {
     startDate: '',
     endDate: '',
   });
+  const [dataToExport, setDataToExport] = useState<any[]>([]);
+
   useEffect(() => {
     fetchReports();
   }, []);
 
   const fetchReports = async () => {
     try {
-      const response = await fetch('/api/admin/reports'); //API
+      const response = await fetch('/api/admin/reports');
       const data = await response.json();
 
       if (data.success) {
-        setReports(data.logs); //set reports to state value
+        setReports(data.logs);
       } else {
         console.error('Error fetching logs:', data.error);
       }
@@ -77,27 +79,6 @@ export default function Reports(e: any) {
     setCustomData({ ...customData, endDate: newFormat });
   };
 
-  const handleDailyReport = () => {
-    if (userDate.length === 0) {
-      console.log('No date selected');
-      return;
-    }
-    setReportType('daily');
-    setShowModal(false);
-  };
-
-  const handleCustomReport = () => {
-    if (customDate.length === 0) {
-      console.log('No date selected');
-      return;
-    } else {
-      console.log(userDate);
-    }
-
-    setReportType('custom');
-    setShowModal(false);
-  };
-
   const handleTimeOfDayChange = (e: any) => {
     const selectedTimeOfDay = e.target.value;
     let startHour = '00:00';
@@ -129,10 +110,10 @@ export default function Reports(e: any) {
     const isAM = dailyFormData.timeOfDay === 'AM';
     const isPM = dailyFormData.timeOfDay === 'PM';
     let localTime = new Date(item.timeIn).toLocaleString('en-US', {
-      timeZone: 'Asia/Singapore', // Adjust timezone to GMT+8 (Asia/Singapore)
-      hour12: true, // Use 12-hour format
-      hour: 'numeric', // Display hour
-      minute: 'numeric', // Display minute
+      timeZone: 'Asia/Singapore',
+      hour12: true,
+      hour: 'numeric',
+      minute: 'numeric',
     });
     if (localTime) {
       const convertToLocal = localTime.split(' ')[0];
@@ -152,8 +133,6 @@ export default function Reports(e: any) {
           item.date >= customData.startDate && item.date <= customData.endDate,
       )
     : [];
-
-  const dataToUse = reportType === 'daily' ? userDate : customDate;
 
   function confirmExport(data: any) {
     const csvContent = coverToCSV(data);
@@ -203,14 +182,20 @@ export default function Reports(e: any) {
     return [headerRow, ...csvRows].join('\n');
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleDailyReportSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const updatedDataToUse = reportType === 'daily' ? userDate : customDate;
+    const updatedDataToUse = userDate;
+    setDataToExport(updatedDataToUse);
+    setReportType('daily');
     setShowModal(true);
   };
 
-  const refreshParent = (e: any) => {
-    e.window.reload();
+  const handleCustomReportSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const updatedDataToUse = customDate;
+    setDataToExport(updatedDataToUse);
+    setReportType('custom');
+    setShowModal(true);
   };
 
   return (
@@ -220,9 +205,9 @@ export default function Reports(e: any) {
           title={'Data to be exported:'}
           handleConfirm={confirmExport}
           handleCancel={() => setShowModal(false)}
-          dataToExport={dataToUse}
-          userDate={userDate}
-          customDate={customDate}
+          dataToExport={dataToExport}
+          userDate={userDate} // Pass userDate prop
+          customDate={customDate} // Pass customDate prop
           refreshParent={() => ''}
         >
           <table className="w-full border-collapse border-2 border-solid border-black">
@@ -236,13 +221,10 @@ export default function Reports(e: any) {
                 <th className={styles}>Date</th>
                 <th className={styles}>Time In</th>
                 <th className={styles}>Time Out</th>
-
-                {/* Add more headers based on your data */}
               </tr>
             </thead>
             <tbody>
-              {/* Loop through the data and render rows */}
-              {dataToUse.map((item) => (
+              {dataToExport.map((item) => (
                 <tr key={item.id}>
                   <td className={styles}>{item.id}</td>
                   <td className={styles}>{item.customer.firstName}</td>
@@ -251,7 +233,6 @@ export default function Reports(e: any) {
                   <td className={styles}>{item.service.servicePrice}</td>
                   <td className={styles}>{item.date}</td>
                   <td className={styles}>
-                    {' '}
                     {new Date(item.timeIn).toLocaleString('en-US', {
                       hour: 'numeric',
                       minute: 'numeric',
@@ -259,7 +240,6 @@ export default function Reports(e: any) {
                     })}
                   </td>
                   <td className={styles}>
-                    {' '}
                     {new Date(item.timeOut).toLocaleString('en-US', {
                       hour: 'numeric',
                       minute: 'numeric',
@@ -279,7 +259,7 @@ export default function Reports(e: any) {
         <div className="flex flex-grow flex-col">
           <form
             className="flex flex-grow flex-col justify-between"
-            onSubmit={handleSubmit}
+            onSubmit={handleDailyReportSubmit}
           >
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-4">
@@ -317,7 +297,6 @@ export default function Reports(e: any) {
             <button
               type="submit"
               className="w-fit self-end rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-              onClick={handleDailyReport}
             >
               Generate
             </button>
@@ -331,7 +310,7 @@ export default function Reports(e: any) {
         <div className="flex flex-grow flex-col">
           <form
             className="flex flex-grow flex-col justify-between"
-            onSubmit={handleSubmit}
+            onSubmit={handleCustomReportSubmit}
           >
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-4">
@@ -365,7 +344,6 @@ export default function Reports(e: any) {
             <button
               type="submit"
               className="w-fit self-end rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-              onClick={handleCustomReport}
             >
               Generate
             </button>
