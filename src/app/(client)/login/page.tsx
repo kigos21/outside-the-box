@@ -5,10 +5,41 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { LoginFormBody } from '@/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [tries, setTries] = useState<number>(0);
+  const [timeout, setTimeout] = useState<number>(0);
+  const [timeoutMessage, setTimeoutMessage] = useState<string>('');
+
+  useEffect(() => {
+    setTimeoutMessage(`Try again after ${timeout} seconds.`);
+
+    const interval = setInterval(() => {
+      setTimeout((prevTimeout: number) => {
+        if (prevTimeout === 0) {
+          clearInterval(interval);
+          return 0;
+        } else {
+          return prevTimeout - 1;
+        }
+      });
+    }, 1000);
+
+    // prevent multiple interval functions from spawning everytime `timeout`
+    // state change
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timeout]);
+
+  useEffect(() => {
+    if (tries === 3) {
+      setTimeout(30);
+      setTries(0);
+    }
+  }, [tries]);
 
   const router = useRouter();
   const {
@@ -42,6 +73,10 @@ export default function Login() {
       } else {
         const { message } = await res.json();
         setErrorMessage(message);
+
+        if (message === 'Invalid credentials') {
+          setTries((count) => (count += 1));
+        }
       }
     } catch (error) {
       console.error(error);
@@ -122,8 +157,17 @@ export default function Login() {
               </Link>
             </span>
 
+            {timeout !== 0 && (
+              <p role="alert" className="text-center text-base text-red-500">
+                {timeoutMessage}
+              </p>
+            )}
+
             <div className="mt-4 flex w-full flex-col gap-4">
-              <button className="rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+              <button
+                disabled={timeout !== 0}
+                className="rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none disabled:bg-gray-400 disabled:text-white disabled:shadow-none disabled:hover:bg-gray-400"
+              >
                 Login
               </button>
 
