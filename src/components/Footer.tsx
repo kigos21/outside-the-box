@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="mt-auto flex flex-col items-start justify-between gap-2 bg-otb-yellow px-4 py-6 md:flex-row md:px-[7%] md:py-10">
+    <div className="bg-cs-cream mt-auto flex flex-col items-start justify-between gap-2 px-4 py-6 md:flex-row md:px-[7%] md:py-10">
       <div className=" grid grid-cols-1 md:grid-cols-2">
         <div className="mb-0 flex w-full flex-col items-start md:mb-0 ">
           <p className=" text-sm font-bold">Terms and Conditions</p>
@@ -16,7 +16,7 @@ export default function Footer() {
         <img className="h-full w-8" src="/x_logo.png" />
       </div>
       <h1 className="text-sm opacity-75 md:text-right">
-        © OutsideTheBox. ALL RIGHTS RESERVED{' '}
+        © Coursescape. ALL RIGHTS RESERVED{' '}
       </h1>
     </div>
   );

@@ -25,18 +25,18 @@ export default function Header() {
 
   const pathname = usePathname();
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Services', path: '/services' },
+    { name: 'HOME', path: '/' },
+    { name: 'ABOUT', path: '/about' },
+    { name: 'SERVICES', path: '/services' },
   ];
   return (
-    <header className="flex items-center justify-between bg-otb-yellow px-[7%] py-6">
+    <header className="from-cs-yellow to-cs-orange flex items-center justify-between bg-gradient-to-b px-[7%] py-6">
       <Link href={'/'}>
         <Image
-          src="/otb-logo-cropped.jpg"
+          src="/coursescape-logo-cropped.png"
           width={160}
-          height={57}
-          alt="Outside the Box Logo"
+          height={70}
+          alt="Coursescape Logo"
         />
       </Link>
 
@@ -118,10 +118,10 @@ export default function Header() {
           {/* remove login Link whenever token is present in cookies */}
           {isAuthed ? (
             <span onClick={handleLogout}>
-              <NavLink name={'Logout'} href={'/logout'} pathName={pathname} />
+              <NavLink name={'LOGOUT'} href={'/logout'} pathName={pathname} />
             </span>
           ) : (
-            <NavLink name={'Login'} href={'/login'} pathName={pathname} />
+            <NavLink name={'LOGIN'} href={'/login'} pathName={pathname} />
           )}
         </ul>
       </nav>

@@ -11,21 +11,38 @@ export default function Home() {
         <Carousel />
 
         <div className="relative">
-          <div className="mx-auto flex max-w-screen-lg flex-wrap items-center gap-x-16 gap-y-4 px-[7%] py-16 md:flex-nowrap md:px-16">
-            <div className="flex aspect-square basis-full items-center justify-center rounded-2xl border border-gray-400 text-gray-400 md:basis-1/3">
-              IMAGE
+          <div className="mx-auto flex max-w-screen-lg flex-wrap items-center gap-x-16 gap-y-4 px-[7%] py-20 font-sans md:flex-nowrap md:px-12">
+            <div className="flex basis-full flex-col gap-8 ">
+              <div className="align-items-center  inline-flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="#e79953"
+                  className=" h-14 w-14 "
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                  />
+                </svg>
+
+                <h1 className="text-cs-orange text-6xl font-bold">ABOUT US</h1>
+              </div>
+              <div className="flex justify-center">
+                <p className="w-full text-balance md:text-center ">
+                  Our co-working and study lounge is designed to provide a
+                  comfortable, inspiring, and collaborative space for students,
+                  freelancers, and young professionals to work, learn, and
+                  connect.
+                </p>
+              </div>
+
+              <div className="mt-4 h-1 w-full bg-[#a6a6a6]/75" />
             </div>
-            <div className="flex basis-full flex-col gap-4 md:basis-2/3">
-              <h1>About us</h1>
-              <p className="text-balance">
-                Our co-working and study lounge is designed to provide a
-                comfortable, inspiring, and collaborative space for students,
-                freelancers, and young professionals to work, learn, and
-                connect.
-              </p>
-              <div className="mt-4 h-1 w-2/3 bg-[#272727]/75" />
-            </div>
-            <div className="absolute left-0 right-0 -z-10 h-full bg-zinc-200" />
+            <div className="bg-cs-cream absolute left-0 right-0 -z-10 h-full" />
           </div>
         </div>
 

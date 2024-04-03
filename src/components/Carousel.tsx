@@ -67,15 +67,16 @@ export default function Carousel() {
 
       <IndexIndicator index={index} />
 
-      <div className="mx-auto mt-8 flex max-w-screen-lg flex-col gap-4 text-center text-white">
-        <h1 className="text-5xl text-otb-yellow lg:text-7xl">
-          Work. Learn. Connect.
+      <div className="mx-auto mt-8 flex  max-w-screen-lg flex-col gap-4 text-center font-sans text-white">
+        <h1 className="text-5xl font-bold lg:text-7xl">Feel The Presence in</h1>
+        <h1 className="text-cs-orange  text-5xl font-bold lg:text-7xl">
+          coursescape.
         </h1>
-        <p className="text-2xl">
-          Outside the Box, where creativity meets productivity.
+        <p className="font-regular text-2xl">
+          Where creativity meets productivity.
         </p>
-        <button className="mx-auto mt-8 w-fit rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
-          Create an Account
+        <button className="bg-cs-orange mx-auto mt-8 w-fit rounded-full px-8 py-6 text-2xl font-bold shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+          Reserve Now
         </button>
       </div>
     </div>
