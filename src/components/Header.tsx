@@ -106,7 +106,7 @@ export default function Header() {
       )}
 
       <nav className="hidden items-center justify-center md:flex">
-        <ul className="flex items-center gap-12 font-bold">
+        <ul className="flex items-center gap-12 font-sans font-bold">
           {navLinks.map((link) => (
             <NavLink
               key={link.name}
