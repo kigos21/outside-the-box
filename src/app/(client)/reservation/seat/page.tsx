@@ -178,43 +178,43 @@ interface DropdownProps {
 
 const TimeDropdown: React.FC<DropdownProps> = ({ register, errors, date }) => {
   const weekdayTimeOptions = [
-    '1:00 AM',
-    '2:00 AM',
-    '3:00 AM',
-    '4:00 AM',
-    '5:00 AM',
-    '10:00 AM',
-    '11:00 AM',
-    '12:00 PM',
-    '1:00 PM',
-    '2:00 PM',
-    '3:00 PM',
-    '4:00 PM',
-    '5:00 PM',
-    '6:00 PM',
-    '7:00 PM',
-    '8:00 PM',
-    '9:00 PM',
-    '10:00 PM',
-    '11:00 PM',
-    '12:00 AM',
+    { value: '0:00', name: '12:00 AM' },
+    { value: '1:00', name: '1:00 AM' },
+    { value: '2:00', name: '2:00 AM' },
+    { value: '3:00', name: '3:00 AM' },
+    { value: '4:00', name: '4:00 AM' },
+    { value: '5:00', name: '5:00 AM' },
+    { value: '10:00', name: '10:00 AM' },
+    { value: '11:00', name: '11:00 AM' },
+    { value: '12:00', name: '12:00 PM' },
+    { value: '13:00', name: '1:00 PM' },
+    { value: '14:00', name: '2:00 PM' },
+    { value: '15:00', name: '3:00 PM' },
+    { value: '16:00', name: '4:00 PM' },
+    { value: '17:00', name: '5:00 PM' },
+    { value: '18:00', name: '6:00 PM' },
+    { value: '19:00', name: '7:00 PM' },
+    { value: '20:00', name: '8:00 PM' },
+    { value: '21:00', name: '9:00 PM' },
+    { value: '22:00', name: '10:00 PM' },
+    { value: '23:00', name: '11:00 PM' },
   ];
 
   const weekendTimeOptions = [
-    '12:00 AM',
-    '1:00 AM',
-    '12:00 PM',
-    '1:00 PM',
-    '2:00 PM',
-    '3:00 PM',
-    '4:00 PM',
-    '5:00 PM',
-    '6:00 PM',
-    '7:00 PM',
-    '8:00 PM',
-    '9:00 PM',
-    '10:00 PM',
-    '11:00 PM',
+    { value: '0:00', name: '12:00 AM' },
+    { value: '1:00', name: '1:00 AM' },
+    { value: '12:00', name: '12:00 PM' },
+    { value: '13:00', name: '1:00 PM' },
+    { value: '14:00', name: '2:00 PM' },
+    { value: '15:00', name: '3:00 PM' },
+    { value: '16:00', name: '4:00 PM' },
+    { value: '17:00', name: '5:00 PM' },
+    { value: '18:00', name: '6:00 PM' },
+    { value: '19:00', name: '7:00 PM' },
+    { value: '20:00', name: '8:00 PM' },
+    { value: '21:00', name: '9:00 PM' },
+    { value: '22:00', name: '10:00 PM' },
+    { value: '23:00', name: '11:00 PM' },
   ];
 
   const getTimeOptions = () => {
@@ -235,15 +235,27 @@ const TimeDropdown: React.FC<DropdownProps> = ({ register, errors, date }) => {
         className="rounded-full border border-gray-300 px-6 py-4"
         {...register('time', {
           required: true,
-          validate: { validEnum: (option: string) => option !== '' },
+          validate: {
+            validEnum: (option: string) => option !== '',
+            futureTime: (value: string) => {
+              const today = new Date();
+              const targetDateTime = new Date(date);
+              let [hours, minutes] = value.split(':');
+              targetDateTime.setHours(Number(hours), Number(minutes), 0, 0);
+
+              return targetDateTime >= today
+                ? true
+                : 'Date and time must be today or in the future.';
+            },
+          },
         })}
       >
         <option value="" hidden>
           Select a time
         </option>
         {getTimeOptions().map((option) => (
-          <option key={option} value={option}>
-            {option}
+          <option key={option.name} value={option.value}>
+            {option.name}
           </option>
         ))}
       </select>
@@ -255,6 +267,11 @@ const TimeDropdown: React.FC<DropdownProps> = ({ register, errors, date }) => {
       {errors.time?.type === 'validEnum' && (
         <p role="alert" className="mt-[-0.75rem] px-6 text-xs text-red-500">
           Please select a time.
+        </p>
+      )}
+      {errors.time?.type === 'futureTime' && (
+        <p role="alert" className="mt-[-0.75rem] px-6 text-xs text-red-500">
+          {errors.time.message}
         </p>
       )}
     </>
