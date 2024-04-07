@@ -24,9 +24,31 @@ export default function Login() {
     setUsername(value);
   };
 
-  const handleUsernameSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUsernameSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // const res = await fetch('/api/login/forgot-password', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     username: username,
+    //   }),
+    // });
+
+    // const status = res.status;
+
+    // if (status === 200) {
+    //   setIsEnteringUsername(false);
+    //   setIsEnteringOTP(true);
+    // } else if (status === 400) {
+    //   // set conditional
+    // } else {
+    //   // set conditional
+    // }
+
+    //remove after uncommenting
     setIsEnteringUsername(false);
     setIsEnteringOTP(true);
   };
@@ -35,11 +57,30 @@ export default function Login() {
     setOTP(value);
   };
 
-  const handleOTPSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsEnteringOTP(false);
-    setIsEnteringNewPassword(true);
+    const res = await fetch('/api/login/forgot-password/verifyotp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        otp: otp,
+      }),
+    });
+
+    const status = res.status;
+
+    if (status === 200) {
+      setIsEnteringOTP(false);
+      setIsEnteringNewPassword(true);
+    } else if (status === 400) {
+      // set conditional
+    } else {
+      // set conditional
+    }
   };
 
   const handleNewPasswordChange = (value: string) => {
