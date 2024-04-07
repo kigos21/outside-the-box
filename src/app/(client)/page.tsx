@@ -129,7 +129,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="h-1 w-full bg-[#a6a6a6]" />
     </div>
 
     // <>
