@@ -18,7 +18,7 @@ export default function Carousel() {
   };
 
   return (
-    <div className="flex flex-col gap-6 px-[7%]">
+    <div className="flex flex-col gap-6 px-[7%] pt-20">
       <div className="relative mx-auto mt-16 flex max-w-screen-md items-center">
         {index !== 0 && (
           <svg
@@ -42,7 +42,7 @@ export default function Carousel() {
         <img
           src={items[index]}
           alt="carousel image"
-          className={`${styles.blue_shadow} aspect-video h-auto w-full overflow-hidden rounded-3xl object-cover`}
+          className={` aspect-video h-auto w-full overflow-hidden rounded-3xl object-cover`}
         />
         {index !== 2 && (
           <svg
@@ -67,15 +67,13 @@ export default function Carousel() {
 
       <IndexIndicator index={index} />
 
-      <div className="mx-auto mt-8 flex  max-w-screen-lg flex-col gap-4 text-center font-sans text-white">
+      <div className="mx-auto mt-8 flex  max-w-screen-lg flex-col gap-2 text-center font-sans text-white">
         <h1 className="text-5xl font-bold lg:text-7xl">Feel The Presence in</h1>
-        <h1 className="text-cs-orange  text-5xl font-bold lg:text-7xl">
+        <h1 className="text-5xl  font-bold text-cs-orange lg:text-7xl">
           coursescape.
         </h1>
-        <p className="font-regular text-2xl">
-          Where creativity meets productivity.
-        </p>
-        <button className="bg-cs-orange mx-auto mt-8 w-fit rounded-full px-8 py-6 text-2xl font-bold shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+
+        <button className="mx-auto mt-8 w-fit rounded-full bg-cs-orange px-8 py-6 text-2xl font-bold shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
           Reserve Now
         </button>
       </div>

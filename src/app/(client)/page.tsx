@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="relative">
       <div className={styles.sticky_bg} />
-      <div className="flex flex-col gap-48">
+      <div className="flex flex-col gap-24">
         {/* <div className="flex flex-col gap-48 pt-48">  */}
 
         <Carousel />
@@ -29,7 +29,7 @@ export default function Home() {
                   />
                 </svg>
 
-                <h1 className="text-cs-orange text-6xl font-bold">ABOUT US</h1>
+                <h1 className="text-6xl font-bold text-cs-orange">ABOUT US</h1>
               </div>
               <div className="flex justify-center">
                 <p className="w-full text-balance md:text-center ">
@@ -39,16 +39,39 @@ export default function Home() {
                   connect.
                 </p>
               </div>
-
-              <div className="mt-4 h-1 w-full bg-[#a6a6a6]/75" />
             </div>
-            <div className="bg-cs-cream absolute left-0 right-0 -z-10 h-full" />
+
+            <div className="absolute left-0 right-0 -z-10 h-full bg-cs-cream" />
           </div>
         </div>
 
-        <div className="mx-auto flex max-w-screen-lg flex-wrap items-center gap-x-16 gap-y-8 rounded-3xl bg-otb-yellow px-[7%] py-16 md:flex-nowrap md:px-16">
+        <div className="mx-auto flex max-w-screen-lg flex-wrap items-center gap-x-16 gap-y-8 rounded-3xl bg-cs-cream px-[7%] py-16 font-sans md:flex-nowrap md:px-16">
           <div className="basis-full md:basis-1/2">
-            <h1 className="mb-4 text-balance leading-none">Where to find us</h1>
+            <div className="inline-flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="#e79953"
+                className=" h-10 w-10 "
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                />
+              </svg>
+
+              <h1 className="mb-4 text-balance font-bold leading-none text-cs-orange">
+                LOCATION
+              </h1>
+            </div>
             <p className="text-balance">
               Looking for a great study spot? Let this map guide you to our
               door.
@@ -63,25 +86,50 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative bg-zinc-200 py-28">
-          <div className="mx-auto flex max-w-screen-lg flex-col items-center gap-4 px-[7%] md:px-16">
-            <h1>Contact us</h1>
-            <div className="flex flex-col gap-2">
+        <div className="relative bg-cs-cream py-28 xl:columns-2 ">
+          <div className="mx-auto mb-10 flex max-w-screen-lg flex-col items-center gap-4 px-[7%] font-sans md:px-12 md:py-0">
+            <h1 className="gap-2 text-4xl font-bold text-cs-orange">CONTACT</h1>
+            <div className="flex flex-col items-center">
               <p>
-                <span className="font-semibold">Phone:</span> 0956 025 4032
+                <span className="text-4xl font-bold"> 0956 025 4032</span>
               </p>
               <p>
-                <span className="font-semibold">Email:</span>{' '}
-                otbcoworkingph@gmail.com
+                <span className="">otbcoworkingph@gmail.com</span>{' '}
               </p>
               <p>
-                <span className="font-semibold">Address:</span> 2/F 1210
-                Asturias St., Manila, Philippines
+                <span className="">
+                  2/F 1210 Asturias St., Manila, Philippines
+                </span>
               </p>
+            </div>
+          </div>
+          <div className="mx-auto flex max-w-screen-lg flex-col  items-center gap-4 px-[7%] font-sans md:px-12">
+            <h1 className="text-4xl font-bold text-cs-orange ">
+              OPERATIONAL HOURS
+            </h1>
+            <div className="flex grid-cols-2 gap-10 text-center">
+              <div>
+                <p>
+                  <span className="text-4xl font-bold">MON - FRI</span>
+                </p>
+
+                <p>
+                  <span className="">10:00 AM - 5:00 AM</span>
+                </p>
+              </div>
+              <div>
+                <p>
+                  <span className="text-4xl font-bold">SAT - SUN</span>
+                </p>
+                <p>
+                  <span className="">12:00 PM - 1:00 AM</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div className="h-1 w-full bg-[#a6a6a6]" />
     </div>
 
     // <>

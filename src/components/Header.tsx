@@ -30,7 +30,10 @@ export default function Header() {
     { name: 'SERVICES', path: '/services' },
   ];
   return (
-    <header className="from-cs-yellow to-cs-orange flex items-center justify-between bg-gradient-to-b px-[7%] py-6">
+    <header
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}
+      className="flex items-center justify-between bg-gradient-to-b from-cs-yellow to-cs-orange px-[7%] py-6"
+    >
       <Link href={'/'}>
         <Image
           src="/coursescape-logo-cropped.png"
@@ -66,7 +69,7 @@ export default function Header() {
             className="absolute bottom-0 left-0 right-0 top-0 z-30 bg-black/80"
             onClick={() => setShowNav(false)}
           />
-          <div className="absolute bottom-0 right-0 top-0 z-40 flex w-72 flex-col justify-center bg-white px-8">
+          <div className="absolute bottom-0 right-0 top-0 z-40 flex w-72 flex-col justify-center bg-cs-cream px-8 font-sans">
             <nav className="flex flex-col justify-center">
               <ul className="flex flex-col gap-6 font-bold">
                 {navLinks.map((link) => (
@@ -83,7 +86,7 @@ export default function Header() {
                 {isAuthed ? (
                   <span onClick={handleLogout}>
                     <NavLink
-                      name={'Logout'}
+                      name={'LOGOUT'}
                       href={'/logout'}
                       pathName={pathname}
                       className="text-xl"
@@ -92,7 +95,7 @@ export default function Header() {
                   </span>
                 ) : (
                   <NavLink
-                    name={'Login'}
+                    name={'LOGIN'}
                     href={'/login'}
                     pathName={pathname}
                     className="text-xl"
