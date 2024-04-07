@@ -161,14 +161,30 @@ export default function Register() {
               className="rounded-full border border-gray-300 px-6 py-4"
               {...register('firstName', {
                 required: true,
+                validate: {
+                  validName: (firstName) => {
+                    if (firstName) {
+                      const regex = /^[A-Za-z .-]+$/;
+                      return regex.test(firstName);
+                    }
+                  },
+                },
               })}
             />
-            {errors.firstname && (
+            {errors.firstName?.type === 'required' && (
               <p
                 role="alert"
                 className="mt-[-0.75rem] px-6 text-xs text-red-500"
               >
                 This field is required.
+              </p>
+            )}
+            {errors.firstName?.type === 'validName' && (
+              <p
+                role="alert"
+                className="mt-[-0.75rem] px-6 text-xs text-red-500"
+              >
+                This field accepts text characters (a-z, A-Z).
               </p>
             )}
 
@@ -180,14 +196,30 @@ export default function Register() {
               className="rounded-full border border-gray-300 px-6 py-4"
               {...register('lastName', {
                 required: true,
+                validate: {
+                  validName: (lastName) => {
+                    if (lastName) {
+                      const regex = /^[A-Za-z .-]+$/;
+                      return regex.test(lastName);
+                    }
+                  },
+                },
               })}
             />
-            {errors.lastname && (
+            {errors.lastName?.type === 'required' && (
               <p
                 role="alert"
                 className="mt-[-0.75rem] px-6 text-xs text-red-500"
               >
                 This field is required.
+              </p>
+            )}
+            {errors.lastName?.type === 'validName' && (
+              <p
+                role="alert"
+                className="mt-[-0.75rem] px-6 text-xs text-red-500"
+              >
+                This field accepts text characters (a-z, A-Z).
               </p>
             )}
 
