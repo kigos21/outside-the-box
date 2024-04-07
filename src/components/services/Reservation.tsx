@@ -2,9 +2,11 @@ import Link from 'next/link';
 
 export default function Reservation() {
   return (
-    <div className="mx-auto flex max-w-7xl items-center gap-8">
-      <div className="basis-2/3">
-        <h1 className="mb-4">Reserve Now</h1>
+    <div className="mx-auto flex max-w-7xl items-center gap-8 font-sans">
+      <div className="flex basis-2/3 flex-col justify-center">
+        <h1 className="mb-4 bg-gradient-to-r from-cs-yellow to-cs-orange bg-clip-text text-5xl font-bold text-transparent">
+          Reserve Now
+        </h1>
 
         <p>
           Want to guarantee a seat when you get here? Reserve now and we&apos;ll
@@ -12,28 +14,27 @@ export default function Reservation() {
         </p>
       </div>
 
-      <div className="flex min-w-[298px] basis-1/3 flex-col gap-4 rounded-3xl bg-otb-yellow p-12 text-center text-lg shadow-2xl">
-        <div>
+      <div className="flex min-h-[300px] min-w-[600px] flex-col gap-4 rounded-3xl border-4 border-black bg-cs-green p-12 text-center text-lg">
+        <div className="text-white">
           <p>as of 2:00PM 12/25/2023</p>
           <p>
             Seating Capacity is <span className="font-bold">20/30</span>
           </p>
         </div>
 
-        <Link href={'/reservation/seat'}>
-          <button className="rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
-            Reserve a Seat
-          </button>
-        </Link>
+        <div className="flex justify-center gap-4">
+          <Link href={'/reservation/seat'}>
+            <button className="min-w-[200px] rounded-3xl border-4 border-black bg-gradient-to-br from-cs-yellow to-cs-orange px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+              Reserve a Seat
+            </button>
+          </Link>
 
-        <p>or</p>
-
-        <Link
-          href="/reservation/otb"
-          className="text-sm font-bold uppercase text-otb-blue underline"
-        >
-          <span className="shadow-sm">Reserve OTB</span>
-        </Link>
+          <Link href="/reservation/otb">
+            <button className="min-w-[200px] rounded-3xl border-4 border-black bg-gradient-to-br from-cs-yellow to-cs-orange px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+              Reserve Place
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
