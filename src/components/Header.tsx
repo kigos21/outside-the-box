@@ -36,9 +36,9 @@ export default function Header() {
     >
       <Link href={'/'}>
         <Image
-          src="/coursescape-logo-cropped.png"
-          width={160}
-          height={70}
+          src="/coursescape-logo-cropped-removebg.png"
+          width={240}
+          height={105}
           alt="Coursescape Logo"
         />
       </Link>

@@ -1,13 +1,20 @@
+/* eslint-disable @next/next/no-img-element */
 import styles from '@/styles/about.module.css';
 
 export default function About() {
   return (
     <div className="mx-auto flex max-w-screen-lg flex-col gap-20 px-[7%] py-16 xl:px-0">
       <div className="flex flex-col gap-4">
-        <h1 className="">About us</h1>
-        <div className="flex flex-col gap-2">
+        <div className="mx-auto w-2/5 overflow-hidden">
+          <img
+            src="/coursescape-logo-cropped.png"
+            className="w-full"
+            alt="Coursescape-logo"
+          />
+        </div>
+        <div className="mx-auto flex w-1/2 flex-col gap-2 text-justify">
           <p>
-            At Outside The Box, we believe that productivity and creativity go
+            At Coursescape, we believe that productivity and creativity go
             hand-in-hand.
           </p>
 
@@ -26,33 +33,24 @@ export default function About() {
       </div>
 
       <div className="flex flex-col items-center gap-4">
-        <div className="h-1 w-20 bg-otb-blue" />
-
         <div className="flex flex-wrap gap-8 sm:flex-nowrap">
-          <div>
+          <div className="w-full sm:w-1/2">
             <img
-              src="about1.jpg"
+              src="about1-new.png"
               alt="Image 1"
-              className="block rounded-3xl shadow-xl"
+              className="block h-auto w-full rounded-3xl shadow-xl"
             />
           </div>
-          <div>
+          <div className="w-full sm:w-1/2">
             <img
-              src="about2.jpg"
+              src="about2-new.png"
               alt="Image 2"
-              className="block rounded-3xl shadow-xl"
-            />
-          </div>
-          <div>
-            <img
-              src="about3.jpg"
-              alt="Image 3"
-              className="block rounded-3xl shadow-xl"
+              className="block h-auto w-full rounded-3xl shadow-xl"
             />
           </div>
         </div>
 
-        <div className="h-1 w-20 bg-otb-blue" />
+        <div className="bg-cs-orange h-1 w-20" />
       </div>
 
       <Rule />
@@ -65,12 +63,12 @@ export default function About() {
 function Rule() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <div className={styles.blue_box} />
-        <h2 className="">House Rules</h2>
+      <div className="mx-auto flex h-1/2 items-center gap-4">
+        <h2 className="text-cs-orange">House Rules</h2>
       </div>
+      <div className="bg-cs-cream mx-auto h-1 w-1/2 w-20" />
 
-      <ul className="flex list-disc flex-col gap-2 pl-4">
+      <ul className="mx-auto flex w-1/2 list-disc flex-col gap-2 pl-4">
         <li>
           <span className="text-base font-bold">
             Register at the front desk
@@ -123,12 +121,12 @@ function Rule() {
 function Pantry() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <div className={styles.blue_box} />
-        <h2 className="">Pantry Rules</h2>
+      <div className="mx-auto flex w-1/2 items-center gap-4">
+        <h2 className="text-cs-orange">Pantry Rules</h2>
       </div>
+      <div className="bg-cs-cream mx-auto h-1 w-1/2 w-20" />
 
-      <ul className="flex list-disc flex-col gap-2 pl-4">
+      <ul className="mx-auto flex w-1/2 list-disc flex-col gap-2 pl-4">
         <li>
           <span className="text-base font-bold">Clean</span> as you go. Please
           wash your utensils, plates, and mugs.
@@ -145,12 +143,12 @@ function Pantry() {
 function Outside() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <div className={styles.blue_box} />
-        <h2 className="">Outside Food</h2>
+      <div className="mx-auto flex w-1/2 items-center gap-4">
+        <h2 className="text-cs-orange">Outside Food</h2>
       </div>
+      <div className="bg-cs-cream mx-auto h-1 w-1/2 w-20" />
 
-      <ul className="flex list-disc flex-col gap-2 pl-4">
+      <ul className="mx-auto flex w-1/2 list-disc flex-col gap-2 pl-4">
         <li>
           <span className="text-base font-bold">Outside food are allowed</span>{' '}
           with no corkage fee.
