@@ -21,8 +21,8 @@ export default function NavLink({
       : 'group relative text-stone-600 hover:text-stone-950';
   let underlineClass =
     pathName === href
-      ? 'absolute left-0 h-[3px] w-full bg-otb-blue'
-      : 'absolute left-1/2 h-[3px] w-0 bg-otb-blue transition-all group-hover:left-0 group-hover:w-full';
+      ? 'absolute left-0 h-[3px] w-full bg-cs-green'
+      : 'absolute left-1/2 h-[3px] w-0 bg-cs-green transition-all group-hover:left-0 group-hover:w-full';
 
   return (
     <li onClick={onClick}>
