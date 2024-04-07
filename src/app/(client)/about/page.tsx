@@ -3,11 +3,11 @@ import styles from '@/styles/about.module.css';
 
 export default function About() {
   return (
-    <div className="mx-auto flex max-w-screen-lg flex-col gap-20 px-[7%] py-16 xl:px-0">
+    <div className=" mx-auto flex max-w-screen-lg flex-col gap-20 px-[7%] py-16 pt-40 font-sans xl:px-0">
       <div className="flex flex-col gap-4">
         <div className="mx-auto w-2/5 overflow-hidden">
           <img
-            src="/coursescape-logo-cropped.png"
+            src="/coursescape-logo-cropped-bg.png"
             className="w-full"
             alt="Coursescape-logo"
           />
@@ -33,24 +33,22 @@ export default function About() {
       </div>
 
       <div className="flex flex-col items-center gap-4">
-        <div className="flex flex-wrap gap-8 sm:flex-nowrap">
+        <div className="flex flex-wrap gap-24 sm:flex-nowrap">
           <div className="w-full sm:w-1/2">
             <img
               src="about1-new.png"
               alt="Image 1"
-              className="block h-auto w-full rounded-3xl shadow-xl"
+              className="block h-full w-full rounded-3xl shadow-xl"
             />
           </div>
           <div className="w-full sm:w-1/2">
             <img
               src="about2-new.png"
               alt="Image 2"
-              className="block h-auto w-full rounded-3xl shadow-xl"
+              className="block h-full w-full rounded-3xl shadow-xl"
             />
           </div>
         </div>
-
-        <div className="bg-cs-orange h-1 w-20" />
       </div>
 
       <Rule />
@@ -62,13 +60,13 @@ export default function About() {
 
 function Rule() {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="mx-auto flex h-1/2 items-center gap-4">
-        <h2 className="text-cs-orange">House Rules</h2>
+    <div className="flex flex-col gap-2">
+      <div className="mx-auto flex w-9/12 items-center gap-4">
+        <h2 className="font-bold text-cs-orange">House Rules</h2>
       </div>
-      <div className="bg-cs-cream mx-auto h-1 w-1/2 w-20" />
+      <div className="mx-auto h-1 w-9/12 bg-cs-cream" />
 
-      <ul className="mx-auto flex w-1/2 list-disc flex-col gap-2 pl-4">
+      <ul className="mx-auto flex w-9/12 list-disc flex-col gap-2 pl-4">
         <li>
           <span className="text-base font-bold">
             Register at the front desk
@@ -120,13 +118,13 @@ function Rule() {
 
 function Pantry() {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="mx-auto flex w-1/2 items-center gap-4">
-        <h2 className="text-cs-orange">Pantry Rules</h2>
+    <div className="flex flex-col gap-2">
+      <div className="mx-auto flex w-9/12 items-center gap-4">
+        <h2 className="font-bold text-cs-orange">Pantry Rules</h2>
       </div>
-      <div className="bg-cs-cream mx-auto h-1 w-1/2 w-20" />
+      <div className="mx-auto h-1 w-9/12 bg-cs-cream" />
 
-      <ul className="mx-auto flex w-1/2 list-disc flex-col gap-2 pl-4">
+      <ul className="mx-auto flex w-9/12 list-disc flex-col gap-2 pl-4">
         <li>
           <span className="text-base font-bold">Clean</span> as you go. Please
           wash your utensils, plates, and mugs.
@@ -142,13 +140,13 @@ function Pantry() {
 
 function Outside() {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="mx-auto flex w-1/2 items-center gap-4">
-        <h2 className="text-cs-orange">Outside Food</h2>
+    <div className="flex flex-col gap-2">
+      <div className="mx-auto flex w-9/12 items-center gap-4">
+        <h2 className="font-bold text-cs-orange">Outside Food</h2>
       </div>
-      <div className="bg-cs-cream mx-auto h-1 w-1/2 w-20" />
+      <div className="mx-auto h-1 w-9/12  bg-cs-cream" />
 
-      <ul className="mx-auto flex w-1/2 list-disc flex-col gap-2 pl-4">
+      <ul className="mx-auto flex w-9/12 list-disc flex-col gap-2 pl-4">
         <li>
           <span className="text-base font-bold">Outside food are allowed</span>{' '}
           with no corkage fee.
