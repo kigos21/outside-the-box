@@ -91,13 +91,32 @@ export default function Login() {
     setConfirmPassword(value);
   };
 
-  const handleNewPasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleNewPasswordSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ) => {
     e.preventDefault();
-    console.log(newPassword);
-    console.log(confirmPassword);
 
-    setIsEnteringNewPassword(false);
-    setMessage('Password reset successfully!');
+    if (newPassword === confirmPassword) {
+      const res = await fetch('/api/login/forgot-password/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          newPassword: newPassword,
+        }),
+      });
+
+      if (res.status === 200) {
+        setIsEnteringNewPassword(false);
+        setMessage('Password reset successfully!');
+      } else {
+        // enter conditional pls
+      }
+    } else {
+      // enter conditional pls
+    }
   };
 
   return (
