@@ -9,7 +9,7 @@ export default function NewPasswordForm({
 }: NewPasswordFormProps) {
   return (
     <div className="text-center">
-      <p className="text-base">Enter New Password</p>
+      <p className="text-xl  font-bold">Enter New Password</p>
       <form method="post" onSubmit={(e) => handleSubmit(e)}>
         <input
           type="password"
