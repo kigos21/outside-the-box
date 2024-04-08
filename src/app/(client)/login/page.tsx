@@ -54,7 +54,7 @@ export default function Login() {
 
   return (
     <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16 pt-40">
-      <div className="flex flex-col items-center justify-center gap-8 rounded-2xl bg-cs-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
+      <div className="flex flex-col items-center justify-center gap-8 rounded-lg bg-cs-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
         {/* Sa Login errors to */}
         {errorMessage && (
           <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-sm text-red-600">
@@ -126,7 +126,7 @@ export default function Login() {
             </span>
 
             <div className="mt-0 flex w-full flex-col items-center gap-4">
-              <button className="bg-cs-blue w-28 rounded-lg px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-cs-black hover:text-cs-cream hover:shadow-none">
+              <button className="w-28 rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-cs-black hover:text-cs-cream hover:shadow-none">
                 Login
               </button>
 
@@ -134,7 +134,7 @@ export default function Login() {
                 Don&apos;t have an account yet?{' '}
                 <Link
                   href="/register"
-                  className="text-cs-blue font-bold underline shadow-sm"
+                  className="font-bold text-cs-blue underline shadow-sm"
                 >
                   Register
                 </Link>{' '}

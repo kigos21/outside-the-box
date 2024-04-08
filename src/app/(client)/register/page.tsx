@@ -56,7 +56,7 @@ export default function Register() {
 
   return (
     <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16 pt-40">
-      <div className="flex flex-col items-center justify-center gap-8 rounded-2xl bg-cs-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
+      <div className="flex flex-col items-center justify-center gap-8 rounded-lg bg-cs-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
         <Image
           src={'/coursescape-logo-cropped.png'}
           alt={'Outside the box logo'}
@@ -206,11 +206,15 @@ export default function Register() {
               })}
             >
               <option hidden>Occupation</option>
-              <option value="student" className="p-6">
+              <option value="student" className="font p-6">
                 Student
               </option>
-              <option value="working-student">Working Student</option>
-              <option value="professional">Professional</option>
+              <option value="working-student" className="font p-6">
+                Working Student
+              </option>
+              <option value="professional" className="font p-6">
+                Professional
+              </option>
             </select>
             {errors.occupation && (
               <p
@@ -282,7 +286,7 @@ export default function Register() {
             <div className="mt-4 flex w-full flex-col items-center gap-4">
               <button
                 type="submit"
-                className="bg-cs-blue w-32 rounded-lg px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className="w-32 rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
               >
                 Register
               </button>
@@ -291,7 +295,7 @@ export default function Register() {
                 Already have an account?{' '}
                 <Link
                   href="/login"
-                  className="text-cs-blue font-bold underline shadow-sm"
+                  className="font-bold text-cs-blue underline shadow-sm"
                 >
                   Login
                 </Link>{' '}

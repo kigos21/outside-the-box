@@ -8,7 +8,7 @@ export default function NewPasswordForm({
   confirmPassword,
 }: NewPasswordFormProps) {
   return (
-    <>
+    <div className="text-center">
       <p className="text-base">Enter New Password</p>
       <form method="post" onSubmit={(e) => handleSubmit(e)}>
         <input
@@ -34,11 +34,11 @@ export default function NewPasswordForm({
 
         <button
           type="submit"
-          className="my-4 w-full rounded-full bg-cs-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+          className="my-4 w-32 rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
         >
           Reset
         </button>
       </form>
-    </>
+    </div>
   );
 }
