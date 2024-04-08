@@ -8,7 +8,7 @@ export default function About() {
         <div className="mx-auto w-2/5 overflow-hidden">
           <img
             src="/coursescape-logo-cropped-bg.png"
-            className="w-full"
+            className="w-full rounded-lg"
             alt="Coursescape-logo"
           />
         </div>
@@ -64,7 +64,7 @@ function Rule() {
       <div className="mx-auto flex w-9/12 items-center gap-4">
         <h2 className="font-bold text-cs-orange">House Rules</h2>
       </div>
-      <div className="mx-auto h-1 w-9/12 bg-cs-cream" />
+      <div className="mx-auto h-1 w-9/12 bg-[#a6a6a6]" />
 
       <ul className="mx-auto flex w-9/12 list-disc flex-col gap-2 pl-4">
         <li>
@@ -122,7 +122,7 @@ function Pantry() {
       <div className="mx-auto flex w-9/12 items-center gap-4">
         <h2 className="font-bold text-cs-orange">Pantry Rules</h2>
       </div>
-      <div className="mx-auto h-1 w-9/12 bg-cs-cream" />
+      <div className="mx-auto h-1 w-9/12 bg-[#a6a6a6]" />
 
       <ul className="mx-auto flex w-9/12 list-disc flex-col gap-2 pl-4">
         <li>
@@ -144,7 +144,7 @@ function Outside() {
       <div className="mx-auto flex w-9/12 items-center gap-4">
         <h2 className="font-bold text-cs-orange">Outside Food</h2>
       </div>
-      <div className="mx-auto h-1 w-9/12  bg-cs-cream" />
+      <div className="mx-auto h-1 w-9/12  bg-[#a6a6a6]" />
 
       <ul className="mx-auto flex w-9/12 list-disc flex-col gap-2 pl-4">
         <li>

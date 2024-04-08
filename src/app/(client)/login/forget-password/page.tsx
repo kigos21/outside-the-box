@@ -60,8 +60,8 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16">
-      <div className="flex max-w-lg flex-col items-center justify-center gap-8 rounded-3xl bg-cs-yellow px-8 py-6 shadow-2xl sm:px-16 sm:py-12">
+    <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16 pt-24">
+      <div className="flex max-w-lg flex-col items-center justify-center gap-8 rounded-lg bg-cs-yellow px-8 py-6 shadow-2xl sm:px-16 sm:py-12">
         <Image
           src={'/coursescape-logo-cropped.png'}
           alt={'Outside the box logo'}
@@ -101,7 +101,7 @@ export default function Login() {
             <div className="flex flex-col gap-8">
               <span>{message}</span>
               <Link href="/login" className="block w-full">
-                <button className="bg-cs-blue my-4 w-full rounded-full px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+                <button className="my-4 w-full rounded-full bg-cs-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
                   Go to Login
                 </button>
               </Link>
