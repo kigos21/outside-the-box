@@ -14,20 +14,25 @@ export default function About() {
         </div>
         <div className="mx-auto flex w-1/2 flex-col gap-2 text-justify">
           <p>
-            At Coursescape, we believe that productivity and creativity go
-            hand-in-hand.
+            At{''} <span className=" font-bold">coursescape</span>, we believe
+            that <span className=" font-bold">productivity and creativity</span>{' '}
+            go hand-in-hand.
           </p>
 
           <p>
-            Our co-working and study lounge is designed to provide a
-            comfortable, inspiring, and collaborative space for students,
-            freelancers, and professionals to work, learn, and connect.
+            Our co-working and study lounge is designed to provide a {''}
+            <span className=" font-bold">
+              comfortable, inspiring, and collaborative
+            </span>{' '}
+            space for students, freelancers, and professionals to {''}
+            <span className=" font-bold">work, learn, and connect.</span>
           </p>
 
           <p>
             We believe that a productive environment should engage all senses,
-            not just the mind. That&apos;s why we have created a unique
-            workspace that brings a different vibe to the traditional workplace.
+            not just the mind. That&apos;s why we have created a{' '}
+            <span className=" font-bold">unique workspace</span> that brings a
+            different vibe to the traditional workplace.
           </p>
         </div>
       </div>
@@ -152,8 +157,9 @@ function Outside() {
           with no corkage fee.
         </li>
         <li>
+          However,{' '}
           <span className="text-base font-bold">
-            However, strong foul-smelling food is prohibited.
+            strong foul-smelling food is prohibited.
           </span>
         </li>
       </ul>
