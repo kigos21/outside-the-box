@@ -52,9 +52,9 @@ export default function AdminLogin() {
       <div className="mx-5 flex flex-col items-center">
         <div className="mx-5">
           <Image
-            src={'/otb-logo.jpg'}
-            width={350}
-            height={350}
+            src={'/coursescape-logo-cropped-removebg.png'}
+            width={500}
+            height={550}
             alt={'logo'}
             className={'m-auto'}
           />
@@ -101,7 +101,7 @@ export default function AdminLogin() {
                   {error}
                 </div>
               )}
-              <button className=" rounded-md bg-otb-yellow px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+              <button className=" rounded-md bg-cs-yellow px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
                 Login
               </button>
               <span className="text-center">
