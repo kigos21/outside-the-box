@@ -48,7 +48,6 @@ export default function Login() {
     } else {
       setMessage('An error occurred. Please try again later.');
     }
-
   };
 
   const handleOTPChange = (value: string) => {
@@ -162,7 +161,7 @@ export default function Login() {
           {message && (
             <div className="flex flex-col gap-8">
               <Link href="/login" className="block w-full">
-                <button className="w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+                <button className="bg-cs-blue text-cs-cream hover:bg-cs-black hover:text-cs-cream w-28 rounded-lg px-6 py-4 font-semibold uppercase shadow-md transition-all hover:shadow-none">
                   Go to Login
                 </button>
               </Link>
