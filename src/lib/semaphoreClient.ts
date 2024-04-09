@@ -20,7 +20,10 @@ export const sendOTP = async (mobileNumber: string, message: string) => {
     }
     console.log('OTP sent successfully!');
 
-    return Response.json(response, { status: 200 });
+    const responseData = response.data[0];
+    const otp = responseData.code.toString();
+
+    return otp;
   } catch (error) {
     console.error('Error sending OTP:', error);
   }

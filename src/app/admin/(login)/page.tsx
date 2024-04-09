@@ -34,6 +34,19 @@ export default function AdminLogin() {
     }
   };
 
+  const handleLinkClick = async () => {
+    const res = await fetch('/api/admin/login/forgot-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (res.status === 200) {
+      router.push('/admin/forgot-password/');
+    }
+  };
+
   return (
     <main className="flex min-h-[85vh] w-full items-center justify-center gap-8 px-10">
       <div className="mx-5 flex flex-col items-center">
@@ -93,7 +106,8 @@ export default function AdminLogin() {
               </button>
               <span className="text-center">
                 <Link
-                  href="admin/forgot-password"
+                  onClick={handleLinkClick}
+                  href={'#'}
                   className="text-sm underline"
                 >
                   Forget Password

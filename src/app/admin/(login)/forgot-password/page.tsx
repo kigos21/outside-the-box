@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LoginFormBody } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,9 +11,22 @@ export default function AdminLogin() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [otpValue, setOtpValue] = useState('');
 
-  const handleVerify = () => {
-    // Backend logic to verify OTP
-    setShowNewPassword(true);
+  const handleVerify = async () => {
+    const res = await fetch('/api/admin/login/forgot-password/verifyotp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        otp: otpValue,
+      }),
+    });
+
+    if (res.status === 200) {
+      setShowNewPassword(true);
+    } else {
+      // else conditional
+    }
   };
 
   const onSubmit: SubmitHandler<LoginFormBody> = async () => {

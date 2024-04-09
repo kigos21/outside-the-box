@@ -24,8 +24,30 @@ export default function Login() {
     setUsername(value);
   };
 
-  const handleUsernameSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUsernameSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const res = await fetch('/api/login/forgot-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+      }),
+    });
+
+    const status = res.status;
+
+    if (status === 200) {
+      setIsEnteringUsername(false);
+      setIsEnteringOTP(true);
+      setMessage('');
+    } else if (status === 400) {
+      setMessage('Invalid Username. Please try again.');
+    } else {
+      setMessage('An error occurred. Please try again later.');
+    }
 
     setIsEnteringUsername(false);
     setIsEnteringOTP(true);
@@ -35,11 +57,31 @@ export default function Login() {
     setOTP(value);
   };
 
-  const handleOTPSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsEnteringOTP(false);
-    setIsEnteringNewPassword(true);
+    const res = await fetch('/api/login/forgot-password/verifyotp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        otp: otp,
+      }),
+    });
+
+    const status = res.status;
+
+    if (status === 200) {
+      setIsEnteringOTP(false);
+      setIsEnteringNewPassword(true);
+      setMessage('');
+    } else if (status === 400) {
+      setMessage('Invalid OTP. Please try again.');
+    } else {
+      setMessage('An error occurred. Please try again later.');
+    }
   };
 
   const handleNewPasswordChange = (value: string) => {
@@ -50,13 +92,35 @@ export default function Login() {
     setConfirmPassword(value);
   };
 
-  const handleNewPasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleNewPasswordSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ) => {
     e.preventDefault();
-    console.log(newPassword);
-    console.log(confirmPassword);
 
-    setIsEnteringNewPassword(false);
-    setMessage('Password reset successfully!');
+    const res = await fetch('/api/login/forgot-password/reset-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        newPassword: newPassword,
+        confirmPassword: confirmPassword,
+      }),
+    });
+
+    if (res.status === 200) {
+      setIsEnteringNewPassword(false);
+      setMessage('Password reset successfully!');
+    } else if (res.status === 400) {
+      setMessage(
+        'Password must be atleast 8 characters long, and include at least one lowercase letter, one uppercase letter, one digit, and one special character [@, $, !, %, *, ?, &].',
+      );
+    } else if (res.status === 404) {
+      setMessage('Passwords do not match.');
+    } else {
+      setMessage('An error occurred. Please try again later.');
+    }
   };
 
   return (
@@ -97,14 +161,16 @@ export default function Login() {
             />
           )}
 
-          {message && (
-            <div className="flex flex-col gap-8 font-bold">
-              <span>{message}</span>
+          {message && (            
+            <div className="flex flex-col gap-8">
               <Link href="/login" className="block w-full">
-                <button className="my-4 w-40 rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+                <button className="w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
                   Go to Login
                 </button>
               </Link>
+              <span className="m-auto flex text-sm text-red-500">
+                {message}
+              </span>
             </div>
           )}
         </div>
