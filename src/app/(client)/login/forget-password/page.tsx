@@ -162,7 +162,7 @@ export default function Login() {
           {message && (            
             <div className="flex flex-col gap-8">
               <Link href="/login" className="block w-full">
-                <button className="w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+                <button className="w-28 rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-cs-black hover:text-cs-cream hover:shadow-none">
                   Go to Login
                 </button>
               </Link>
