@@ -151,8 +151,7 @@ export default function AdminLogin() {
               </button>
               <span className="text-center">
                 <Link
-                  onClick={handleLinkClick}
-                  href={'#'}
+                  href={'/admin/forgot-password'}
                   className="text-sm underline"
                 >
                   Forget Password
