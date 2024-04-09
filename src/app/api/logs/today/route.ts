@@ -7,8 +7,8 @@ export async function GET() {
     const logs = await prismaClient.log.findMany({
       where: {
         timeIn: {
-          gte: new Date(today).toISOString(), // Convert today to ISO-8601 with TZ
-          lt: new Date(`${today}T23:59:59`).toISOString(), // Include milliseconds
+          gte: `${today}T00:00:00.000Z`, // Convert today to ISO-8601 with TZ
+          lt: `${today}T23:59:59.999Z`, // Include milliseconds
         },
       },
       include: {
