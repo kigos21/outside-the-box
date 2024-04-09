@@ -1,13 +1,22 @@
 'use client';
 
 import styles from '@/styles/carousel.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import Link from 'next/link';
 
 import IndexIndicator from './IndexIndicator';
 
 export default function Carousel() {
+  const [cookies, setCookie] = useCookies(['token']);
+  const [isAuthed, setIsAuthed] = useState(false);
+
   const items = ['/about1.jpg', '/about2.jpg', '/about3.jpg'];
   const [index, setIndex] = useState(1);
+
+  useEffect(() => {
+    setIsAuthed(!!cookies['token']);
+  }, [cookies]);
 
   const handleLeftArrowClick = () => {
     setIndex((index) => index - 1);
@@ -69,13 +78,23 @@ export default function Carousel() {
 
       <div className="mx-auto mt-8 flex  max-w-screen-lg flex-col gap-2 text-center font-sans text-white">
         <h1 className="text-5xl font-bold lg:text-7xl">Feel The Presence in</h1>
-        <h1 className="text-5xl  font-bold text-cs-orange lg:text-7xl">
+        <h1 className="text-cs-orange  text-5xl font-bold lg:text-7xl">
           coursescape.
         </h1>
 
-        <button className="mx-auto mt-8 w-fit rounded-full bg-cs-orange px-8 py-6 text-2xl font-bold shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
-          Reserve Now
-        </button>
+        {isAuthed ? (
+          <Link href={'/services#reserve'}>
+            <button className="bg-cs-orange mx-auto mt-8 w-fit rounded-full px-8 py-6 text-2xl font-bold shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+              Reserve Now
+            </button>
+          </Link>
+        ) : (
+          <Link href={'/login'}>
+            <button className="bg-cs-orange mx-auto mt-8 w-fit rounded-full px-8 py-6 text-2xl font-bold shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+              Login
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

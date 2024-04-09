@@ -66,7 +66,7 @@ export default function Reservation() {
           </p>
         </div>
 
-        <div className="flex flex-col justify-center gap-4 lg:flex-row">
+        <div id='reserve' className="flex flex-col justify-center gap-4 lg:flex-row">
           <Link href={'/reservation/seat'}>
             <button className="from-cs-yellow to-cs-orange w-full rounded-3xl border border-transparent bg-gradient-to-br px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-lg lg:w-auto">
               Reserve a Seat
