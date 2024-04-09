@@ -27,30 +27,26 @@ export default function Login() {
   const handleUsernameSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // const res = await fetch('/api/login/forgot-password', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     username: username,
-    //   }),
-    // });
+    const res = await fetch('/api/login/forgot-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+      }),
+    });
 
-    // const status = res.status;
+    const status = res.status;
 
-    // if (status === 200) {
-    //   setIsEnteringUsername(false);
-    //   setIsEnteringOTP(true);
-    // } else if (status === 400) {
-    //   // set conditional
-    // } else {
-    //   // set conditional
-    // }
-
-    //remove after uncommenting
-    setIsEnteringUsername(false);
-    setIsEnteringOTP(true);
+    if (status === 200) {
+      setIsEnteringUsername(false);
+      setIsEnteringOTP(true);
+    } else if (status === 400) {
+      // set conditional
+    } else {
+      // set conditional
+    }
   };
 
   const handleOTPChange = (value: string) => {
