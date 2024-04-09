@@ -11,8 +11,8 @@ export default function InclusionsAddOns({
       {regularRateLists.map((list) => (
         <div
           key={list.title}
-          className={`relative flex flex-col items-center justify-center gap-4 rounded-3xl bg-cs-green p-8 text-white `}
-          style={{ minHeight: '600px' }}
+          className={`w-18 relative  flex flex-col items-center justify-center gap-4 rounded-3xl bg-cs-green  p-4 text-white`}
+          style={{ minHeight: '500px' }}
         >
           <div className="title-wrapper absolute top-11 w-full text-center">
             <span className="block text-xl font-bold uppercase">

@@ -7,7 +7,7 @@ export default function RegularRates({
   regularRates: ServicePill[];
 }) {
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <div className="grid grid-cols-1 gap-12">
       {regularRates.map((item, index) => (
         <ServicePillItem
           key={item.title}

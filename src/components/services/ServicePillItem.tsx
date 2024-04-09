@@ -11,16 +11,16 @@ export default function ServicePillItem({
 
   return (
     <div className="grid grid-cols-2 gap-4">
-      <li
+      <div
         className={`rounded-full ${backgroundColor} py-7 text-center text-lg font-semibold uppercase ${fontColor}`}
       >
         {title}
-      </li>
-      <li
+      </div>
+      <div
         className={`rounded-full ${backgroundColor} py-7 text-center text-lg font-semibold uppercase ${fontColor}`}
       >
         {price}
-      </li>
+      </div>
     </div>
   );
 }
