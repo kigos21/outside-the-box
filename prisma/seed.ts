@@ -19,6 +19,20 @@ async function main() {
 
   console.log({ admin });
 
+  const employeeId = 'c7791747-2bd6-49bd-8ffd-1228aed772cb';
+  const employee = await prisma.admin.upsert({
+    where: { username: 'employee' },
+    update: {},
+    create: {
+      id: employeeId,
+      username: 'employee',
+      password: '$2b$10$tMVYz3YhD4iIGTF9I4qe/OeTQmIOhdGMROM8R2Mm1pjbA/jJ98lpW',
+      contactNumber: '09994290018',
+    },
+  });
+
+  console.log({ employee });
+
   // ---------------------------------- CUSTOMER ----------------------------------
   const aliceId = 'c22aa3d8-5a5e-40a4-ab54-2995ed897542';
   const alice = await prisma.customer.upsert({
