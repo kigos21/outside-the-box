@@ -72,15 +72,14 @@ export default function Home() {
                 LOCATION
               </h1>
             </div>
-            <p className="text-balance">
-              Looking for a great study spot? Let this map guide you to our
-              door.
+            <p className="ml-10 text-balance">
+              2/F 1210 Asturias St., Sampaloc, Manila, Philippines
             </p>
           </div>
 
           <div className="flex aspect-square basis-full overflow-hidden rounded-2xl md:basis-1/2">
             <img
-              src={'/find-us.jpg'}
+              src={'/map.png'}
               alt={'Location of Outside the Box on the map'}
             />
           </div>
@@ -94,7 +93,7 @@ export default function Home() {
                 <span className="text-4xl font-bold"> 0956 025 4032</span>
               </p>
               <p>
-                <span className="">otbcoworkingph@gmail.com</span>{' '}
+                <span className="">coursescapeph@gmail.com</span>{' '}
               </p>
               <p>
                 <span className="">
