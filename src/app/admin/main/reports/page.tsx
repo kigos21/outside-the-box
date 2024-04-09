@@ -1,9 +1,11 @@
 // src/app/admin/main/reports/page.tsx
 'use client';
+
+import { useRouter } from 'next/navigation';
 import ReportsModal from '@/components/ReportsModal';
-import { time } from 'console';
 import { useEffect, useState } from 'react';
 import React from 'react';
+import { useCookies } from 'react-cookie';
 
 interface ObjectContainer {
   reports: {
@@ -31,8 +33,11 @@ export default function Reports(e: any) {
     endDate: '',
   });
   const [dataToExport, setDataToExport] = useState<any[]>([]);
+  const [cookies, setCookies] = useCookies(['adminToken']);
+  const router = useRouter();
 
   useEffect(() => {
+    checkIfAdmin(cookies.adminToken);
     fetchReports();
   }, []);
 
@@ -48,6 +53,27 @@ export default function Reports(e: any) {
       }
     } catch (error) {
       console.error('Error fetching logs:' + error);
+    }
+  };
+
+  const checkIfAdmin = async (token: string) => {
+    const res = await fetch('/api/admin/check-token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: token }),
+    });
+
+    if (res.ok) {
+      const { isAdmin } = await res.json();
+
+      if (!isAdmin) {
+        router.push('/admin/main');
+      }
+    } else {
+      const message = await res.text();
+      alert(message);
     }
   };
 

@@ -4,26 +4,27 @@ export const checkAvailability = async (
   date: string,
   time: string,
 ): Promise<boolean> => {
-  const startDateTime = new Date(date);
-  startDateTime.setHours(
+  const givenDateTime = new Date(date);
+  givenDateTime.setHours(
     parseInt(time.split(':')[0]),
     parseInt(time.split(':')[1]),
     0,
     0,
   );
 
-  // TODO: Check if there are a lot of reservations at that time.
-  // For now, check if there is a single reservation at the given time.
-  const reservation = await prismaClient.confirmedReservation.findFirst({
+  const reservationCount = await prismaClient.confirmedReservation.count({
     where: {
       seatReservation: {
-        startDateTime,
+        AND: [
+          { startDateTime: { lt: givenDateTime } },
+          { endDateTime: { gt: givenDateTime } },
+        ],
       },
     },
   });
 
-  // TODO: check if reservations are over seat capacity, return false if so
-  if (reservation) {
+  // Limit reservations to 20, if there are 20 seats reserved, make the schedule not available
+  if (reservationCount >= 20) {
     return false;
   }
 

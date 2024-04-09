@@ -12,6 +12,7 @@ import AddButton from './AddButton';
 import { useEffect, useState } from 'react';
 import AdminModal from '@/components/AdminModal';
 import { useRouter } from 'next/navigation';
+import { useCookies } from 'react-cookie';
 
 interface Service {
   id: string;
@@ -22,7 +23,8 @@ interface Service {
 }
 
 export default function ServicesPage() {
-  const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [cookies, setCookies] = useCookies(['adminToken']);
 
   const [services, setServices] = useState<Service[]>([]);
 
@@ -30,6 +32,7 @@ export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<Service>();
 
   useEffect(() => {
+    checkIfAdmin(cookies.adminToken);
     fetchServices();
   }, []);
 
@@ -41,6 +44,24 @@ export default function ServicesPage() {
       setServices(services);
     } else {
       console.error(message);
+      alert(message);
+    }
+  };
+
+  const checkIfAdmin = async (token: string) => {
+    const res = await fetch('/api/admin/check-token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: token }),
+    });
+
+    if (res.ok) {
+      const { isAdmin } = await res.json();
+      setIsAdmin(isAdmin);
+    } else {
+      const message = await res.text();
       alert(message);
     }
   };
@@ -106,10 +127,12 @@ export default function ServicesPage() {
             <h3 className="text-xl font-semibold text-gray-500">
               Your Services
             </h3>
-            <AddButton
-              href="/admin/main/services/add-service"
-              IconComponent={PlusIcon}
-            />
+            {isAdmin && (
+              <AddButton
+                href="/admin/main/services/add-service"
+                IconComponent={PlusIcon}
+              />
+            )}
           </div>
 
           <table className="w-full table-fixed text-center">
@@ -132,19 +155,21 @@ export default function ServicesPage() {
                   <td>{service.hours}</td>
                   <td>{service.price}</td>
                   <td>{service.type}</td>
-                  <td className="flex h-12 items-center justify-center gap-2">
-                    <EditButton
-                      IconComponent={PencilSquareIcon}
-                      id={service.id}
-                    />
-                    <DeleteButton
-                      IconComponent={XMarkIcon}
-                      onDelete={() => {
-                        setSelectedService(service);
-                        setShowDeleteModal(true);
-                      }}
-                    />
-                  </td>
+                  {isAdmin && (
+                    <td className="flex h-12 items-center justify-center gap-2">
+                      <EditButton
+                        IconComponent={PencilSquareIcon}
+                        id={service.id}
+                      />
+                      <DeleteButton
+                        IconComponent={XMarkIcon}
+                        onDelete={() => {
+                          setSelectedService(service);
+                          setShowDeleteModal(true);
+                        }}
+                      />
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>

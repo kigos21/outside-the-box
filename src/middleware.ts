@@ -1,8 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
-import * as jose from 'jose';
-import { KeyLike } from 'jose';
-import { prismaClient } from './lib/prismaClient';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(req: NextRequest) {
