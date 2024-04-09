@@ -5,19 +5,19 @@ export default function SpecialPromos({
 }) {
   return (
     <div>
-      <h2 className="mb-8 text-center text-6xl font-bold text-cs-orange">
+      <h2 className="mb-8 text-center text-4xl font-bold text-cs-orange lg:text-5xl xl:text-6xl">
         Special Promos
       </h2>
-      <div className="flex items-center justify-center gap-8">
+      <div className="flex flex-col items-center justify-center gap-8 md:flex-row">
         <img
           src="specialpromo1.jpg"
           alt="Special Promo 1"
-          style={{ height: '500px', width: '500px' }}
+          className="xl:h-108 h-auto w-full md:h-80 md:w-auto lg:h-96"
         />
         <img
           src="specialpromo2.jpg"
           alt="Special Promo 2"
-          style={{ height: '500px', width: '500px' }}
+          className="xl:h-108 h-auto w-full md:h-80 md:w-auto lg:h-96"
         />
       </div>
     </div>

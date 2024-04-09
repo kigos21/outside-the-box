@@ -81,15 +81,13 @@ export default function Page() {
         </>
       ) : (
         <>
-          <div
-            className={`w-full rounded-3xl bg-gradient-to-br from-cs-yellow to-cs-orange py-16 text-center ${styles.blueShadow}`}
-          >
-            Schedule not available!
+          <div className={`flex w-full justify-center rounded-3xl `}>
+            <h2 className="font-sans"> Schedule not available!</h2>
           </div>
 
           <span
             onClick={() => setIsFormVisible(true)}
-            className="mt-8 w-full cursor-pointer rounded-full bg-otb-blue px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className="mt-8 w-full cursor-pointer rounded-full bg-cs-orange px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Try Again
           </span>
