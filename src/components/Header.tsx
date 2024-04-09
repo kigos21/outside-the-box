@@ -32,7 +32,7 @@ export default function Header() {
   return (
     <header
       style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}
-      className="flex items-center justify-between bg-gradient-to-b from-cs-yellow to-cs-orange px-[7%] py-6"
+      className="flex items-center justify-between bg-gradient-to-b from-cs-yellow to-cs-orange px-[7%] py-2"
     >
       <Link href={'/'}>
         <Image

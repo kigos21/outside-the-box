@@ -5,7 +5,7 @@ export default function Reservation() {
     <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 font-sans lg:flex-row">
       <div className="flex flex-col justify-center lg:basis-2/3">
         <h1 className="mb-4 text-center text-5xl font-bold text-cs-orange  lg:text-left">
-          Reserve Now
+          RESERVE NOW
         </h1>
 
         <p className="text-center lg:text-left">
