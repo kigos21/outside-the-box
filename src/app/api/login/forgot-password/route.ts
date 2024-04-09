@@ -34,13 +34,10 @@ export async function POST(req: Request) {
         },
       });
 
-      console.log(verification.otp);
       return Response.json({ verification }, { status: 200 });
     } catch (error) {
       console.error('Error sending OTP: ', error);
     }
-
-    return Response.json({ message: 'call success'}, {status: 200 });
   } catch (error) {
     console.error(error);
     return Response.json({ message: error }, { status: 500 });
