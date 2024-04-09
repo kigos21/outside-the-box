@@ -55,10 +55,10 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16">
-      <div className="flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
+    <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16 pt-40">
+      <div className="flex flex-col items-center justify-center gap-8 rounded-lg bg-cs-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
         <Image
-          src={'/otb-logo-cropped.jpg'}
+          src={'/coursescape-logo-cropped.png'}
           alt={'Outside the box logo'}
           width={400}
           height={140}
@@ -75,7 +75,7 @@ export default function Register() {
               id="username"
               required
               placeholder="Username e.g. joe123"
-              className="rounded-full border border-gray-300 px-6 py-4"
+              className="rounded-lg border border-gray-300 px-6 py-4"
               {...register('username', {
                 required: true,
                 minLength: 3,
@@ -100,7 +100,7 @@ export default function Register() {
               id="password"
               required
               placeholder="Password"
-              className="rounded-full border border-gray-300 px-6 py-4"
+              className="rounded-lg border border-gray-300 px-6 py-4"
               {...register('password', {
                 required: true,
                 minLength: 8,
@@ -128,7 +128,7 @@ export default function Register() {
               id="confirmPassword"
               required
               placeholder="Confirm Password"
-              className="rounded-full border border-gray-300 px-6 py-4"
+              className="rounded-lg border border-gray-300 px-6 py-4"
               {...register('confirmPassword', {
                 required: true,
                 validate: {
@@ -158,7 +158,7 @@ export default function Register() {
               id="firstName"
               required
               placeholder="First name"
-              className="rounded-full border border-gray-300 px-6 py-4"
+              className="rounded-lg border border-gray-300 px-6 py-4"
               {...register('firstName', {
                 required: true,
                 validate: {
@@ -193,7 +193,7 @@ export default function Register() {
               id="lastName"
               required
               placeholder="Last name"
-              className="rounded-full border border-gray-300 px-6 py-4"
+              className="rounded-lg border border-gray-300 px-6 py-4"
               {...register('lastName', {
                 required: true,
                 validate: {
@@ -225,7 +225,7 @@ export default function Register() {
 
             <select
               id="occupation"
-              className="rounded-full border border-gray-300 px-5 py-4"
+              className="rounded-lg border border-gray-300 px-5 py-4"
               defaultValue={''}
               {...register('occupation', {
                 required: true,
@@ -238,11 +238,15 @@ export default function Register() {
               })}
             >
               <option hidden>Occupation</option>
-              <option value="student" className="p-6">
+              <option value="student" className="font p-6">
                 Student
               </option>
-              <option value="working-student">Working Student</option>
-              <option value="professional">Professional</option>
+              <option value="working-student" className="font p-6">
+                Working Student
+              </option>
+              <option value="professional" className="font p-6">
+                Professional
+              </option>
             </select>
             {errors.occupation && (
               <p
@@ -258,7 +262,7 @@ export default function Register() {
               id="affiliation"
               required
               placeholder="Affiliation"
-              className="rounded-full border border-gray-300 px-6 py-4"
+              className="rounded-lg border border-gray-300 px-6 py-4"
               {...register('affiliation', {
                 required: true,
               })}
@@ -277,7 +281,7 @@ export default function Register() {
               id="mobileNumber"
               required
               placeholder="Mobile Number"
-              className="rounded-full border border-gray-300 px-6 py-4"
+              className="rounded-lg border border-gray-300 px-6 py-4"
               {...register('mobileNumber', {
                 required: true,
                 validate: {
@@ -311,10 +315,10 @@ export default function Register() {
               </div>
             )}
 
-            <div className="mt-4 flex w-full flex-col gap-4">
+            <div className="mt-4 flex w-full flex-col items-center gap-4">
               <button
                 type="submit"
-                className="rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className="w-32 rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
               >
                 Register
               </button>
@@ -323,10 +327,11 @@ export default function Register() {
                 Already have an account?{' '}
                 <Link
                   href="/login"
-                  className="font-bold text-otb-blue underline shadow-sm"
+                  className="font-bold text-cs-blue underline shadow-sm"
                 >
                   Login
-                </Link>
+                </Link>{' '}
+                here
               </span>
             </div>
           </form>

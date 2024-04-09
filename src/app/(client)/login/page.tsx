@@ -88,8 +88,8 @@ export default function Login() {
   const message = searchParams.get('message');
 
   return (
-    <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16">
-      <div className="flex flex-col items-center justify-center gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
+    <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16 pt-40">
+      <div className="flex flex-col items-center justify-center gap-8 rounded-lg bg-cs-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
         {/* Sa Login errors to */}
         {errorMessage && (
           <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-sm text-red-600">
@@ -104,8 +104,8 @@ export default function Login() {
         )}
 
         <Image
-          src={'/otb-logo-cropped.jpg'}
-          alt={'Outside the box logo'}
+          src={'/coursescape-logo-cropped.png'}
+          alt={'Coursescape logo'}
           width={400}
           height={140}
           className="w-[240px] sm:w-[400px]"
@@ -152,8 +152,11 @@ export default function Login() {
             )}
 
             <span>
-              <Link href="/login/forget-password" className="text-sm underline">
-                Forget Password
+              <Link
+                href="/login/forget-password"
+                className="ml-4 text-sm underline"
+              >
+                Forget Password?
               </Link>
             </span>
 
@@ -163,10 +166,10 @@ export default function Login() {
               </p>
             )}
 
-            <div className="mt-4 flex w-full flex-col gap-4">
+            <div className="mt-0 flex w-full flex-col items-center gap-4">
               <button
                 disabled={timeout !== 0}
-                className="rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none disabled:bg-gray-400 disabled:text-white disabled:shadow-none disabled:hover:bg-gray-400"
+                className="w-28 rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-cs-black hover:text-cs-cream hover:shadow-none"
               >
                 Login
               </button>
@@ -175,10 +178,11 @@ export default function Login() {
                 Don&apos;t have an account yet?{' '}
                 <Link
                   href="/register"
-                  className="font-bold text-otb-blue underline shadow-sm"
+                  className="font-bold text-cs-blue underline shadow-sm"
                 >
                   Register
-                </Link>
+                </Link>{' '}
+                here
               </span>
             </div>
           </form>

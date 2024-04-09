@@ -11,7 +11,15 @@ const config: Config = {
       colors: {
         'otb-yellow': '#FFDE59',
         'otb-blue': '#64bbfe',
-        'cs-white': '#e9e4da',
+        'cs-black': '#120901',
+        'cs-blue': '#0d49a6',
+        'cs-green': '#647d4a',
+        'cs-yellow': '#fdb91a',
+        'cs-orange': '#e79953',
+        'cs-cream': '#e9e4da',
+      },
+      fontFamily: {
+        sans: ['Montserrat'],
       },
     },
   },

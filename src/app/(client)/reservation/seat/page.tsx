@@ -1,5 +1,4 @@
 'use client';
-
 import Link from 'next/link';
 import { SeatReservationFormBody } from '@/types';
 
@@ -53,42 +52,42 @@ export default function Page() {
     setModal(
       isAvailable ? (
         <>
-          <div
-            className={`w-full rounded-3xl bg-white py-16 text-center ${styles.blueShadow}`}
-          >
-            Schedule available!
+          <div className={`flex w-full justify-center rounded-3xl `}>
+            <h2 className="  font-sans">Schedule available!</h2>
           </div>
 
           <button
             onClick={() => {
               const { date, time, service } = data!;
               router.push(
-                `/reservation/seat/payment?date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&service=${encodeURIComponent(service)}`,
+                `/reservation/seat/payment?date=${encodeURIComponent(
+                  date,
+                )}&time=${encodeURIComponent(time)}&service=${encodeURIComponent(
+                  service,
+                )}`,
               );
             }}
-            className="mt-8 w-full cursor-pointer rounded-full bg-otb-blue px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className="mt-8 w-full cursor-pointer rounded-full bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Proceed
           </button>
 
-          <span
+          <a
             onClick={() => setIsFormVisible(true)}
-            className="mt-3 cursor-pointer text-sm underline"
+            className="mt-8 w-full cursor-pointer rounded-full bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Cancel
-          </span>
+          </a>
         </>
       ) : (
         <>
-          <div
-            className={`w-full rounded-3xl bg-white py-16 text-center ${styles.blueShadow}`}
-          >
-            Schedule not available!
+          <div className={`flex w-full justify-center rounded-3xl `}>
+            <h2 className="font-sans"> Schedule not available!</h2>
           </div>
 
           <span
             onClick={() => setIsFormVisible(true)}
-            className="mt-8 w-full cursor-pointer rounded-full bg-otb-blue px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className="mt-8 w-full cursor-pointer rounded-full bg-cs-orange px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Try Again
           </span>
@@ -99,8 +98,10 @@ export default function Page() {
 
   return (
     <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16">
-      <div className="mx-auto flex max-w-[464px] grow flex-col gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
-        <h2 className="text-center">Pick a schedule</h2>
+      <div className="mx-auto flex max-w-[530px] grow flex-col gap-8 rounded-3xl border-4 border-cs-orange px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
+        <h2 className="text-center font-sans font-bold text-cs-orange">
+          Pick a schedule
+        </h2>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -152,14 +153,17 @@ export default function Page() {
 
               <button
                 type="submit"
-                className="mt-8 w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className="mt-8 w-auto  rounded-xl bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
               >
                 Check Availability
               </button>
 
-              <Link href="/services" className="mt-3 text-sm underline">
+              <a
+                href="/services"
+                className="mt-8 w-auto rounded-xl bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              >
                 Cancel
-              </Link>
+              </a>
             </>
           ) : (
             modal

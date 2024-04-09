@@ -52,12 +52,20 @@ export default function Page() {
   };
 
   return (
-    <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16">
-      <div className="mx-auto flex min-w-[464px] flex-col gap-8 rounded-3xl bg-otb-yellow px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
-        <h2 className="text-center">Seat Reservation</h2>
+    <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16 font-sans">
+      <div className="mx-auto flex min-w-[464px] flex-col gap-8 rounded-3xl border-4 border-cs-orange bg-cs-cream px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
+        {/* Conditional rendering of title */}
+        {!isPaid ? (
+          <h2 className="text-center font-bold text-cs-orange">Payment</h2>
+        ) : (
+          <h2 className="text-center font-bold text-cs-orange">
+            Seat Reservation
+          </h2>
+        )}
 
         {!isPaid ? (
           <>
+            {/* Payment options */}
             <div className="flex gap-8">
               {paymentProviders.map((provider) => (
                 <div
@@ -65,8 +73,8 @@ export default function Page() {
                   className="flex flex-col items-center gap-2"
                 >
                   <Image
-                    src={'/payment/qrcode/gcash.png'}
-                    alt={'Gcash QR code'}
+                    src={provider.qrcode}
+                    alt={`${provider.name} QR code`}
                     height={150}
                     width={150}
                     className="rounded-lg"
@@ -86,7 +94,7 @@ export default function Page() {
               )}
               <button
                 type="button"
-                className="w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className=" w-full  rounded-2xl bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
                 onClick={handleClick}
               >
                 Continue
@@ -99,7 +107,7 @@ export default function Page() {
                   By continuing, you agree to our{' '}
                   <Link
                     href=""
-                    className="font-bold text-otb-blue underline shadow-sm"
+                    className="font-bold text-cs-orange underline shadow-sm"
                   >
                     Terms and Conditions
                   </Link>
@@ -109,12 +117,13 @@ export default function Page() {
           </>
         ) : (
           <>
+            {/* Reservation Success message */}
             <div
-              className={`flex flex-col items-center justify-center gap-4 rounded-3xl bg-white p-8 ${styles.blueShadow}`}
+              className={`flex flex-col items-center justify-center gap-4 rounded-3xl p-8 `}
             >
-              <p className="w-full rounded-lg border border-green-700 bg-green-100 px-3 py-2 text-center font-bold text-green-700">
+              <h1 className="borderpx-3 w-full rounded-lg py-2 text-center font-bold ">
                 Reservation Success!
-              </p>
+              </h1>
 
               <div className="text-sm">
                 <p className="text-base">
@@ -131,7 +140,7 @@ export default function Page() {
             <Link href="/" className="rounded-full">
               <button
                 type="button"
-                className="w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className=" w-full  rounded-2xl bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
               >
                 Go to Home
               </button>

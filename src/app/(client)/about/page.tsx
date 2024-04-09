@@ -1,58 +1,59 @@
+/* eslint-disable @next/next/no-img-element */
 import styles from '@/styles/about.module.css';
 
 export default function About() {
   return (
-    <div className="mx-auto flex max-w-screen-lg flex-col gap-20 px-[7%] py-16 xl:px-0">
+    <div className=" mx-auto flex max-w-screen-lg flex-col gap-20 px-[7%] py-16 pt-40 font-sans xl:px-0">
       <div className="flex flex-col gap-4">
-        <h1 className="">About us</h1>
-        <div className="flex flex-col gap-2">
+        <div className="mx-auto w-2/5 overflow-hidden">
+          <img
+            src="/coursescape-logo-cropped-bg.png"
+            className="w-full rounded-lg"
+            alt="Coursescape-logo"
+          />
+        </div>
+        <div className="mx-auto flex w-1/2 flex-col gap-2 text-justify">
           <p>
-            At Outside The Box, we believe that productivity and creativity go
-            hand-in-hand.
+            At{''} <span className=" font-bold">coursescape</span>, we believe
+            that <span className=" font-bold">productivity and creativity</span>{' '}
+            go hand-in-hand.
           </p>
 
           <p>
-            Our co-working and study lounge is designed to provide a
-            comfortable, inspiring, and collaborative space for students,
-            freelancers, and professionals to work, learn, and connect.
+            Our co-working and study lounge is designed to provide a {''}
+            <span className=" font-bold">
+              comfortable, inspiring, and collaborative
+            </span>{' '}
+            space for students, freelancers, and professionals to {''}
+            <span className=" font-bold">work, learn, and connect.</span>
           </p>
 
           <p>
             We believe that a productive environment should engage all senses,
-            not just the mind. That&apos;s why we have created a unique
-            workspace that brings a different vibe to the traditional workplace.
+            not just the mind. That&apos;s why we have created a{' '}
+            <span className=" font-bold">unique workspace</span> that brings a
+            different vibe to the traditional workplace.
           </p>
         </div>
       </div>
 
       <div className="flex flex-col items-center gap-4">
-        <div className="h-1 w-20 bg-otb-blue" />
-
-        <div className="flex flex-wrap gap-8 sm:flex-nowrap">
-          <div>
+        <div className="flex flex-wrap gap-24 sm:flex-nowrap">
+          <div className="w-full sm:w-1/2">
             <img
-              src="about1.jpg"
+              src="about1-new.png"
               alt="Image 1"
-              className="block rounded-3xl shadow-xl"
+              className="block h-full w-full rounded-3xl shadow-xl"
             />
           </div>
-          <div>
+          <div className="w-full sm:w-1/2">
             <img
-              src="about2.jpg"
+              src="about2-new.png"
               alt="Image 2"
-              className="block rounded-3xl shadow-xl"
-            />
-          </div>
-          <div>
-            <img
-              src="about3.jpg"
-              alt="Image 3"
-              className="block rounded-3xl shadow-xl"
+              className="block h-full w-full rounded-3xl shadow-xl"
             />
           </div>
         </div>
-
-        <div className="h-1 w-20 bg-otb-blue" />
       </div>
 
       <Rule />
@@ -64,13 +65,13 @@ export default function About() {
 
 function Rule() {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <div className={styles.blue_box} />
-        <h2 className="">House Rules</h2>
+    <div className="flex flex-col gap-2">
+      <div className="mx-auto flex w-9/12 items-center gap-4">
+        <h2 className="font-bold text-cs-orange">House Rules</h2>
       </div>
+      <div className="mx-auto h-1 w-9/12 bg-[#a6a6a6]" />
 
-      <ul className="flex list-disc flex-col gap-2 pl-4">
+      <ul className="mx-auto flex w-9/12 list-disc flex-col gap-2 pl-4">
         <li>
           <span className="text-base font-bold">
             Register at the front desk
@@ -122,13 +123,13 @@ function Rule() {
 
 function Pantry() {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <div className={styles.blue_box} />
-        <h2 className="">Pantry Rules</h2>
+    <div className="flex flex-col gap-2">
+      <div className="mx-auto flex w-9/12 items-center gap-4">
+        <h2 className="font-bold text-cs-orange">Pantry Rules</h2>
       </div>
+      <div className="mx-auto h-1 w-9/12 bg-[#a6a6a6]" />
 
-      <ul className="flex list-disc flex-col gap-2 pl-4">
+      <ul className="mx-auto flex w-9/12 list-disc flex-col gap-2 pl-4">
         <li>
           <span className="text-base font-bold">Clean</span> as you go. Please
           wash your utensils, plates, and mugs.
@@ -144,20 +145,21 @@ function Pantry() {
 
 function Outside() {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <div className={styles.blue_box} />
-        <h2 className="">Outside Food</h2>
+    <div className="flex flex-col gap-2">
+      <div className="mx-auto flex w-9/12 items-center gap-4">
+        <h2 className="font-bold text-cs-orange">Outside Food</h2>
       </div>
+      <div className="mx-auto h-1 w-9/12  bg-[#a6a6a6]" />
 
-      <ul className="flex list-disc flex-col gap-2 pl-4">
+      <ul className="mx-auto flex w-9/12 list-disc flex-col gap-2 pl-4">
         <li>
           <span className="text-base font-bold">Outside food are allowed</span>{' '}
           with no corkage fee.
         </li>
         <li>
+          However,{' '}
           <span className="text-base font-bold">
-            However, strong foul-smelling food is prohibited.
+            strong foul-smelling food is prohibited.
           </span>
         </li>
       </ul>

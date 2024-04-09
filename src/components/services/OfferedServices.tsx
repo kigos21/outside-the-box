@@ -6,25 +6,30 @@ import SpecialPromos from './SpecialPromos';
 
 export default function OfferedServices() {
   return (
-    <div>
-      <h1 className="mb-10 text-center">Our Services</h1>
-      {/* <div className="grid grid-cols-2 gap-8"> */}
-      <div className="flex flex-wrap gap-8">
-        <div className="flex shrink-0 grow flex-col gap-4 rounded-3xl bg-otb-yellow p-8 shadow-2xl">
-          {/* REGULAR RATES */}
-          <h2 className="text-center">Regular Rates</h2>
+    <div className="font-sans font-bold">
+      <h1 className="mb-10 text-center text-4xl font-bold text-cs-orange lg:text-5xl xl:text-6xl">
+        Regular Rates
+      </h1>
+      <div className=" flex flex-col gap-12 px-80 md:flex-row md:gap-16 lg:gap-12">
+        {/* Regular Rates */}
+        <div className="flex flex-1 flex-col gap-4">
           <RegularRates regularRates={regularRates} />
-          <InclusionsAddOns regularRateLists={regularRateLists} />
-          {/* END OF REGULAR RATES */}
         </div>
 
-        <div className="flex grow basis-[410px] flex-col gap-4 rounded-3xl bg-otb-yellow p-8 shadow-2xl">
-          {/* SPECIAL PROMOS */}
-          <h2 className="text-center">Special Promos</h2>
-          <SpecialPromos specialPromos={specialPromos} />
-          {/* END OF SPECIAL PROMOS */}
+        {/* Inclusions & Add-Ons */}
+        <div className="flex flex-1 flex-col gap-4">
+          <InclusionsAddOns regularRateLists={regularRateLists} />
         </div>
       </div>
+      {/* Border lines */}
+      <div className="my-8 border-t-2 border-[#a6a6a6]"></div>{' '}
+      {/* Top border line */}
+      {/* Special Promos */}
+      <div className="mt-8">
+        <SpecialPromos specialPromos={specialPromos} />
+      </div>
+      <div className="my-8 border-t-2 border-[#a6a6a6]"></div>{' '}
+      {/* Bottom border line */}
     </div>
   );
 }

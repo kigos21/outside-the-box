@@ -6,7 +6,7 @@ export default function UsernameForm({
   username,
 }: UsernameFormProps) {
   return (
-    <>
+    <div className=" text-center">
       <p className="font-bold">Forget Password</p>
       <p className="text-sm">We will send an OTP through your SMS</p>
       <form method="post" onSubmit={(e) => handleSubmit(e)}>
@@ -22,11 +22,11 @@ export default function UsernameForm({
         />
         <button
           type="submit"
-          className="my-4 w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+          className="my-4 w-32   rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
         >
           Proceed
         </button>
       </form>
-    </>
+    </div>
   );
 }
