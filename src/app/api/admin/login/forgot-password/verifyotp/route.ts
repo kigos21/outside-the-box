@@ -8,12 +8,17 @@ export async function POST(req: Request) {
   try {
     const otpLog = await prismaClient.oTP.findFirst({
       where: {
-        createdAt: {
-          gt: tenMinutesAgo,
-        },
-        admin: {
+        customer: {
           username: username,
         },
+        AND: {
+          createdAt: {
+            gt: tenMinutesAgo,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
 

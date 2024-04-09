@@ -49,8 +49,6 @@ export default function Login() {
       setMessage('An error occurred. Please try again later.');
     }
 
-    setIsEnteringUsername(false);
-    setIsEnteringOTP(true);
   };
 
   const handleOTPChange = (value: string) => {
