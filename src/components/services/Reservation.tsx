@@ -14,7 +14,7 @@ export default function Reservation() {
         </p>
       </div>
 
-      <div className="flex min-h-[300px] min-w-[600px] flex-col gap-4 rounded-3xl border-4 border-black bg-cs-green p-12 text-center text-lg">
+      <div className="flex min-h-[300px] min-w-[600px] flex-col gap-4 rounded-3xl bg-cs-green p-12 text-center text-lg shadow-lg">
         <div className="text-white">
           <p>as of 2:00PM 12/25/2023</p>
           <p>
@@ -24,13 +24,13 @@ export default function Reservation() {
 
         <div className="flex justify-center gap-4">
           <Link href={'/reservation/seat'}>
-            <button className="min-w-[200px] rounded-3xl border-4 border-black bg-gradient-to-br from-cs-yellow to-cs-orange px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+            <button className="min-w-[200px] rounded-3xl border border-transparent bg-gradient-to-br from-cs-yellow to-cs-orange px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-lg">
               Reserve a Seat
             </button>
           </Link>
 
           <Link href="/reservation/otb">
-            <button className="min-w-[200px] rounded-3xl border-4 border-black bg-gradient-to-br from-cs-yellow to-cs-orange px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+            <button className="min-w-[200px] rounded-3xl border border-transparent bg-gradient-to-br from-cs-yellow to-cs-orange px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-lg">
               Reserve Place
             </button>
           </Link>
