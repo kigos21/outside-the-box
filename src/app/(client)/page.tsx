@@ -45,8 +45,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mx-auto flex max-w-screen-lg flex-wrap items-center gap-x-16 gap-y-8 rounded-3xl bg-cs-cream px-[7%] py-16 font-sans md:flex-nowrap md:px-16">
-          <div className="basis-full md:basis-1/2">
+        <div className=" mx-auto flex max-w-screen-lg flex-wrap items-center gap-x-16 gap-y-8 rounded-3xl bg-cs-cream px-[7%] py-16 font-sans md:flex-nowrap md:px-16">
+          <div className="basis-full  md:basis-1/2">
             <div className="inline-flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

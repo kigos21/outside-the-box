@@ -22,13 +22,13 @@ export default function OfferedServices() {
         </div>
       </div>
       {/* Border lines */}
-      <div className="my-8 border-t-2 border-black"></div>{' '}
+      <div className="my-8 border-t-2 border-[#a6a6a6]"></div>{' '}
       {/* Top border line */}
       {/* Special Promos */}
       <div className="mt-8">
         <SpecialPromos specialPromos={specialPromos} />
       </div>
-      <div className="my-8 border-t-2 border-black"></div>{' '}
+      <div className="my-8 border-t-2 border-[#a6a6a6]"></div>{' '}
       {/* Bottom border line */}
     </div>
   );
