@@ -285,7 +285,7 @@ export default function FacilityReservation() {
               </div>
             </div>
 
-            <button className="w-fit self-end rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+            <button className="w-fit self-end rounded-md bg-cs-blue text-white px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
               Add Record
             </button>
           </form>

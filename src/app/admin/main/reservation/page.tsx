@@ -231,7 +231,7 @@ export default function Reservation() {
           </h3>
           <Link
             href="/admin/main/reservation/facility"
-            className="rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className="rounded-md bg-cs-blue text-white px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Create Reservation
           </Link>

@@ -68,7 +68,7 @@ export default function AddLog() {
         <div className="flex">
           <button
             onClick={() => setShowModal(false)}
-            className={`basis-full rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none`}
+            className={`bg-cs-blue basis-full rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none`}
           >
             OK
           </button>
@@ -150,7 +150,7 @@ export default function AddLog() {
 
           <button
             type="submit"
-            className="w-fit self-end rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Add Record
           </button>

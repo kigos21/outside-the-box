@@ -39,7 +39,7 @@ export default function ReportsModal({
         {/* Conditionally render the "Confirm" buttons */}
         {reportType === 'daily' && (
           <button
-            className="mr-2 mt-2 rounded-md bg-otb-blue px-4 py-2 text-white"
+            className="mr-2 mt-2 rounded-md bg-cs-blue px-4 py-2 text-white"
             onClick={() => handleConfirm(userDate)}
           >
             Confirm Daily Reports
@@ -47,7 +47,7 @@ export default function ReportsModal({
         )}
         {reportType === 'custom' && (
           <button
-            className="mr-2 mt-2 rounded-md bg-otb-blue px-4 py-2 text-white"
+            className="mr-2 mt-2 rounded-md bg-cs-blue px-4 py-2 text-white"
             onClick={() => handleConfirm(customDate)}
           >
             Confirm Custom Reports

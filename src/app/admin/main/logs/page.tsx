@@ -51,7 +51,7 @@ export default function Logs() {
         <div className="flex gap-3">
           <Link
             href="/admin/main/logs/add-from-reservations"
-            className="flex items-center justify-center rounded-md border border-otb-blue bg-sky-50 px-4 py-2 text-otb-blue shadow-md transition-all hover:bg-sky-900 hover:text-white hover:shadow-none"
+            className="flex items-center justify-center rounded-md border border-cs-blue bg-blue-100 px-4 py-2 text-cs-blue shadow-md transition-all hover:bg-sky-900 hover:text-white hover:shadow-none"
           >
             Create from reservation
           </Link>

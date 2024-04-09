@@ -35,15 +35,15 @@ export default function AdminLogin() {
   };
 
   return (
-    <main className="flex min-h-[100vh] w-full items-center justify-center bg-white px-10">
+    <main className="flex min-h-[100vh] w-full items-center justify-center bg-slate-200 px-10">
       {!showNewPassword && (
-        <div className="square-container flex w-[480px] flex-col items-center gap-8 rounded-3xl bg-otb-yellow px-16 py-12 shadow-2xl">
+        <div className="square-container bg-cs-yellow flex w-[480px] flex-col items-center gap-8 rounded-3xl px-16 py-12 shadow-2xl">
           <div className="h-30 w-15">
             <Image
-              src={'/otb-logo-cropped.jpg'}
+              src={'/coursescape-logo-cropped.png'}
               alt={'Outside the box logo'}
-              width={150}
-              height={150}
+              width={200}
+              height={200}
             />
           </div>
           <div className="flex flex-col gap-4 text-center">
@@ -74,7 +74,7 @@ export default function AdminLogin() {
               <button
                 type="button"
                 onClick={handleVerify}
-                className="rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className="bg-cs-blue rounded-md px-6 py-4 font-semibold uppercase text-gray-300 shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
               >
                 Submit
               </button>
