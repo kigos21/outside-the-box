@@ -5,13 +5,44 @@ import { LoginFormBody } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function AdminLogin() {
+  const [tries, setTries] = useState<number>(0);
+  const [timeout, setTimeout] = useState<number>(0);
+  const [timeoutMessage, setTimeoutMessage] = useState<string>('');
   const [error, setError] = useState('');
 
   const { register, handleSubmit } = useForm<LoginFormBody>();
   const router = useRouter();
+
+  useEffect(() => {
+    setTimeoutMessage(`Try again after ${timeout} seconds.`);
+
+    const interval = setInterval(() => {
+      setTimeout((prevTimeout: number) => {
+        if (prevTimeout === 0) {
+          clearInterval(interval);
+          return 0;
+        } else {
+          return prevTimeout - 1;
+        }
+      });
+    }, 1000);
+
+    // prevent multiple interval functions from spawning everytime `timeout`
+    // state change
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timeout]);
+
+  useEffect(() => {
+    if (tries === 3) {
+      setTimeout(30);
+      setTries(0);
+    }
+  }, [tries]);
 
   const onSubmit: SubmitHandler<LoginFormBody> = async ({
     username,
@@ -31,6 +62,10 @@ export default function AdminLogin() {
       router.push('/admin/main');
     } else {
       setError(message);
+
+      if (message === 'Invalid credentials') {
+        setTries((count) => (count += 1));
+      }
     }
   };
 
@@ -101,7 +136,17 @@ export default function AdminLogin() {
                   {error}
                 </div>
               )}
-              <button className=" rounded-md bg-cs-yellow px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+
+              {timeout !== 0 && (
+                <p role="alert" className="text-center text-base text-red-500">
+                  {timeoutMessage}
+                </p>
+              )}
+
+              <button
+                disabled={timeout !== 0}
+                className="bg-cs-yellow disabled:hover:bg-cs-yellow cursor-pointer rounded-md px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none disabled:opacity-10 disabled:hover:text-black"
+              >
                 Login
               </button>
               <span className="text-center">
