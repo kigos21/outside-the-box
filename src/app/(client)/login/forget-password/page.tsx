@@ -42,11 +42,15 @@ export default function Login() {
     if (status === 200) {
       setIsEnteringUsername(false);
       setIsEnteringOTP(true);
+      setMessage('');
     } else if (status === 400) {
-      // set conditional
+      setMessage('Invalid Username. Please try again.');
     } else {
-      // set conditional
+      setMessage('An error occurred. Please try again later.');
     }
+
+    setIsEnteringUsername(false);
+    setIsEnteringOTP(true);
   };
 
   const handleOTPChange = (value: string) => {
@@ -72,10 +76,11 @@ export default function Login() {
     if (status === 200) {
       setIsEnteringOTP(false);
       setIsEnteringNewPassword(true);
+      setMessage('');
     } else if (status === 400) {
-      // set conditional
+      setMessage('Invalid OTP. Please try again.');
     } else {
-      // set conditional
+      setMessage('An error occurred. Please try again later.');
     }
   };
 
@@ -92,26 +97,29 @@ export default function Login() {
   ) => {
     e.preventDefault();
 
-    if (newPassword === confirmPassword) {
-      const res = await fetch('/api/login/forgot-password/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: username,
-          newPassword: newPassword,
-        }),
-      });
+    const res = await fetch('/api/login/forgot-password/reset-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        newPassword: newPassword,
+        confirmPassword: confirmPassword,
+      }),
+    });
 
-      if (res.status === 200) {
-        setIsEnteringNewPassword(false);
-        setMessage('Password reset successfully!');
-      } else {
-        // enter conditional pls
-      }
+    if (res.status === 200) {
+      setIsEnteringNewPassword(false);
+      setMessage('Password reset successfully!');
+    } else if (res.status === 400) {
+      setMessage(
+        'Password must be atleast 8 characters long, and include at least one lowercase letter, one uppercase letter, one digit, and one special character [@, $, !, %, *, ?, &].',
+      );
+    } else if (res.status === 404) {
+      setMessage('Passwords do not match.');
     } else {
-      // enter conditional pls
+      setMessage('An error occurred. Please try again later.');
     }
   };
 
@@ -155,12 +163,14 @@ export default function Login() {
 
           {message && (
             <div className="flex flex-col gap-8">
-              <span>{message}</span>
               <Link href="/login" className="block w-full">
-                <button className="my-4 w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+                <button className="w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
                   Go to Login
                 </button>
               </Link>
+              <span className="m-auto flex text-sm text-red-500">
+                {message}
+              </span>
             </div>
           )}
         </div>

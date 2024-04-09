@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     if (!customer) {
       return Response.json(
         { message: 'User does not exist.' },
-        { status: 404 },
+        { status: 400 },
       );
     }
 
