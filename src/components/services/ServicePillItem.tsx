@@ -7,10 +7,10 @@ export default function ServicePillItem({
 }: ServicePill & { index: number }) {
   // Determine background color and font color based on index
   const backgroundColor = index % 2 === 0 ? 'bg-cs-green' : 'bg-cs-orange';
-  const fontColor = index % 2 === 0 ? 'text-[#333333]' : 'text-white';
+  const fontColor = 'text-white';
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid list-none grid-cols-2 gap-4">
       <li
         className={`rounded-xl ${backgroundColor} py-7 text-center text-lg font-semibold uppercase ${fontColor}`}
       >
