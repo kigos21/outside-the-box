@@ -1,142 +1,180 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { LoginFormBody } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useState } from 'react';
 
-export default function AdminLogin() {
-  const { register, handleSubmit } = useForm<LoginFormBody>();
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [otpValue, setOtpValue] = useState('');
+import UsernameForm from '@/components/login/UsernameForm';
+import OTPForm from '@/components/OTPForm';
+import NewPasswordForm from '@/components/login/NewPasswordForm';
 
-  const handleVerify = async () => {
+export default function Login() {
+  const [username, setUsername] = useState<string>('');
+  const [otp, setOTP] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+
+  const [isEnteringUsername, setIsEnteringUsername] = useState<boolean>(true);
+  const [isEnteringOTP, setIsEnteringOTP] = useState<boolean>(false);
+  const [isEnteringNewPassword, setIsEnteringNewPassword] =
+    useState<boolean>(false);
+
+  const handleUsernameChange = (value: string) => {
+    setUsername(value);
+  };
+
+  const handleUsernameSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const res = await fetch('/api/admin/login/forgot-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+      }),
+    });
+
+    const status = res.status;
+
+    if (status === 200) {
+      setIsEnteringUsername(false);
+      setIsEnteringOTP(true);
+      setMessage('');
+    } else if (status === 400) {
+      setMessage('Invalid Username. Please try again.');
+    } else {
+      setMessage('An error occurred. Please try again later.');
+    }
+
+    setIsEnteringUsername(false);
+    setIsEnteringOTP(true);
+  };
+
+  const handleOTPChange = (value: string) => {
+    setOTP(value);
+  };
+
+  const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const res = await fetch('/api/admin/login/forgot-password/verifyotp', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        otp: otpValue,
+        username: username,
+        otp: otp,
+      }),
+    });
+
+    const status = res.status;
+
+    if (status === 200) {
+      setIsEnteringOTP(false);
+      setIsEnteringNewPassword(true);
+      setMessage('');
+    } else if (status === 400) {
+      setMessage('Invalid OTP. Please try again.');
+    } else {
+      setMessage('An error occurred. Please try again later.');
+    }
+  };
+
+  const handleNewPasswordChange = (value: string) => {
+    setNewPassword(value);
+  };
+
+  const handleConfirmPasswordChange = (value: string) => {
+    setConfirmPassword(value);
+  };
+
+  const handleNewPasswordSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ) => {
+    e.preventDefault();
+
+    const res = await fetch('/api/admin/login/forgot-password/reset-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        newPassword: newPassword,
+        confirmPassword: confirmPassword,
       }),
     });
 
     if (res.status === 200) {
-      setShowNewPassword(true);
+      setIsEnteringNewPassword(false);
+      setMessage('Password reset successfully!');
+    } else if (res.status === 400) {
+      setMessage(
+        'Password must be atleast 8 characters long, and include at least one lowercase letter, one uppercase letter, one digit, and one special character [@, $, !, %, *, ?, &].',
+      );
+    } else if (res.status === 404) {
+      setMessage('Passwords do not match.');
     } else {
-      // else conditional
+      setMessage('An error occurred. Please try again later.');
     }
   };
 
-  const onSubmit: SubmitHandler<LoginFormBody> = async () => {
-    // Backend logic
-    console.log();
-  };
-
   return (
-    <main className="flex min-h-[100vh] w-full items-center justify-center bg-slate-200 px-10">
-      {!showNewPassword && (
-        <div className="square-container bg-cs-yellow flex w-[480px] flex-col items-center gap-8 rounded-3xl px-16 py-12 shadow-2xl">
-          <div className="h-30 w-15">
-            <Image
-              src={'/coursescape-logo-cropped.png'}
-              alt={'Outside the box logo'}
-              width={200}
-              height={200}
-            />
-          </div>
-          <div className="flex flex-col gap-4 text-center">
-            <p className="w-full rounded-lg border border-blue-500 bg-blue-100 px-3 py-2 text-center text-blue-500">
-              An OTP has been sent to the email of the owner.
-            </p>
-          </div>
-          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-            {!showNewPassword && (
-              <div>
-                <label htmlFor="otp">Please enter OTP:</label>
-                <input
-                  type="number"
-                  name="otp"
-                  id="otp"
-                  required
-                  placeholder="OTP"
-                  minLength={6}
-                  maxLength={6}
-                  value={otpValue}
-                  onChange={(e) => setOtpValue(e.target.value)}
-                  className="mt-3 w-full rounded-md border border-gray-400 px-6 py-4 text-center text-lg"
-                />
-              </div>
-            )}
+    <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16 pt-24 text-center">
+      <div className="bg-cs-yellow flex max-w-lg flex-col items-center justify-center gap-8 rounded-lg px-8 py-6 shadow-2xl sm:px-16 sm:py-12">
+        <Image
+          src={'/coursescape-logo-cropped.png'}
+          alt={'Outside the box logo'}
+          width={400}
+          height={140}
+          className="w-[240px] sm:w-[400px]"
+        />
 
-            <div className="mt-4 flex w-full flex-col gap-4">
-              <button
-                type="button"
-                onClick={handleVerify}
-                className="bg-cs-blue rounded-md px-6 py-4 font-semibold uppercase text-gray-300 shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-              >
-                Submit
-              </button>
+        <div>
+          {isEnteringUsername && (
+            <UsernameForm
+              handleSubmit={handleUsernameSubmit}
+              handleChange={handleUsernameChange}
+              username={username}
+            />
+          )}
+
+          {isEnteringOTP && (
+            <OTPForm
+              handleSubmit={handleOTPSubmit}
+              handleChange={handleOTPChange}
+              otp={otp}
+            />
+          )}
+
+          {isEnteringNewPassword && (
+            <NewPasswordForm
+              handleSubmit={handleNewPasswordSubmit}
+              handlePasswordChange={handleNewPasswordChange}
+              handleConfirmPasswordChange={handleConfirmPasswordChange}
+              newPassword={newPassword}
+              confirmPassword={confirmPassword}
+            />
+          )}
+
+          {message && (
+            <div className="flex flex-col gap-8">
+              <Link href="/login" className="block w-full">
+                <button className="w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
+                  Go to Login
+                </button>
+              </Link>
+              <span className="m-auto flex text-sm text-red-500">
+                {message}
+              </span>
             </div>
-          </form>
+          )}
         </div>
-      )}
-
-      {showNewPassword && <NewPassword />}
-    </main>
-  );
-}
-
-function NewPassword() {
-  return (
-    <div className="square-container flex flex-col items-center gap-8 rounded-3xl bg-otb-yellow px-16 py-10 shadow-2xl">
-      <Image
-        src={'/otb-logo-cropped.jpg'}
-        alt={'Outside the box logo'}
-        width={150}
-        height={150}
-        className="h-30 w-15"
-      />
-      <p className="text-lg font-semibold">Enter New Password</p>
-      <form method="post" className="flex w-full flex-col gap-4">
-        <div className="flex flex-col gap-2">
-          <div className="flex w-full flex-col gap-1">
-            <label htmlFor="newPassword" className="text-sm">
-              New Password
-            </label>
-            <input
-              type="password"
-              name="newPassword"
-              id="newPassword"
-              required
-              placeholder="New Password"
-              className="w-full rounded-md border border-gray-400 px-6 py-4 text-center text-lg"
-            />
-          </div>
-          <div className="w-full">
-            <label htmlFor="confirmPassword" className="text-sm">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              required
-              placeholder="Confirm Password"
-              className="w-full rounded-md border border-gray-400 px-6 py-4 text-center text-lg"
-            />
-          </div>
-        </div>
-        <Link href="/admin" passHref>
-          <button
-            type="submit"
-            className="w-full rounded-md bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-          >
-            Reset
-          </button>
-        </Link>
-      </form>
+      </div>
     </div>
   );
 }

@@ -34,7 +34,10 @@ export async function POST(req: Request) {
         },
       });
 
-      return Response.json({ verification }, { status: 200 });
+      return Response.json(
+        { message: 'OTP sent successfully.' },
+        { status: 200 },
+      );
     } catch (error) {
       console.error('Error sending OTP: ', error);
     }
