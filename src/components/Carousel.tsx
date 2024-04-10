@@ -6,7 +6,7 @@ import { useState } from 'react';
 import IndexIndicator from './IndexIndicator';
 
 export default function Carousel() {
-  const items = ['/about1.jpg', '/about2.jpg', '/about3.jpg'];
+  const items = ['/about1-new.png', '/about2-new.png', '/about3-new.png'];
   const [index, setIndex] = useState(1);
 
   const handleLeftArrowClick = () => {
