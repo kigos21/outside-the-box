@@ -8,10 +8,10 @@ export default function SpecialPromos({
 }) {
   return (
     <div>
-      <h2 className="mb-4 text-3xl font-bold text-cs-orange lg:px-40 lg:text-4xl xl:text-5xl">
+      <h2 className="mb-8 text-start text-4xl font-bold text-cs-orange lg:text-5xl xl:text-6xl">
         SPECIAL PROMOS
       </h2>
-      <ul className="flex flex-col gap-4 md:gap-6 lg:gap-8 lg:px-64">
+      <ul className="flex flex-col gap-4 text-lg">
         {specialPromos.map((promo) => (
           <ServicePillItem key={promo.title} {...promo} />
         ))}
