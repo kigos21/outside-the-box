@@ -80,7 +80,6 @@ export default function Reports(e: any) {
   const objectContainer: ObjectContainer = {
     reports: [],
   };
-
   reports.forEach((report) => {
     objectContainer.reports.push({
       customer: { ...report.customer },
@@ -117,6 +116,9 @@ export default function Reports(e: any) {
     } else if (selectedTimeOfDay === 'PM') {
       startHour = '12:00';
       endHour = '23:59';
+    } else if (selectedTimeOfDay === 'Whole Day') {
+      startHour = '00:00';
+      endHour = '23:59';
     }
     setDailyFormData({
       ...dailyFormData,
@@ -132,11 +134,11 @@ export default function Reports(e: any) {
 
     setDailyFormData({ ...dailyFormData, date: newFormat });
   };
-
   const userDate = objectContainer.reports.filter((item: any) => {
     const isAM = dailyFormData.timeOfDay === 'AM';
     const isPM = dailyFormData.timeOfDay === 'PM';
-    let localTime = new Date(item.timeIn).toLocaleString('en-US', {
+    const isWholeDay = dailyFormData.timeOfDay === 'Whole Day';
+    let localTime = new Date(item.timeIn).toLocaleString('en-SG', {
       timeZone: 'Asia/Singapore',
       hour12: true,
       hour: 'numeric',
@@ -147,27 +149,34 @@ export default function Reports(e: any) {
       const getHourTime = item.timeIn.slice(11, 13);
       const isWithinHours =
         (isAM && getHourTime >= '00' && getHourTime <= '11') ||
-        (isPM && getHourTime >= '12' && getHourTime <= '23');
+        (isPM && getHourTime >= '12' && getHourTime <= '23') ||
+        isWholeDay;
       return item.date === dailyFormData.date && isWithinHours;
     } else {
       console.log('hour is undefined. Cannot split further.');
     }
   });
-
   const customDate = objectContainer.reports
     ? objectContainer.reports.filter(
         (item) =>
           item.date >= customData.startDate && item.date <= customData.endDate,
       )
     : [];
-
-  function confirmExport(data: any) {
+  function confirmExport(data: any, p0?: string) {
     const csvContent = coverToCSV(data);
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+    const dateToday = new Date().toISOString().split('T')[0];
+    let filename = '';
+    if (reportType === 'daily') {
+      const timeOfDay = dailyFormData.timeOfDay.toUpperCase();
+      filename = `COURSESCAPE-REPORTS-${timeOfDay}-${dateToday}.csv`;
+    } else if (reportType === 'custom') {
+      filename = `COURSESCAPE-REPORTS-CUSTOM-${customData.startDate}-${customData.endDate}.csv`;
+    }
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'OTBREPORTS.csv');
+    link.setAttribute('download', filename);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -206,11 +215,20 @@ export default function Reports(e: any) {
       return rowData.join(',');
     });
     const headerRow = headers.join(',');
-    return [headerRow, ...csvRows].join('\n');
+    const totalSales = data.reduce(
+      (total: any, item: any) => total + item.service.servicePrice,
+      0,
+    );
+    const totalSalesRow = ['', '', '', '', `Total Sales: ${totalSales} PHP`];
+    return [headerRow, ...csvRows, totalSalesRow].join('\n');
   }
 
   const handleDailyReportSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (userDate.length === 0) {
+      alert('No reports found for the selected criteria.');
+      return;
+    }
     const updatedDataToUse = userDate;
     setDataToExport(updatedDataToUse);
     setReportType('daily');
@@ -219,17 +237,28 @@ export default function Reports(e: any) {
 
   const handleCustomReportSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const updatedDataToUse = customDate;
-    setDataToExport(updatedDataToUse);
-    setReportType('custom');
-    setShowModal(true);
-  };
 
+    if (customDate.length === 0) {
+      alert(
+        'No reports found for the selected criteria. Use a valid date, start date cannot be later than end date',
+      );
+    } else {
+      const updatedDataToUse = customDate;
+      setDataToExport(updatedDataToUse);
+      setReportType('custom');
+      setShowModal(true);
+    }
+  };
+  const ToD = new Date().toLocaleDateString('en-SG', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
   return (
     <div className="flex h-[86vh] flex-col gap-5">
       {showModal && (
         <ReportsModal
-          title={'Data to be exported:'}
+          title={'Coursescape Reports'}
           handleConfirm={confirmExport}
           handleCancel={() => setShowModal(false)}
           dataToExport={dataToExport}
@@ -237,6 +266,7 @@ export default function Reports(e: any) {
           customDate={customDate}
           refreshParent={() => ''}
           reportType={reportType} // Pass the reportType prop
+          dayToday={ToD}
         >
           <table className="w-full border-collapse border-2 border-solid border-black">
             <thead>
@@ -276,6 +306,18 @@ export default function Reports(e: any) {
                   </td>
                 </tr>
               ))}
+              <tr>
+                <td className={styles} colSpan={2}>
+                  Total Sales
+                </td>
+                <td className={styles} colSpan={6}>
+                  {dataToExport.reduce(
+                    (total, item) => total + item.service.servicePrice,
+                    0,
+                  )}{' '}
+                  PHP
+                </td>
+              </tr>
             </tbody>
           </table>
         </ReportsModal>
@@ -302,10 +344,11 @@ export default function Reports(e: any) {
                   onChange={handleTimeOfDayChange}
                 >
                   <option value="" hidden>
-                    AM / PM
+                    AM / PM / Whole Day
                   </option>
                   <option value="AM">AM</option>
                   <option value="PM">PM</option>
+                  <option value="Whole Day">Whole Day</option>
                 </select>
               </div>
               <div className="flex items-center gap-4">
