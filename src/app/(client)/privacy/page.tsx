@@ -4,55 +4,52 @@ export default function page() {
       <h1 className="mb-6 text-center font-sans text-6xl font-bold">
         Privacy policy
       </h1>
-      <h2 className="text-2xl font-bold">
-        How We Collect and Use Your Personal Information
+      <p className="mb-4 text-left text-xl">
+        <strong>Coursescape Coworking Space</strong> regards the privacy of your
+        information as paramount. This Privacy Policy outlines the types of
+        information we collect, how we use it, who we might share it with, and
+        your choices surrounding this data.
+      </p>
+      <h2 className="text-2xl font-bold underline">Information We Collect</h2>
+      <ul>
+        <li className="mb-4 text-left text-xl">
+          <strong>Account Information:</strong> When you register for an
+          account, we collect your name, whether you identify as a student or
+          professional, and your mobile number.
+        </li>
+        <li className="mb-4 text-left text-xl">
+          <strong>Reservation Information:</strong> When you reserve a seat, we
+          store the reservation details for record-keeping.
+        </li>
+        <li className="mb-4 text-left text-xl">
+          <strong>Log Information:</strong> We may collect information related
+          to your use of our website, including your IP address, browser type,
+          pages visited, and dates and times of access.
+        </li>
+      </ul>
+      <h2 className="text-2xl font-bold underline">
+        How We Use Your Information
       </h2>
-      <p className="mb-4 text-left text-xl">
-        To provide the Services, we collect and have collected over the past 12
-        months personal information about you from a variety of sources, as set
-        out below. The information that we collect and use varies depending on
-        how you interact with us. In addition to the specific uses set out
-        below, we may use information we collect about you to communicate with
-        you, provide the Services, comply with any applicable legal obligations,
-        enforce any applicable terms of service, and to protect or defend the
-        Services, our rights, and the rights of our users or others.
-      </p>
-      <h2 className="text-2xl font-bold">
-        What Personal Information We Collect
-      </h2>
-      <p className="mb-4 text-left text-xl">
-        The types of personal information we obtain about you depends on how you
-        interact with our Site and use our Services. When we use the term
-        "personal information", we are referring to information that identifies,
-        relates to, describes or can be associated with you. The following
-        sections describe the categories and specific types of personal
-        information we collect.
-      </p>
-      <h2 className="text-2xl font-bold">SECTION 2</h2>
-      <p className="mb-4 text-left text-xl">
-        Para pumasa ay di ko na alam dahil ang mga panelists ang sasagot sa atin
-        pag dating sa ganyanan kaya pray to God Almighty. Lord please help us in
-        this project and always guide us. Para pumasa ay di ko na alam dahil ang
-        mga panelists ang sasagot sa atin pag dating sa ganyanan kaya pray to
-        God Almighty. Lord please help us in this project and always guide us.
-        Para pumasa ay di ko na alam dahil ang mga panelists ang sasagot sa atin
-        pag dating sa ganyanan kaya pray to God Almighty. Lord please help us in
-        this project and always guide us. Para pumasa ay di ko na alam dahil ang
-        mga panelists ang sasagot sa atin pag dating sa ganyanan kaya pray to
-        God Almighty. Lord please help us in this project and always guide us.
-      </p>
-      <h2 className="text-2xl font-bold">Paano nga ba pumasa sa sub na ito?</h2>
-      <p className="mb-4 text-left text-xl">
-        Para pumasa ay di ko na alam dahil ang mga panelists ang sasagot sa atin
-        pag dating sa ganyanan kaya pray to God Almighty. Lord please help us in
-        this project and always guide us.
-      </p>
-      <h2 className="text-2xl font-bold">Paano nga ba pumasa sa sub na ito?</h2>
-      <p className="mb-4 text-left text-xl">
-        Para pumasa ay di ko na alam dahil ang mga panelists ang sasagot sa atin
-        pag dating sa ganyanan kaya pray to God Almighty. Lord please help us in
-        this project and always guide us.
-      </p>
+      <ul>
+        <li className="mb-4 text-left text-xl">
+          <strong>Provide Services:</strong> We primarily use your data to
+          operate our coworking and study lounge website, including creating
+          your account, managing reservations, and maintaining logs.
+        </li>
+        <li className="mb-4 text-left text-xl">
+          <strong>Communications:</strong> We may use your mobile number to send
+          you notifications about your reservations or important updates about
+          our services.
+        </li>
+        <li className="mb-4 text-left text-xl">
+          <strong>Improvement:</strong> We might analyze usage data to improve
+          the efficiency and user experience of our website.
+        </li>
+        <li className="mb-4 text-left text-xl">
+          <strong>Security:</strong> We may use your information to enforce our
+          website's security and protect against unauthorized access.
+        </li>
+      </ul>
     </div>
   );
 }

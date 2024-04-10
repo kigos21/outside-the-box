@@ -15,7 +15,7 @@ export default function Footer() {
             </Link>
           </div>
           <div className="mb-4 ml-0 flex w-full flex-col items-start md:mb-0 md:ml-10 ">
-            <Link href="faqs">
+            <Link href="about#rule">
               <span className="text-sm font-bold">FAQs</span>
             </Link>
           </div>

@@ -65,7 +65,7 @@ export default function About() {
 
 function Rule() {
   return (
-    <div className="flex flex-col gap-2">
+    <div id="rule" className="flex flex-col gap-2">
       <div className="mx-auto flex w-9/12 items-center gap-4">
         <h2 className="font-bold text-cs-orange">House Rules</h2>
       </div>
