@@ -91,7 +91,7 @@ export default function Carousel() {
         ) : (
           <Link href={'/login'}>
             <button className="bg-cs-orange mx-auto mt-8 w-fit rounded-full px-8 py-6 text-2xl font-bold shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">
-              Login
+              Reserve Now
             </button>
           </Link>
         )}

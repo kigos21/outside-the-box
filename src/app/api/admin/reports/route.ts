@@ -4,16 +4,19 @@ import { Log } from '@prisma/client';
 
 export async function GET(req: Request) {
   try {
-    const today = new Date().toISOString().slice(0, 10); //get Date Today in ISO Format
+    const logTime = '2024-04-10T12:01:00'; // Assuming logs have date information
+    const formattedTime = logTime.slice(11); // Extract only "12:01:00"
 
+    const today = new Date().toISOString().slice(0, 10); // Get today's date
     const logs = await prismaClient.log.findMany({
       where: {
+        // ... rest of your where clause (modify based on your needs)
         timeIn: {
-          gte: new Date(today).toISOString(), // Convert today to ISO-8601 with TZ
+          gte: new Date(`${today}T${formattedTime}`).toISOString(), // Include milliseconds
           lt: new Date(`${today}T23:59:59`).toISOString(), // Include milliseconds
         },
         timeOut: {
-          gte: new Date(today).toISOString(), // Convert today to ISO-8601 with TZ
+          gte: new Date(`${today}T${formattedTime}`).toISOString(), // Include milliseconds
           lt: new Date(`${today}T23:59:59`).toISOString(), // Include milliseconds
         },
       },
