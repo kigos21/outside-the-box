@@ -7,7 +7,7 @@ import SpecialPromos from './SpecialPromos';
 export default function OfferedServices() {
   return (
     <div className="font-sans font-bold">
-      <h1 className="mb-10 text-center text-4xl font-bold text-cs-orange lg:text-5xl xl:text-6xl">
+      <h1 className="mb-10 ml-40 text-start text-4xl font-bold text-cs-orange lg:text-5xl xl:text-6xl">
         REGULAR RATES
       </h1>
       <div className="flex flex-col gap-12 px-4 md:px-16 lg:px-32">
