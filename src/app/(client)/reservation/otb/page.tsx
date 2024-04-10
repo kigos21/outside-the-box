@@ -54,7 +54,7 @@ export default function Page() {
                 {...register('email')}
               />
               <input
-                type="text"
+                type="number"
                 id="attendees"
                 required
                 className="rounded-full border border-gray-300 px-6 py-4"
