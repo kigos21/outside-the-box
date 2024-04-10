@@ -1,11 +1,11 @@
 'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import NavLink from './NavLink';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
+
 export default function Header() {
   const [cookies, setCookie] = useCookies(['token']);
   const [isAuthed, setIsAuthed] = useState(false);
@@ -29,11 +29,9 @@ export default function Header() {
     { name: 'ABOUT', path: '/about' },
     { name: 'SERVICES', path: '/services' },
   ];
+
   return (
-    <header
-      style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}
-      className="flex items-center justify-between bg-gradient-to-b from-cs-yellow to-cs-orange px-[7%] py-2"
-    >
+    <header className="relative z-50 flex items-center justify-between bg-gradient-to-b from-cs-yellow to-cs-orange px-[7%] py-2">
       <Link href={'/'}>
         <Image
           src="/coursescape-logo-cropped-removebg.png"
@@ -64,48 +62,44 @@ export default function Header() {
       </button>
 
       {showNav && (
-        <>
-          <div
-            className="absolute bottom-0 left-0 right-0 top-0 z-30 bg-black/80"
-            onClick={() => setShowNav(false)}
-          />
-          <div className="absolute bottom-0 right-0 top-0 z-40 flex w-72 flex-col justify-center bg-cs-cream px-8 font-sans">
-            <nav className="flex flex-col justify-center">
-              <ul className="flex flex-col gap-6 font-bold">
-                {navLinks.map((link) => (
+        <div
+          className="fixed bottom-0 left-0 right-0 top-0 z-40 flex items-center justify-center bg-black/80"
+          onClick={() => setShowNav(false)}
+        >
+          <div className="z-50 flex w-full max-w-xs flex-col justify-center bg-cs-cream p-8 font-sans">
+            <nav className="flex flex-col gap-6">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.name}
+                  name={link.name}
+                  href={link.path}
+                  pathName={pathname}
+                  className="text-xl"
+                  onClick={() => setShowNav(false)}
+                />
+              ))}
+              {isAuthed ? (
+                <span onClick={handleLogout}>
                   <NavLink
-                    key={link.name}
-                    name={link.name}
-                    href={link.path}
+                    name={'LOGOUT'}
+                    href={'/logout'}
                     pathName={pathname}
                     className="text-xl"
                     onClick={() => setShowNav(false)}
                   />
-                ))}
-                {/* remove login Link whenever token is present in cookies */}
-                {isAuthed ? (
-                  <span onClick={handleLogout}>
-                    <NavLink
-                      name={'LOGOUT'}
-                      href={'/logout'}
-                      pathName={pathname}
-                      className="text-xl"
-                      onClick={() => setShowNav(false)}
-                    />
-                  </span>
-                ) : (
-                  <NavLink
-                    name={'LOGIN'}
-                    href={'/login'}
-                    pathName={pathname}
-                    className="text-xl"
-                    onClick={() => setShowNav(false)}
-                  />
-                )}
-              </ul>
+                </span>
+              ) : (
+                <NavLink
+                  name={'LOGIN'}
+                  href={'/login'}
+                  pathName={pathname}
+                  className="text-xl"
+                  onClick={() => setShowNav(false)}
+                />
+              )}
             </nav>
           </div>
-        </>
+        </div>
       )}
 
       <nav className="hidden items-center justify-center md:flex">
@@ -118,7 +112,6 @@ export default function Header() {
               pathName={pathname}
             />
           ))}
-          {/* remove login Link whenever token is present in cookies */}
           {isAuthed ? (
             <span onClick={handleLogout}>
               <NavLink name={'LOGOUT'} href={'/logout'} pathName={pathname} />
@@ -128,20 +121,6 @@ export default function Header() {
           )}
         </ul>
       </nav>
-      {/* <Modal className={'font-normal'}>
-        <div>
-          <h2 className="mb-2">Logout</h2>
-          <p className="mb-4">You will be logged out of the site.</p>
-          <div className="flex justify-end gap-4">
-            <button className="rounded-md border border-slate-200 bg-slate-50 px-4 py-2 hover:bg-slate-100">
-              Cancel
-            </button>
-            <button className="rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600">
-              Confirm
-            </button>
-          </div>
-        </div>
-      </Modal> */}
     </header>
   );
 }
