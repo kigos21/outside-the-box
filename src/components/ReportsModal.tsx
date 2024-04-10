@@ -39,7 +39,9 @@ export default function ReportsModal({
         <h3 className="mb-4 text-lg font-semibold">
           {title} | Date: {dayToday}
         </h3>
-        <div className="mt-4 flex justify-center">{children}</div>
+        <div className="modal-content max-h-[80vh] overflow-y-auto">
+          <div className="mt-4 flex justify-center">{children}</div>
+        </div>
         {/* Conditionally render the "Confirm" buttons */}
         {reportType === 'daily' && (
           <button
