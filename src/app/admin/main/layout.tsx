@@ -24,10 +24,10 @@ export default function RootLayout({
         <Link href={'/admin/main'} className="block w-fit">
           <Image
             src="/coursescape-logo-cropped-removebg.png"
-            width={160}
+            width={200}
             height={57}
             alt="Outside the Box Logo"
-            className="mb-4 ml-8"
+            className="mb-1 ml-8"
           />
         </Link>
         <div className="flex gap-5">
