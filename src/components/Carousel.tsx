@@ -11,7 +11,7 @@ export default function Carousel() {
   const [cookies, setCookie] = useCookies(['token']);
   const [isAuthed, setIsAuthed] = useState(false);
 
-  const items = ['/about1.jpg', '/about2.jpg', '/about3.jpg'];
+  const items = ['/about1-new.png', '/about2-new.png', '/about3-new.png'];
   const [index, setIndex] = useState(1);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Carousel() {
 
   return (
     <div className="flex flex-col gap-6 px-[7%] pt-20">
-      <div className="relative mx-auto mt-16 flex max-w-screen-md items-center">
+      <div className="relative mx-auto mt-16 flex max-w-screen-sm items-center">
         {index !== 0 && (
           <svg
             focusable
@@ -77,8 +77,8 @@ export default function Carousel() {
       <IndexIndicator index={index} />
 
       <div className="mx-auto mt-8 flex  max-w-screen-lg flex-col gap-2 text-center font-sans text-white">
-        <h1 className="text-5xl font-bold lg:text-7xl">Feel The Presence in</h1>
-        <h1 className="text-cs-orange  text-5xl font-bold lg:text-7xl">
+        <h1 className="text-4xl font-bold lg:text-6xl">Feel The Presence in</h1>
+        <h1 className="text-4xl  font-bold text-cs-orange lg:text-6xl">
           coursescape.
         </h1>
 

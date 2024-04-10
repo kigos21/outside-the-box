@@ -19,7 +19,7 @@ export default function ServicePillItem({
       <li
         className={`rounded-xl ${backgroundColor} py-7 text-center text-lg font-semibold uppercase ${fontColor}`}
       >
-        {price}
+        ₱ {price}
       </li>
     </div>
   );

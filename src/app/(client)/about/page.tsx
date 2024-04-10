@@ -3,7 +3,7 @@ import styles from '@/styles/about.module.css';
 
 export default function About() {
   return (
-    <div className=" mx-auto flex max-w-screen-lg flex-col gap-20 px-[7%] py-16 pt-40 font-sans xl:px-0">
+    <div className=" mx-auto flex max-w-screen-lg flex-col gap-20 px-[7%] py-16 pt-32 font-sans xl:px-0">
       <div className="flex flex-col gap-4">
         <div className="mx-auto w-2/5 overflow-hidden">
           <img
