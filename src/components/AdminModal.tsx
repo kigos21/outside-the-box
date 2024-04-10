@@ -38,7 +38,7 @@ export default function AdminModal({
           </button>
           <button
             onClick={handleConfirm}
-            className={`basis-1/2 rounded-md px-6 py-4 text-white font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none ${danger ? 'bg-red-400' : 'bg-cs-blue'}`}
+            className={`basis-1/2 rounded-md px-6 py-4 text-white font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none ${danger ? 'bg-red-500' : 'bg-cs-blue'}`}
           >
             Confirm
           </button>
