@@ -138,7 +138,10 @@ export default function Reports(e: any) {
           item.date >= customData.startDate && item.date <= customData.endDate,
       )
     : [];
-
+  console.log(objectContainer.reports);
+  console.log(customData.startDate);
+  console.log(customData.endDate);
+  console.log('customDate', customDate);
   function confirmExport(data: any, p0?: string) {
     const csvContent = coverToCSV(data);
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
@@ -214,11 +217,11 @@ export default function Reports(e: any) {
 
   const handleCustomReportSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (customDate.length === 0) {
       alert(
         'No reports found for the selected criteria. Use a valid date, start date cannot be later than end date',
       );
-      return;
     } else {
       const updatedDataToUse = customDate;
       setDataToExport(updatedDataToUse);
