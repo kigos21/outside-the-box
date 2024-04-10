@@ -36,13 +36,13 @@ export default function Logs() {
     if (response.ok) {
       const { logs } = await response.json();
       setLogData(logs);
+      console.log('Logs', logs);
     } else {
       const message = await response.text();
       console.error(message);
       alert(message);
     }
   };
-
   return (
     <div className="h-[calc(86vh)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
       <h3 className="absolute top-10 text-3xl font-bold">Manage Log Records</h3>

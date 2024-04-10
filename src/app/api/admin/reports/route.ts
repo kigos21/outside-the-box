@@ -8,16 +8,26 @@ export async function GET(req: Request) {
 
     const logs = await prismaClient.log.findMany({
       where: {
-        timeIn: {
-          gte: new Date(today).toISOString(), // Convert today to ISO-8601 with TZ
-          lt: new Date(`${today}T23:59:59`).toISOString(), // Include milliseconds
-        },
-        timeOut: {
-          gte: new Date(today).toISOString(), // Convert today to ISO-8601 with TZ
-          lt: new Date(`${today}T23:59:59`).toISOString(), // Include milliseconds
-        },
+        OR: [
+          {
+            timeIn: {
+              gte: new Date(today).toISOString(), // Convert today to ISO-8601 with TZ
+              lt: new Date(`${today}T23:59:59`).toISOString(), // Include milliseconds
+            },
+            timeOut: {
+              lt: new Date(`${today}T23:59:59`).toISOString(), // Include milliseconds
+            },
+          },
+          {
+            timeIn: {
+              lt: new Date(`${today}T23:59:59`).toISOString(), // Include milliseconds
+            },
+            timeOut: {
+              gte: new Date(`${today}T00:00:00`).toISOString(), // Start of next day
+            },
+          },
+        ],
       },
-
       include: {
         customer: {
           select: { firstName: true, lastName: true },
@@ -42,7 +52,7 @@ export async function GET(req: Request) {
       });
       return { ...log, newDate, localTimeIn, localTimeOut };
     });
-
+    console.log(logs);
     console.log(formattedLogs);
 
     return Response.json(

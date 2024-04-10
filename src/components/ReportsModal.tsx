@@ -11,6 +11,7 @@ interface ModalProps {
   dataToExport: any;
   refreshParent: () => void;
   reportType: 'daily' | 'custom';
+  dayToday: string;
 }
 
 export default function ReportsModal({
@@ -22,6 +23,7 @@ export default function ReportsModal({
   customDate,
   refreshParent,
   reportType,
+  dayToday,
 }: ModalProps) {
   const handleCancelAndRefresh = () => {
     handleCancel();
@@ -34,7 +36,9 @@ export default function ReportsModal({
       onClick={handleCancelAndRefresh}
     >
       <div className="rounded-lg border-2 border-solid border-black bg-white p-8 text-center shadow-lg">
-        <h3 className="mb-4 text-lg font-semibold">{title}</h3>
+        <h3 className="mb-4 text-lg font-semibold">
+          {title} | Date: {dayToday}
+        </h3>
         <div className="mt-4 flex justify-center">{children}</div>
         {/* Conditionally render the "Confirm" buttons */}
         {reportType === 'daily' && (
