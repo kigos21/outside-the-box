@@ -7,15 +7,15 @@ export default function Footer() {
       <div className="mt-auto flex flex-col items-start justify-between gap-2 bg-cs-cream px-4 py-6 md:flex-row md:px-[7%] md:py-10">
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="mb-0 flex w-full flex-col items-start md:mb-0 ">
-            <Link href="/pages/Terms">
+            <Link href="terms">
               <span className="text-sm font-bold">Terms and Conditions</span>
             </Link>
-            <Link href="Privacy">
+            <Link href="privacy">
               <span className="text-sm font-bold">Privacy policy</span>
             </Link>
           </div>
           <div className="mb-4 ml-0 flex w-full flex-col items-start md:mb-0 md:ml-10 ">
-            <Link href="FAQs">
+            <Link href="faqs">
               <span className="text-sm font-bold">FAQs</span>
             </Link>
           </div>
