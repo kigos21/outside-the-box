@@ -108,12 +108,12 @@ export default function Reports(e: any) {
 
     setDailyFormData({ ...dailyFormData, date: newFormat });
   };
-
+  console.log(objectContainer);
   const userDate = objectContainer.reports.filter((item: any) => {
     const isAM = dailyFormData.timeOfDay === 'AM';
     const isPM = dailyFormData.timeOfDay === 'PM';
     const isWholeDay = dailyFormData.timeOfDay === 'Whole Day';
-    let localTime = new Date(item.timeIn).toLocaleString('en-US', {
+    let localTime = new Date(item.timeIn).toLocaleString('en-SG', {
       timeZone: 'Asia/Singapore',
       hour12: true,
       hour: 'numeric',
@@ -122,6 +122,7 @@ export default function Reports(e: any) {
     if (localTime) {
       const convertToLocal = localTime.split(' ')[0];
       const getHourTime = item.timeIn.slice(11, 13);
+      console.log(getHourTime);
       const isWithinHours =
         (isAM && getHourTime >= '00' && getHourTime <= '11') ||
         (isPM && getHourTime >= '12' && getHourTime <= '23') ||
@@ -213,26 +214,17 @@ export default function Reports(e: any) {
 
   const handleCustomReportSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const startDate = new Date(Date.parse(customData.startDate));
-    const endDate = new Date(Date.parse(customData.endDate));
     if (customDate.length === 0) {
       alert(
         'No reports found for the selected criteria. Use a valid date, start date cannot be later than end date',
       );
       return;
+    } else {
+      const updatedDataToUse = customDate;
+      setDataToExport(updatedDataToUse);
+      setReportType('custom');
+      setShowModal(true);
     }
-    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-      alert('Invalid date format. Please use MM/DD/YYYY.');
-      return;
-    }
-    if (startDate > endDate) {
-      alert('Start date cannot be later than end date.');
-      return;
-    }
-    const updatedDataToUse = customDate;
-    setDataToExport(updatedDataToUse);
-    setReportType('custom');
-    setShowModal(true);
   };
   const ToD = new Date().toLocaleDateString('en-SG', {
     month: 'long',
