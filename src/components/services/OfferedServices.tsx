@@ -25,8 +25,11 @@ export default function OfferedServices() {
       <div className="my-8 border-t-2 border-[#a6a6a6]"></div>{' '}
       {/* Top border line */}
       {/* Special Promos */}
-      <div className="mt-8">
+      <div className="flex grow basis-[410px] flex-col gap-4 rounded-3xl bg-cs-green p-8 shadow-2xl">
+        {/* SPECIAL PROMOS */}
+
         <SpecialPromos specialPromos={specialPromos} />
+        {/* END OF SPECIAL PROMOS */}
       </div>
       <div className="my-8 border-t-2 border-[#a6a6a6]"></div>{' '}
       {/* Bottom border line */}
