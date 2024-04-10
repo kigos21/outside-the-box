@@ -20,7 +20,7 @@ export default function Home() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="#e79953"
-                  className=" h-14 w-14 "
+                  className=" h-15 w-14 "
                 >
                   <path
                     strokeLinecap="round"
@@ -29,7 +29,9 @@ export default function Home() {
                   />
                 </svg>
 
-                <h1 className="text-6xl font-bold text-cs-orange">ABOUT US</h1>
+                <h1 className="text-balance font-bold text-cs-orange">
+                  ABOUT US
+                </h1>
               </div>
               <div className="flex justify-center">
                 <p className="w-full text-balance md:text-center ">
