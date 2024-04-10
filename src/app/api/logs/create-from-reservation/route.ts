@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     if (log) {
       setTimeout(
         () => sendSMSNotification(customer.mobileNumber),
-        log.timeOut.getTime() - 600000, // 10 minutes before log timeout (in milliseconds)
+        log.timeOut.getTime() - log.timeIn.getTime() - 600000, // 10 minutes before log timeout (in milliseconds)
       );
     }
 
