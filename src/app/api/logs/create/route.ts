@@ -1,4 +1,5 @@
 import { prismaClient } from '@/lib/prismaClient';
+import { sendSMSNotification } from '@/lib/semaphoreClient';
 
 import { CreateLogRequestBody } from '@/types';
 
@@ -45,6 +46,13 @@ export async function POST(req: Request) {
         timeOut: computedTimeOut,
       },
     });
+
+    if (log) {
+      setTimeout(
+        () => sendSMSNotification(customer.mobileNumber),
+        log.timeOut.getTime() - 600000, // 10 minutes before log timeout (in milliseconds)
+      );
+    }
 
     return Response.json(
       { message: 'Log successfully created.' },

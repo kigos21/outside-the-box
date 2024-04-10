@@ -28,3 +28,23 @@ export const sendOTP = async (mobileNumber: string, message: string) => {
     console.error('Error sending OTP:', error);
   }
 };
+
+export const sendSMSNotification = async (mobileNumber: string) => {
+  const url = 'https://api.semaphore.co/api/v4/priority';
+
+  const data = {
+    apikey: process.env.SEMAPHORE_API_KEY,
+    number: mobileNumber,
+    message: 'You have 10 minutes left within your session, thank you.',
+  };
+
+  try {
+    const response = await axios.post(url, data);
+    if (response.data.error) {
+      throw new Error(response.data.error.message);
+    }
+    console.log('Notification message sent successfully.');
+  } catch (error) {
+    console.error(error);
+  }
+};
