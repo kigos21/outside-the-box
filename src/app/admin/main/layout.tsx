@@ -9,7 +9,7 @@ import Image from 'next/image';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Outside the Box Administrator',
+  title: 'Coursescape Administrator',
   description: '',
 };
 

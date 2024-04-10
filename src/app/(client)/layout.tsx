@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Outside the Box',
+  title: 'Coursescape',
   description: '',
 };
 
@@ -19,6 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" type="image/png" href="/logo-1.png" />
+      </head>
       <body
         className={`${inter.className} flex min-h-screen flex-col bg-cs-cream`}
       >
