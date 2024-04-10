@@ -108,7 +108,6 @@ export default function Reports(e: any) {
 
     setDailyFormData({ ...dailyFormData, date: newFormat });
   };
-  console.log(objectContainer);
   const userDate = objectContainer.reports.filter((item: any) => {
     const isAM = dailyFormData.timeOfDay === 'AM';
     const isPM = dailyFormData.timeOfDay === 'PM';
@@ -122,7 +121,6 @@ export default function Reports(e: any) {
     if (localTime) {
       const convertToLocal = localTime.split(' ')[0];
       const getHourTime = item.timeIn.slice(11, 13);
-      console.log(getHourTime);
       const isWithinHours =
         (isAM && getHourTime >= '00' && getHourTime <= '11') ||
         (isPM && getHourTime >= '12' && getHourTime <= '23') ||
@@ -138,10 +136,6 @@ export default function Reports(e: any) {
           item.date >= customData.startDate && item.date <= customData.endDate,
       )
     : [];
-  console.log(objectContainer.reports);
-  console.log(customData.startDate);
-  console.log(customData.endDate);
-  console.log('customDate', customDate);
   function confirmExport(data: any, p0?: string) {
     const csvContent = coverToCSV(data);
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
