@@ -8,7 +8,7 @@ export default function SpecialPromos({
 }) {
   return (
     <div>
-      <h2 className="mb-8 text-start text-4xl font-bold text-cs-orange lg:text-5xl xl:text-6xl">
+      <h2 className="mb-8 text-center text-4xl font-bold text-cs-orange lg:text-5xl xl:text-6xl">
         SPECIAL PROMOS
       </h2>
       <ul className="flex flex-col gap-4 text-lg">
