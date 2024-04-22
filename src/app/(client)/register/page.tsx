@@ -81,7 +81,7 @@ export default function Register() {
                 minLength: 3,
                 maxLength: 50,
                 validate: {
-                  valid: (input) => /^[a-zA-Z0-9]{3,}$/.test(input),
+                  valid: (input) => /^[a-zA-Z0-9]{3,}$/.test(input.trim()),
                 },
               })}
             />
@@ -107,7 +107,7 @@ export default function Register() {
                 validate: {
                   strength: (input) =>
                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-                      input,
+                      input.trim(),
                     ),
                 },
               })}
@@ -165,7 +165,7 @@ export default function Register() {
                   validName: (firstName) => {
                     if (firstName) {
                       const regex = /^[A-Za-z .-]+$/;
-                      return regex.test(firstName);
+                      return regex.test(firstName.trim());
                     }
                   },
                 },
@@ -200,7 +200,7 @@ export default function Register() {
                   validName: (lastName) => {
                     if (lastName) {
                       const regex = /^[A-Za-z .-]+$/;
-                      return regex.test(lastName);
+                      return regex.test(lastName.trim());
                     }
                   },
                 },
@@ -285,7 +285,7 @@ export default function Register() {
               {...register('mobileNumber', {
                 required: true,
                 validate: {
-                  isNumber: (tel) => /^\d{11}$/.test(tel),
+                  isNumber: (tel) => /^\d{11}$/.test(tel.trim()),
                 },
               })}
             />
