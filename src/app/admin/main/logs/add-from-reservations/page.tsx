@@ -157,9 +157,9 @@ export default function AddFromReservations() {
                   key={data.id}
                 >
                   <td title={data.id}>{data.id.substring(0, 8)}...</td>
-                  <td>{data.seatReservation.customer.firstName}</td>
-                  <td>{data.seatReservation.customer.lastName}</td>
-                  <td>{data.seatReservation.service.name}</td>
+                  <td>{data.seatReservation.customer.firstName.trim()}</td>
+                  <td>{data.seatReservation.customer.lastName.trim()}</td>
+                  <td>{data.seatReservation.service.name.trim()}</td>
                   <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
                   <td className="flex h-12 items-center justify-center gap-2">
                     <button

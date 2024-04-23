@@ -21,7 +21,7 @@ export default function Login() {
     useState<boolean>(false);
 
   const handleUsernameChange = (value: string) => {
-    setUsername(value);
+    setUsername(value.trim());
   };
 
   const handleUsernameSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -54,7 +54,7 @@ export default function Login() {
   };
 
   const handleOTPChange = (value: string) => {
-    setOTP(value);
+    setOTP(value.trim());
   };
 
   const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,11 +85,11 @@ export default function Login() {
   };
 
   const handleNewPasswordChange = (value: string) => {
-    setNewPassword(value);
+    setNewPassword(value.trim());
   };
 
   const handleConfirmPasswordChange = (value: string) => {
-    setConfirmPassword(value);
+    setConfirmPassword(value.trim());
   };
 
   const handleNewPasswordSubmit = async (
@@ -161,7 +161,7 @@ export default function Login() {
             />
           )}
 
-          {message && (            
+          {message && (
             <div className="flex flex-col gap-8">
               <Link href="/login" className="block w-full">
                 <button className="w-full rounded-full bg-otb-blue px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none">

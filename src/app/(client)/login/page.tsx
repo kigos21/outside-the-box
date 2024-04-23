@@ -53,6 +53,8 @@ export default function Login() {
 
     try {
       const { username, password } = data;
+      const usernameInput = username.trim();
+      const passwordInput = password.trim();
       const res = await fetch('/api/login', {
         method: 'POST',
         headers: {
