@@ -1,16 +1,29 @@
 import { verifyOTP } from '@/lib/twilioClient';
 import { register } from '@/lib/utils/customer';
-import { Customer } from '@/types';
 import * as bcrypt from 'bcrypt';
+import { PrismaClient } from '@prisma/client';
+import { prismaClient } from '@/lib/prismaClient';
 
 export async function POST(req: Request) {
   const {
     otp,
-    customer,
   }: {
     otp: string;
-    customer: Customer;
   } = await req.json();
+
+  const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+
+  const otpLog = await prismaClient.oTP.findMany({
+    where: {
+      customerId: null,
+      adminId: null,
+      AND: {
+        createdAt: {
+          gt: tenMinutesAgo,
+        },
+      },
+    },
+  });
 
   // check if otp exists in the request
   if (!otp) {
@@ -33,32 +46,15 @@ export async function POST(req: Request) {
     );
   }
 
-  try {
-    // hash password before registering
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(customer.password, saltRounds);
+  const matchingOtpEntries = otpLog.filter((entry) => entry.otp === otp);
 
-    const newCustomer = await register({
-      ...customer,
-      password: hashedPassword,
-    });
-    return Response.json(
-      {
-        message: 'Registered successfully!',
-        customer: newCustomer,
-      },
-      { status: 200 },
-    );
-  } catch (error: any) {
-    console.error(error);
-    return Response.json(
-      {
-        message: `There was an error registering your account. Error code: ${error.code}`,
-        errorCode: error.code,
-      },
-      {
-        status: 500,
-      },
-    );
+  if (matchingOtpEntries.length === 1) {
+    // Correct OTP found (you might want to call 'verifyOTP' here too)
+    console.log('OTP Match');
+
+    return Response.json({ message: 'OTP verified' }, { status: 200 });
+  } else {
+    // Incorrect or multiple matches
+    return Response.json({ message: 'Invalid OTP' }, { status: 400 });
   }
 }
