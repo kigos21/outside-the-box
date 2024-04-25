@@ -104,7 +104,7 @@ export default function AddLog() {
                 className="basis-3/12 rounded-md border border-gray-400 px-6 py-4"
                 value={formData.firstName}
                 onChange={(e) =>
-                  setFormData({ ...formData, firstName: e.target.value })
+                  setFormData({ ...formData, firstName: e.target.value.trim() })
                 }
               />
             </div>
