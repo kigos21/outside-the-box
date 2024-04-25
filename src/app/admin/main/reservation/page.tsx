@@ -11,6 +11,7 @@ interface ReservationForConfirmation {
   serviceId: string;
   startDateTime: string;
   endDateTime: string;
+  seats: number[];
   customer: {
     firstName: string;
     lastName: string;
@@ -176,6 +177,7 @@ export default function Reservation() {
               <th className="sticky top-[-1.5rem] bg-white">Service</th>
               <th className="sticky top-[-1.5rem] bg-white">Time In</th>
               <th className="sticky top-[-1.5rem] bg-white">Price</th>
+              <th className="sticky top-[-1.5rem] bg-white">Seats</th>
               <th className="sticky top-[-1.5rem] bg-white">Actions</th>
             </tr>
           </thead>
@@ -197,6 +199,7 @@ export default function Reservation() {
                   <td>{data.service.name}</td>
                   <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
                   <td>{data.service.price}</td>
+                  <td>{data.seats.toString()}</td>
                   <td className="flex h-12 items-center justify-center gap-2">
                     <button
                       className="flex items-center justify-center rounded-lg bg-blue-700 p-2 text-white shadow-lg"
@@ -231,7 +234,7 @@ export default function Reservation() {
           </h3>
           <Link
             href="/admin/main/reservation/facility"
-            className="rounded-md bg-cs-blue text-white px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className="rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Create Reservation
           </Link>

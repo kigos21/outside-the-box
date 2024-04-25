@@ -185,7 +185,7 @@ export default function Page() {
 
   return (
     <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16">
-      <div className="mx-auto flex max-w-[530px] grow flex-col gap-8 rounded-3xl border-4 border-cs-orange px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
+      <div className="mx-auto flex max-w-[730px] grow flex-col gap-8 rounded-3xl border-4 border-cs-orange px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
         <h2 className="text-center font-sans font-bold text-cs-orange">
           Pick a schedule
         </h2>
@@ -238,7 +238,11 @@ export default function Page() {
 
                 <ServiceDropdown register={register} errors={errors} />
 
-                <img src="" alt="top view of coursescape area" />
+                <img
+                  src="/seat_visualizer.png"
+                  alt="top view of coursescape area"
+                  className=""
+                />
 
                 <SeatCheckboxes
                   seats={seats}

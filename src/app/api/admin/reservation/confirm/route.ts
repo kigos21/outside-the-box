@@ -1,6 +1,7 @@
 import { prismaClient } from '@/lib/prismaClient';
 import { sendReservationConfirmation } from '@/lib/semaphoreClient';
-import { format } from 'date-fns';
+import { DateTime } from 'luxon'; // Import DateTime
+
 
 export async function POST(req: Request) {
   const { id } = await req.json();
@@ -35,19 +36,24 @@ export async function POST(req: Request) {
       customer.seatReservation.customer
     ) {
       const mobileNumber = customer.seatReservation.customer.mobileNumber;
+
       const timeIn = customer.seatReservation.startDateTime; // Assuming Log has timeIn
 
       console.log(timeIn);
 
       // Customize the format as needed
-      const formattedTimeIn = format(timeIn, 'MMMM do, yyyy [at] h:mm a'); // Example: March 24th, 2023 at 10:30 AM
+      if (timeIn) {
+        // Add this check if timeIn can be null
+        const dateTime = DateTime.fromJSDate(timeIn); // Convert Date to Luxon DateTime
+        const dt = dateTime.toLocaleString(DateTime.DATE_SHORT);
 
-      const message = `Your seat reservation for ${formattedTimeIn} is now confirmed. We hope to see you soon!`;
+        const message = `Your seat reservation for seat number on ${dt} is now confirmed. We hope to see you soon!`;
 
-      const verification = await sendReservationConfirmation(
-        mobileNumber,
-        message,
-      );
+        const verification = await sendReservationConfirmation(
+          mobileNumber,
+          message,
+        );
+      }
     }
 
     return Response.json({ confirmedReservation }, { status: 200 });
