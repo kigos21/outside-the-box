@@ -19,7 +19,7 @@ export default function NewPasswordForm({
           placeholder="New Password"
           className="mt-3 w-full rounded-full border border-gray-300 px-6 py-4 text-center text-lg"
           value={newPassword}
-          onChange={(e) => handlePasswordChange(e.target.value)}
+          onChange={(e) => handlePasswordChange(e.target.value.trim())}
         />
         <input
           type="password"
@@ -29,7 +29,7 @@ export default function NewPasswordForm({
           placeholder="Confirm Password"
           className="mt-2 w-full rounded-full border border-gray-300 px-6 py-4 text-center text-lg"
           value={confirmPassword}
-          onChange={(e) => handleConfirmPasswordChange(e.target.value)}
+          onChange={(e) => handleConfirmPasswordChange(e.target.value.trim())}
         />
 
         <button

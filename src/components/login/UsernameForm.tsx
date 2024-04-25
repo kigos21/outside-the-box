@@ -18,7 +18,7 @@ export default function UsernameForm({
           placeholder="Username e.g. joe123"
           className="mt-4 w-full rounded-full border border-gray-300 px-6 py-4 text-center text-lg"
           value={username}
-          onChange={(e) => handleChange(e.target.value)}
+          onChange={(e) => handleChange(e.target.value.trim())}
         />
         <button
           type="submit"

@@ -64,7 +64,7 @@ export default function AdminLogin() {
                   minLength={6}
                   maxLength={6}
                   value={otpValue}
-                  onChange={(e) => setOtpValue(e.target.value)}
+                  onChange={(e) => setOtpValue(e.target.value.trim())}
                   className="mt-3 w-full rounded-md border border-gray-400 px-6 py-4 text-center text-lg"
                 />
               </div>
