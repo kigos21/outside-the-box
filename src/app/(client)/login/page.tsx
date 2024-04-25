@@ -70,11 +70,13 @@ export default function Login() {
       });
 
       if (res.ok) {
-        const { token } = await res.json();
+        const { isAdmin } = await res.json();
 
-        // Store the token securely in cookie
-        document.cookie = `token=${token}; path=/; Secure; SameSite=Strict;`;
-        router.push('/');
+        if (isAdmin) {
+          router.push('/admin/main');
+        } else {
+          router.push('/');
+        }
       } else {
         const { message } = await res.json();
         setErrorMessage(message);

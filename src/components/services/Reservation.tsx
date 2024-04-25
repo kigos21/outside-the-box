@@ -47,7 +47,7 @@ export default function Reservation() {
         </p>
       </div>
 
-      <div className="bg-cs-green flex flex-col gap-4 rounded-3xl p-6 text-center text-lg shadow-lg lg:p-12">
+      <div className="flex flex-col gap-4 rounded-3xl bg-cs-green p-6 text-center text-lg shadow-lg lg:p-12">
         <div className="text-white">
           <p>
             <span className="font-bold">
@@ -61,20 +61,23 @@ export default function Reservation() {
             </span>
           </p>
           <p>
-            <span className="font-bold">{seatCount} out of 42</span> seats
+            <span className="font-bold">{seatCount} out of 12</span> seats
             taken.
           </p>
         </div>
 
-        <div id='reserve' className="flex flex-col justify-center gap-4 lg:flex-row">
+        <div
+          id="reserve"
+          className="flex flex-col justify-center gap-4 lg:flex-row"
+        >
           <Link href={'/reservation/seat'}>
-            <button className="from-cs-yellow to-cs-orange w-full rounded-3xl border border-transparent bg-gradient-to-br px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-lg lg:w-auto">
+            <button className="w-full rounded-3xl border border-transparent bg-gradient-to-br from-cs-yellow to-cs-orange px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-lg lg:w-auto">
               Reserve a Seat
             </button>
           </Link>
 
           <Link href="/reservation/otb">
-            <button className="from-cs-yellow to-cs-orange mt-4 w-full rounded-3xl border border-transparent bg-gradient-to-br px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-lg lg:mt-0 lg:w-auto">
+            <button className="mt-4 w-full rounded-3xl border border-transparent bg-gradient-to-br from-cs-yellow to-cs-orange px-8 py-6 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-lg lg:mt-0 lg:w-auto">
               Reserve Place
             </button>
           </Link>
