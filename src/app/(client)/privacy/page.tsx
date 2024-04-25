@@ -2,7 +2,7 @@ export default function page() {
   return (
     <div className="mx-auto flex max-w-screen-lg flex-col gap-2 px-[7%] py-16 pt-28 font-sans xl:px-0">
       <h1 className="mb-6 text-center font-sans text-6xl font-bold">
-        Privacy policy
+        Privacy Policy
       </h1>
       <p className="mb-4 text-left text-xl">
         <strong>Coursescape Coworking Space</strong> regards the privacy of your

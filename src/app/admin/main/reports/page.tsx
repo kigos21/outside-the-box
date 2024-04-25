@@ -43,13 +43,20 @@ export default function Reports(e: any) {
 
   const fetchReports = async () => {
     try {
-      const response = await fetch('/api/admin/reports');
-      const data = await response.json();
+      const response = await fetch('/api/admin/reports', {
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
 
-      if (data.success) {
-        setReports(data.logs);
+      if (response.ok) {
+        const { logs } = await response.json();
+        setReports(logs);
+        console.log('Reports', logs);
       } else {
-        console.error('Error fetching logs:', data.error);
+        const message = await response.text();
+        console.error('Error fetching logs:', message);
+        alert(message);
       }
     } catch (error) {
       console.error('Error fetching logs:' + error);
@@ -81,9 +88,10 @@ export default function Reports(e: any) {
     reports: [],
   };
   reports.forEach((report) => {
+    const date = new Date(report.timeIn).toLocaleDateString('en-SG');
     objectContainer.reports.push({
       customer: { ...report.customer },
-      date: report.date,
+      date,
       id: report.id,
       service: { ...report.service },
       timeIn: report.timeIn,
@@ -138,15 +146,16 @@ export default function Reports(e: any) {
     const isAM = dailyFormData.timeOfDay === 'AM';
     const isPM = dailyFormData.timeOfDay === 'PM';
     const isWholeDay = dailyFormData.timeOfDay === 'Whole Day';
+
     let localTime = new Date(item.timeIn).toLocaleString('en-SG', {
       timeZone: 'Asia/Singapore',
-      hour12: true,
+      hour12: false,
       hour: 'numeric',
       minute: 'numeric',
     });
+
     if (localTime) {
-      const convertToLocal = localTime.split(' ')[0];
-      const getHourTime = item.timeIn.slice(11, 13);
+      const getHourTime = localTime.slice(0, 2);
       const isWithinHours =
         (isAM && getHourTime >= '00' && getHourTime <= '11') ||
         (isPM && getHourTime >= '12' && getHourTime <= '23') ||
@@ -156,12 +165,45 @@ export default function Reports(e: any) {
       console.log('hour is undefined. Cannot split further.');
     }
   });
+
+  const startingDateString = customData.startDate;
+  const endingDateString = customData.endDate;
+  const startingDateParts = startingDateString.split('/');
+  const endingDateParts = endingDateString.split('/');
   const customDate = objectContainer.reports
-    ? objectContainer.reports.filter(
-        (item) =>
-          item.date >= customData.startDate && item.date <= customData.endDate,
-      )
+    ? objectContainer.reports.filter((item) => {
+        const itemDateParts = item.date.split('/');
+        const itemDay = parseInt(itemDateParts[0]);
+        const itemMonth = parseInt(itemDateParts[1]);
+        const itemYear = parseInt(itemDateParts[2]);
+
+        const startDateDay = parseInt(startingDateParts[0]);
+        const startDateMonth = parseInt(startingDateParts[1]);
+        const startDateYear = parseInt(startingDateParts[2]);
+
+        const endDateDay = parseInt(endingDateParts[0]);
+        const endDateMonth = parseInt(endingDateParts[1]);
+        const endDateYear = parseInt(endingDateParts[2]);
+
+        if (
+          itemYear > startDateYear ||
+          (itemYear === startDateYear && itemMonth > startDateMonth) ||
+          (itemYear === startDateYear &&
+            itemMonth === startDateMonth &&
+            itemDay >= startDateDay)
+        ) {
+          return (
+            itemYear < endDateYear ||
+            (itemYear === endDateYear && itemMonth < endDateMonth) ||
+            (itemYear === endDateYear &&
+              itemMonth === endDateMonth &&
+              itemDay <= endDateDay)
+          );
+        }
+        return false;
+      })
     : [];
+
   function confirmExport(data: any, p0?: string) {
     const csvContent = coverToCSV(data);
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
@@ -198,8 +240,8 @@ export default function Reports(e: any) {
         obj.id,
         obj.customer.firstName,
         obj.customer.lastName,
-        obj.service.serviceName,
-        obj.service.servicePrice,
+        obj.service.name,
+        obj.service.price,
         obj.date,
         new Date(obj.timeIn).toLocaleString('en-US', {
           hour: 'numeric',
@@ -216,7 +258,7 @@ export default function Reports(e: any) {
     });
     const headerRow = headers.join(',');
     const totalSales = data.reduce(
-      (total: any, item: any) => total + item.service.servicePrice,
+      (total: any, item: any) => total + item.service.price,
       0,
     );
     const totalSalesRow = ['', '', '', '', `Total Sales: ${totalSales} PHP`];
@@ -229,6 +271,7 @@ export default function Reports(e: any) {
       alert('No reports found for the selected criteria.');
       return;
     }
+
     const updatedDataToUse = userDate;
     setDataToExport(updatedDataToUse);
     setReportType('daily');
@@ -287,8 +330,8 @@ export default function Reports(e: any) {
                   <td className={styles}>{item.id}</td>
                   <td className={styles}>{item.customer.firstName}</td>
                   <td className={styles}>{item.customer.lastName}</td>
-                  <td className={styles}>{item.service.serviceName}</td>
-                  <td className={styles}>{item.service.servicePrice}</td>
+                  <td className={styles}>{item.service.name}</td>
+                  <td className={styles}>{item.service.price}</td>
                   <td className={styles}>{item.date}</td>
                   <td className={styles}>
                     {new Date(item.timeIn).toLocaleString('en-US', {
@@ -312,7 +355,7 @@ export default function Reports(e: any) {
                 </td>
                 <td className={styles} colSpan={6}>
                   {dataToExport.reduce(
-                    (total, item) => total + item.service.servicePrice,
+                    (total, item) => total + item.service.price,
                     0,
                   )}{' '}
                   PHP
@@ -367,7 +410,7 @@ export default function Reports(e: any) {
             </div>
             <button
               type="submit"
-              className="w-fit self-end rounded-md bg-cs-blue text-white px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
             >
               Generate
             </button>
@@ -414,7 +457,7 @@ export default function Reports(e: any) {
 
             <button
               type="submit"
-              className="w-fit self-end rounded-md bg-cs-blue text-white px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
             >
               Generate
             </button>

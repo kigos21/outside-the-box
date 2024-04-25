@@ -21,6 +21,8 @@ export async function GET() {
       orderBy: { timeIn: 'desc' },
     });
 
+    console.log(logs);
+
     return Response.json({ logs }, { status: 200 });
   } catch (error) {
     console.error(error);

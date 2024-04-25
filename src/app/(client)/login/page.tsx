@@ -57,7 +57,9 @@ export default function Login() {
     router.push('/login'); // remove GET variables from URL
 
     try {
-      const { username, password } = data;
+      let { username, password } = data;
+      username = username.trim();
+      password = password.trim();
       const res = await fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -70,11 +72,13 @@ export default function Login() {
       });
 
       if (res.ok) {
-        const { token } = await res.json();
+        const { isAdmin } = await res.json();
 
-        // Store the token securely in cookie
-        document.cookie = `token=${token}; path=/; Secure; SameSite=Strict;`;
-        router.push('/');
+        if (isAdmin) {
+          router.push('/admin/main');
+        } else {
+          router.push('/');
+        }
       } else {
         const { message } = await res.json();
         setErrorMessage(message);
@@ -138,7 +142,6 @@ export default function Login() {
                 This field is required.
               </p>
             )}
-
             <div className="relative">
               <input
                 type={passwordVisible ? 'text' : 'password'}
@@ -192,7 +195,6 @@ export default function Login() {
                 )}
               </button>
             </div>
-
             {errors.password && (
               <p
                 role="alert"
