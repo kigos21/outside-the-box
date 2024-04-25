@@ -410,7 +410,7 @@ export default function Reports(e: any) {
             </div>
             <button
               type="submit"
-              className="w-fit self-end rounded-md bg-cs-blue text-white px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
             >
               Generate
             </button>
@@ -457,7 +457,7 @@ export default function Reports(e: any) {
 
             <button
               type="submit"
-              className="w-fit self-end rounded-md bg-cs-blue text-white px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
             >
               Generate
             </button>

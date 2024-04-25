@@ -76,6 +76,7 @@ CREATE TABLE "SeatReservation" (
     "serviceId" TEXT NOT NULL,
     "startDateTime" TIMESTAMP(3) NOT NULL,
     "endDateTime" TIMESTAMP(3) NOT NULL,
+    "seats" INTEGER[],
 
     CONSTRAINT "SeatReservation_pkey" PRIMARY KEY ("id")
 );

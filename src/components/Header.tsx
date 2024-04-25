@@ -25,9 +25,9 @@ export default function Header() {
 
   const pathname = usePathname();
   const navLinks = [
-    { name: 'HOME', path: '/' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'SERVICES', path: '/services' },
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Services', path: '/services' },
   ];
 
   return (
@@ -63,40 +63,42 @@ export default function Header() {
 
       {showNav && (
         <div
-          className="fixed bottom-0 left-0 right-0 top-0 z-40 flex items-center justify-center bg-black/80"
+          className="fixed bottom-0 left-0 right-0 top-0 z-40 flex justify-end bg-black/80"
           onClick={() => setShowNav(false)}
         >
           <div className="z-50 flex w-full max-w-xs flex-col justify-center bg-cs-cream p-8 font-sans">
             <nav className="flex flex-col gap-6">
-              {navLinks.map((link) => (
-                <NavLink
-                  key={link.name}
-                  name={link.name}
-                  href={link.path}
-                  pathName={pathname}
-                  className="text-xl"
-                  onClick={() => setShowNav(false)}
-                />
-              ))}
-              {isAuthed ? (
-                <span onClick={handleLogout}>
+              <li className="flex list-none flex-col gap-6">
+                {navLinks.map((link) => (
                   <NavLink
-                    name={'LOGOUT'}
-                    href={'/logout'}
+                    key={link.name}
+                    name={link.name}
+                    href={link.path}
                     pathName={pathname}
                     className="text-xl"
                     onClick={() => setShowNav(false)}
                   />
-                </span>
-              ) : (
-                <NavLink
-                  name={'LOGIN'}
-                  href={'/login'}
-                  pathName={pathname}
-                  className="text-xl"
-                  onClick={() => setShowNav(false)}
-                />
-              )}
+                ))}
+                {isAuthed ? (
+                  <span onClick={handleLogout}>
+                    <NavLink
+                      name={'Logout'}
+                      href={'/logout'}
+                      pathName={pathname}
+                      className="text-xl"
+                      onClick={() => setShowNav(false)}
+                    />
+                  </span>
+                ) : (
+                  <NavLink
+                    name={'Login'}
+                    href={'/login'}
+                    pathName={pathname}
+                    className="text-xl"
+                    onClick={() => setShowNav(false)}
+                  />
+                )}
+              </li>
             </nav>
           </div>
         </div>
@@ -114,10 +116,10 @@ export default function Header() {
           ))}
           {isAuthed ? (
             <span onClick={handleLogout}>
-              <NavLink name={'LOGOUT'} href={'/logout'} pathName={pathname} />
+              <NavLink name={'Logout'} href={'/logout'} pathName={pathname} />
             </span>
           ) : (
-            <NavLink name={'LOGIN'} href={'/login'} pathName={pathname} />
+            <NavLink name={'Login'} href={'/login'} pathName={pathname} />
           )}
         </ul>
       </nav>

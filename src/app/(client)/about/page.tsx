@@ -67,7 +67,7 @@ function Rule() {
   return (
     <div id="rule" className="flex flex-col gap-2">
       <div className="mx-auto flex w-9/12 items-center gap-4">
-        <h2 className="font-bold text-cs-orange">House Rules</h2>
+        <h2 className="text-cs-orange font-bold">House Rules</h2>
       </div>
       <div className="mx-auto h-1 w-9/12 bg-[#a6a6a6]" />
 
@@ -76,7 +76,7 @@ function Rule() {
           <span className="text-base font-bold">
             Register at the front desk
           </span>{' '}
-          before availing of the services offered by Outside The Box.
+          before availing of the services offered by Coursescape.
         </li>
         <li>
           <span className="text-base font-bold">Present any ID</span> (i.e.,
@@ -90,7 +90,7 @@ function Rule() {
           <span className="text-base font-bold">
             Do not leave your things unattended.
           </span>{' '}
-          Outside the Box shall not be liable for any loss.
+          Coursescape shall not be liable for any loss.
         </li>
         <li>
           Any person not registered will{' '}
@@ -103,7 +103,7 @@ function Rule() {
         </li>
         <li>
           <span className="text-base font-bold">
-            Outside The Box is a safe space zone.
+            Coursescape is a safe space zone.
           </span>{' '}
           Any form of harassment, harmful or rude behavior to other guests
           and/or staff is not tolerated and allowed.
@@ -125,7 +125,7 @@ function Pantry() {
   return (
     <div className="flex flex-col gap-2">
       <div className="mx-auto flex w-9/12 items-center gap-4">
-        <h2 className="font-bold text-cs-orange">Pantry Rules</h2>
+        <h2 className="text-cs-orange font-bold">Pantry Rules</h2>
       </div>
       <div className="mx-auto h-1 w-9/12 bg-[#a6a6a6]" />
 
@@ -147,7 +147,7 @@ function Outside() {
   return (
     <div className="flex flex-col gap-2">
       <div className="mx-auto flex w-9/12 items-center gap-4">
-        <h2 className="font-bold text-cs-orange">Outside Food</h2>
+        <h2 className="text-cs-orange font-bold">Outside Food</h2>
       </div>
       <div className="mx-auto h-1 w-9/12  bg-[#a6a6a6]" />
 
