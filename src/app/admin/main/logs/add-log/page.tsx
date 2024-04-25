@@ -104,7 +104,10 @@ export default function AddLog() {
                 className="basis-3/12 rounded-md border border-gray-400 px-6 py-4"
                 value={formData.firstName}
                 onChange={(e) =>
-                  setFormData({ ...formData, firstName: e.target.value.trim() })
+                  setFormData({
+                    ...formData,
+                    firstName: e.target.value.trimEnd(),
+                  })
                 }
               />
             </div>
@@ -120,7 +123,10 @@ export default function AddLog() {
                 className="basis-3/12 rounded-md border border-gray-400 px-6 py-4"
                 value={formData.lastName}
                 onChange={(e) =>
-                  setFormData({ ...formData, lastName: e.target.value.trim() })
+                  setFormData({
+                    ...formData,
+                    lastName: e.target.value.trimEnd(),
+                  })
                 }
               />
             </div>
@@ -135,7 +141,7 @@ export default function AddLog() {
                 className="basis-3/12 rounded-md border border-gray-400 px-6 py-4"
                 value={formData.serviceId}
                 onChange={(e) =>
-                  setFormData({ ...formData, serviceId: e.target.value.trim() })
+                  setFormData({ ...formData, serviceId: e.target.value })
                 }
               >
                 <option value="" hidden></option>

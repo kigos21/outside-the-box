@@ -167,10 +167,8 @@ export default function AddFromReservations() {
                       onClick={() => {
                         setModalData({
                           id: data.id,
-                          firstName:
-                            data.seatReservation.customer.firstName.trim(),
-                          lastName:
-                            data.seatReservation.customer.lastName.trim(),
+                          firstName: data.seatReservation.customer.firstName,
+                          lastName: data.seatReservation.customer.lastName,
                           service: data.seatReservation.service.name,
                           startDateTime: `${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`,
                         });
