@@ -367,7 +367,9 @@ export default function Reports(e: any) {
       )}
 
       <div className="flex h-[calc(86vh/2-10px)] flex-col rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
-        <h3 className="absolute top-10 text-3xl font-bold">Generate Reports</h3>
+        <h3 className="absolute top-10 z-10 text-3xl font-bold">
+          Generate Reports
+        </h3>
         <h3 className="mb-3 text-xl font-semibold">Create Daily Report</h3>
         <div className="flex flex-grow flex-col">
           <form
