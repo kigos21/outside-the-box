@@ -2,7 +2,6 @@ import { prismaClient } from '@/lib/prismaClient';
 import { sendReservationConfirmation } from '@/lib/semaphoreClient';
 import { DateTime } from 'luxon'; // Import DateTime
 
-
 export async function POST(req: Request) {
   const { id } = await req.json();
 
@@ -45,9 +44,9 @@ export async function POST(req: Request) {
       if (timeIn) {
         // Add this check if timeIn can be null
         const dateTime = DateTime.fromJSDate(timeIn); // Convert Date to Luxon DateTime
-        const dt = dateTime.toLocaleString(DateTime.DATE_SHORT);
+        const dt = dateTime.toLocaleString(DateTime.DATETIME_MED);
 
-        const message = `Your seat reservation for seat number on ${dt} is now confirmed. We hope to see you soon!`;
+        const message = `Your seat reservation on ${dt} is now confirmed. We hope to see you soon!`;
 
         const verification = await sendReservationConfirmation(
           mobileNumber,
