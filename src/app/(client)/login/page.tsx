@@ -58,7 +58,7 @@ export default function Login() {
 
     try {
       let { username, password } = data;
-      username = username.trim();
+      username = username.trimEnd();
       password = password.trim();
       const res = await fetch('/api/login', {
         method: 'POST',

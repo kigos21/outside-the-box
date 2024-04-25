@@ -35,7 +35,7 @@ export default function Register() {
   const router = useRouter();
 
   const handleOTPChange = (value: string) => {
-    setOTP(value.trim());
+    setOTP(value.trimEnd());
   };
 
   const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -134,7 +134,8 @@ export default function Register() {
                   minLength: 3,
                   maxLength: 50,
                   validate: {
-                    valid: (input) => /^[a-zA-Z0-9]{3,}$/.test(input.trim()),
+                    valid: (input) => /^[a-zA-Z0-9]{3,}$/.test(input),
+                    trimSpaces: (input) => input.trimEnd() === input,
                   },
                 })}
               />
@@ -309,7 +310,7 @@ export default function Register() {
                     validName: (firstName) => {
                       if (firstName) {
                         const regex = /^[A-Za-z .-]+$/;
-                        return regex.test(firstName.trim());
+                        return regex.test(firstName.trimEnd());
                       }
                     },
                   },
@@ -344,7 +345,7 @@ export default function Register() {
                     validName: (lastName) => {
                       if (lastName) {
                         const regex = /^[A-Za-z .-]+$/;
-                        return regex.test(lastName.trim());
+                        return regex.test(lastName.trimEnd());
                       }
                     },
                   },
