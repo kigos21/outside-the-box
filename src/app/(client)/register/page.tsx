@@ -35,7 +35,7 @@ export default function Register() {
   const router = useRouter();
 
   const handleOTPChange = (value: string) => {
-    setOTP(value);
+    setOTP(value.trim());
   };
 
   const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -92,8 +92,8 @@ export default function Register() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: data.username,
-        mobileNumber: data.mobileNumber,
+        username: data.username.trim(),
+        mobileNumber: data.mobileNumber.trim(),
       }),
     });
 
@@ -134,7 +134,7 @@ export default function Register() {
                   minLength: 3,
                   maxLength: 50,
                   validate: {
-                    valid: (input) => /^[a-zA-Z0-9]{3,}$/.test(input),
+                    valid: (input) => /^[a-zA-Z0-9]{3,}$/.test(input.trim()),
                   },
                 })}
               />
@@ -231,7 +231,8 @@ export default function Register() {
                   {...register('confirmPassword', {
                     required: true,
                     validate: {
-                      match: (input) => input === watch('password'),
+                      match: (input) =>
+                        input.trim() === watch('password').trim(),
                     },
                   })}
                 />
@@ -308,7 +309,7 @@ export default function Register() {
                     validName: (firstName) => {
                       if (firstName) {
                         const regex = /^[A-Za-z .-]+$/;
-                        return regex.test(firstName);
+                        return regex.test(firstName.trim());
                       }
                     },
                   },
@@ -343,7 +344,7 @@ export default function Register() {
                     validName: (lastName) => {
                       if (lastName) {
                         const regex = /^[A-Za-z .-]+$/;
-                        return regex.test(lastName);
+                        return regex.test(lastName.trim());
                       }
                     },
                   },
