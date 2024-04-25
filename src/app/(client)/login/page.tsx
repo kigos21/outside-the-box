@@ -57,9 +57,9 @@ export default function Login() {
     router.push('/login'); // remove GET variables from URL
 
     try {
-      const { username, password } = data;
-      const usernameInput = username.trim();
-      const passwordInput = password.trim();
+      let { username, password } = data;
+      username = username.trim();
+      password = password.trim();
       const res = await fetch('/api/login', {
         method: 'POST',
         headers: {
