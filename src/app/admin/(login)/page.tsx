@@ -53,9 +53,15 @@ export default function AdminLogin() {
     username,
     password,
   }) => {
+    let trimmedUsername = username.trim();
+    let trimmedPassword = password.trim();
+
     const response = await fetch('/api/admin/login', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({
+        username: trimmedUsername,
+        password: trimmedPassword,
+      }),
       headers: {
         'Content-Type': 'application/json',
       },
