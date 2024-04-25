@@ -88,6 +88,7 @@ model SeatReservation {
   serviceId            String
   startDateTime        DateTime
   endDateTime          DateTime
+  seats                Int[]
   ConfirmedReservation ConfirmedReservation[]
   ArchivedReservation  ArchivedReservation[]
 }

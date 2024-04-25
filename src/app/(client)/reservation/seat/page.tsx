@@ -1,22 +1,79 @@
 'use client';
-import Link from 'next/link';
-import { SeatReservationFormBody } from '@/types';
 
-import styles from '@/styles/services.module.css';
-import { useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { SetStateAction, useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { SeatReservationFormBody } from '@/types';
 
 interface ServiceOption {
   id: string;
   name: string;
 }
 
+interface Seat {
+  number: number;
+  selected: boolean;
+}
+
+const initialSeats: Seat[] = [
+  {
+    number: 1,
+    selected: false,
+  },
+  {
+    number: 2,
+    selected: false,
+  },
+  {
+    number: 3,
+    selected: false,
+  },
+  {
+    number: 4,
+    selected: false,
+  },
+  {
+    number: 5,
+    selected: false,
+  },
+  {
+    number: 6,
+    selected: false,
+  },
+  {
+    number: 7,
+    selected: false,
+  },
+  {
+    number: 8,
+    selected: false,
+  },
+  {
+    number: 9,
+    selected: false,
+  },
+  {
+    number: 10,
+    selected: false,
+  },
+  {
+    number: 11,
+    selected: false,
+  },
+  {
+    number: 12,
+    selected: false,
+  },
+];
+
 export default function Page() {
   const [isFormVisible, setIsFormVisible] = useState<boolean>(true);
   const [modal, setModal] = useState(<div></div>);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [data, setData] = useState<SeatReservationFormBody | null>(null);
+  const [seats, setSeats] = useState<Seat[]>(initialSeats);
+  const [modalMessage, setModalMessage] = useState('');
   const router = useRouter();
 
   const {
@@ -27,22 +84,37 @@ export default function Page() {
   } = useForm<SeatReservationFormBody>();
 
   const onSubmit: SubmitHandler<SeatReservationFormBody> = async (data) => {
+    let selectedSeats: number[] = [];
+
+    seats.forEach((seat) => {
+      if (seat.selected) {
+        selectedSeats.push(seat.number);
+      }
+    });
+
+    if (selectedSeats.length === 0) {
+      alert('Please select atleast 1 seat.');
+      return;
+    }
+
+    console.log(JSON.stringify({ ...data, selectedSeats }));
+
     const res = await fetch('/api/reservation/seat/availability', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, selectedSeats }),
     });
+
+    const { message } = await res.json();
 
     if (res.ok) {
       setData(data);
       setIsFormVisible(false);
       setIsAvailable(true);
     } else {
-      const { message } = await res.json(); // if server side function fails
-      console.log(message);
-
+      setModalMessage(message);
       setIsFormVisible(false);
       setIsAvailable(false);
     }
@@ -53,18 +125,26 @@ export default function Page() {
       isAvailable ? (
         <>
           <div className={`flex w-full justify-center rounded-3xl `}>
-            <h2 className="  font-sans">Schedule available!</h2>
+            <h2 className="font-sans">Schedule available!</h2>
           </div>
 
           <button
             onClick={() => {
               const { date, time, service } = data!;
+              let selectedSeats: number[] = [];
+
+              seats.forEach((seat) => {
+                if (seat.selected) {
+                  selectedSeats.push(seat.number);
+                }
+              });
+
               router.push(
                 `/reservation/seat/payment?date=${encodeURIComponent(
                   date,
                 )}&time=${encodeURIComponent(time)}&service=${encodeURIComponent(
                   service,
-                )}`,
+                )}&seats=${encodeURIComponent(JSON.stringify(selectedSeats))}`,
               );
             }}
             className="mt-8 w-full cursor-pointer rounded-full bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
@@ -72,12 +152,12 @@ export default function Page() {
             Proceed
           </button>
 
-          <a
+          <button
             onClick={() => setIsFormVisible(true)}
             className="mt-8 w-full cursor-pointer rounded-full bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Cancel
-          </a>
+          </button>
         </>
       ) : (
         <>
@@ -95,6 +175,13 @@ export default function Page() {
       ),
     );
   }, [isAvailable]);
+
+  const handleCheckboxChange = (index: number) => {
+    const updatedSeats = [...seats];
+    const changedItem = updatedSeats[index];
+    updatedSeats[index] = { ...changedItem, selected: !changedItem.selected };
+    setSeats(updatedSeats);
+  };
 
   return (
     <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16">
@@ -148,7 +235,21 @@ export default function Page() {
                   errors={errors}
                   date={watch('date')}
                 />
+
                 <ServiceDropdown register={register} errors={errors} />
+
+                <img src="" alt="top view of coursescape area" />
+
+                <SeatCheckboxes
+                  seats={seats}
+                  handleCheckboxChange={handleCheckboxChange}
+                />
+
+                {modalMessage && (
+                  <div className="mx-8 mt-4 text-sm text-red-500">
+                    {modalMessage}
+                  </div>
+                )}
               </div>
 
               <button
@@ -334,6 +435,35 @@ const ServiceDropdown: React.FC<DropdownProps> = ({ register, errors }) => {
           Please select a service.
         </p>
       )}
+    </>
+  );
+};
+
+interface SeatCheckboxesProps {
+  seats: Seat[];
+  handleCheckboxChange: any;
+}
+
+const SeatCheckboxes = ({
+  seats,
+  handleCheckboxChange,
+}: SeatCheckboxesProps) => {
+  return (
+    <>
+      <p className="text-base">Select atleast 1 seat.</p>
+      <div className="flex h-[100px] flex-col flex-wrap">
+        {seats.map((seat, i) => (
+          <div key={seat.number} className="flex items-center gap-1">
+            <input
+              type="checkbox"
+              id={`Seat ${seat.number}`}
+              checked={seat.selected}
+              onChange={() => handleCheckboxChange(i)}
+            />
+            <label htmlFor={`Seat ${seat.number}`}>Seat {seat.number}</label>
+          </div>
+        ))}
+      </div>
     </>
   );
 };
