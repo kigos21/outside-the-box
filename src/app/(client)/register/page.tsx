@@ -184,10 +184,11 @@ export default function Register() {
                 {...register('confirmPassword', {
                   required: true,
                   validate: {
-                    match: (input) => input === watch('password'),
+                    match: (input) => input.trim() === watch('password').trim(),
                   },
                 })}
               />
+
               <button
                 type="button"
                 onClick={toggleConfirmPasswordVisibility}
