@@ -381,13 +381,13 @@ export default function Register() {
                 })}
               >
                 <option hidden>Occupation</option>
-                <option value="student" className="font p-6">
+                <option value="student" className="p-6 ">
                   Student
                 </option>
-                <option value="working-student" className="font p-6">
+                <option value="working-student" className="p-6 ">
                   Working Student
                 </option>
-                <option value="professional" className="font p-6">
+                <option value="professional" className="p-6 ">
                   Professional
                 </option>
               </select>
@@ -458,7 +458,25 @@ export default function Register() {
                 </div>
               )}
 
-              <div className="mt-4 flex w-full flex-col items-center gap-4">
+              <span className="block text-center text-sm">
+                By clicking Register, you agree to our{' '}
+                <Link
+                  href="/terms"
+                  className="font-bold text-cs-blue underline shadow-sm"
+                >
+                  {' '}
+                  Terms and Conditions
+                </Link>{' '}
+                and{' '}
+                <Link
+                  href="/privacy"
+                  className="font-bold text-cs-blue underline shadow-sm"
+                >
+                  Privacy Policy
+                </Link>{' '}
+              </span>
+
+              <div className="mt-2 flex w-full flex-col items-center gap-4">
                 <button
                   type="submit"
                   className="w-32 rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
@@ -466,7 +484,7 @@ export default function Register() {
                   Register
                 </button>
 
-                <span className="block text-center text-sm">
+                <span className="mt-2 block text-center text-sm">
                   Already have an account?{' '}
                   <Link
                     href="/login"

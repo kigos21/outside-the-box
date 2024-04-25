@@ -11,7 +11,7 @@ export default function Footer() {
               <span className="text-sm font-bold">Terms and Conditions</span>
             </Link>
             <Link href="privacy">
-              <span className="text-sm font-bold">Privacy policy</span>
+              <span className="text-sm font-bold">Privacy Policy</span>
             </Link>
           </div>
           <div className="mb-4 ml-0 flex w-full flex-col items-start md:mb-0 md:ml-10 ">
