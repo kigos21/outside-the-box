@@ -232,7 +232,7 @@ export default function Reports(e: any) {
     });
     const headerRow = headers.join(',');
     const totalSales = data.reduce(
-      (total: any, item: any) => total + item.service.servicePrice,
+      (total: any, item: any) => total + item.service.price,
       0,
     );
     const totalSalesRow = ['', '', '', '', `Total Sales: ${totalSales} PHP`];
