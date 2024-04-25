@@ -48,3 +48,26 @@ export const sendSMSNotification = async (mobileNumber: string) => {
     console.error(error);
   }
 };
+
+export const sendReservationConfirmation = async (
+  mobileNumber: string,
+  message: string,
+) => {
+  const url = 'https://api.semaphore.co/api/v4/priority';
+
+  const data = {
+    apikey: process.env.SEMAPHORE_API_KEY,
+    number: mobileNumber,
+    message,
+  };
+
+  try {
+    const response = await axios.post(url, data);
+    if (response.data.error) {
+      throw new Error(response.data.error.message);
+    }
+    console.log('Reservation confirmation message sent successfully.');
+  } catch (error) {
+    console.error(error);
+  }
+};

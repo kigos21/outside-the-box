@@ -13,7 +13,8 @@ export default function Register() {
   const [otp, setOTP] = useState<string>('');
   const [responseError, setResponseErrors] = useState<string>('');
   const [registerError, setRegisterError] = useState<string>('');
-  const [isEnteringOTP, setIsEnteringOTP] = useState(true);
+  const [isEnteringOTP, setIsEnteringOTP] = useState(false);
+  const [otpError, setOtpError] = useState<string>('');
 
   const {
     register,
@@ -47,9 +48,9 @@ export default function Register() {
       await handleOtpVerificationSuccess(watch()); // Wait for success
       setIsEnteringOTP(false);
     } else if (status === 400) {
-      //setMessage('Invalid OTP. Please try again.');
+      setOtpError('Invalid OTP. Please try again.');
     } else {
-      //setMessage('An error occurred. Please try again later.');
+      setOtpError('An error occurred. Please try again later.');
     }
   };
 
@@ -384,6 +385,7 @@ export default function Register() {
               handleSubmit={handleOTPSubmit}
               handleChange={handleOTPChange}
               otp={otp}
+              errorMessage={otpError}
             />
           )}
         </div>
