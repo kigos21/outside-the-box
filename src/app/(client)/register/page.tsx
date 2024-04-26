@@ -483,13 +483,13 @@ export default function Register() {
               )}
 
               <div>
-                <span className="block text-center text-sm">
+                <span className="mt-2 block text-center text-sm">
                   <input
                     type="checkbox"
                     id="termsAgreement"
                     {...register('termsAgreement', {
                       required: true,
-                      validate: (checked) => checked === true,
+                      validate: (checked) => checked,
                     })}
                   />{' '}
                   I agree to the{' '}
@@ -499,7 +499,7 @@ export default function Register() {
                   >
                     Terms and Conditions
                   </span>{' '}
-                  and the{' '}
+                  and{' '}
                   <span
                     onClick={openPrivacyModal}
                     className="cursor-pointer text-sm  font-bold text-cs-blue underline shadow-sm"
@@ -508,8 +508,9 @@ export default function Register() {
                   </span>{' '}
                 </span>
                 {errors.termsAgreement && (
-                  <p className="text-xs text-red-500">
-                    You must agree to the Terms and Conditions.
+                  <p className="text-center text-xs text-red-500">
+                    You must agree to the Terms and Conditions and Privacy
+                    Policy to register.
                   </p>
                 )}
                 <TermsModal isOpen={isTermsModalOpen} onClose={closeTermsModal}>
