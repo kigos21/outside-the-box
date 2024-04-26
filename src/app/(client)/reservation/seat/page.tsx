@@ -68,14 +68,14 @@ export default function Page() {
                 )}`,
               );
             }}
-            className="from-cs-yellow to-cs-orange mt-8 w-full cursor-pointer rounded-full bg-gradient-to-br px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className="mt-8 w-full cursor-pointer rounded-full bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Proceed
           </button>
 
           <a
             onClick={() => setIsFormVisible(true)}
-            className="from-cs-yellow to-cs-orange mt-8 w-full cursor-pointer rounded-full bg-gradient-to-br px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className="mt-8 w-full cursor-pointer rounded-full bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Cancel
           </a>
@@ -88,7 +88,7 @@ export default function Page() {
 
           <span
             onClick={() => setIsFormVisible(true)}
-            className="bg-cs-orange mt-8 w-full cursor-pointer rounded-full px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            className="mt-8 w-full cursor-pointer rounded-full bg-cs-orange px-6 py-4 text-center font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
           >
             Try Again
           </span>
@@ -100,8 +100,8 @@ export default function Page() {
   return (
     <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16">
       <ScrollToTop smooth color="#0d49a6" width="40" />
-      <div className="border-cs-orange mx-auto flex max-w-[530px] grow flex-col gap-8 rounded-3xl border-4 px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
-        <h2 className="text-cs-orange text-center font-sans font-bold">
+      <div className="mx-auto flex max-w-[530px] grow flex-col gap-8 rounded-3xl border-4 border-cs-orange px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
+        <h2 className="text-center font-sans font-bold text-cs-orange">
           Pick a schedule
         </h2>
 
@@ -155,14 +155,14 @@ export default function Page() {
 
               <button
                 type="submit"
-                className="from-cs-yellow to-cs-orange  mt-8 w-auto rounded-xl bg-gradient-to-br px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className="mt-8 w-auto  rounded-xl bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
               >
                 Check Availability
               </button>
 
               <a
                 href="/services"
-                className="from-cs-yellow to-cs-orange mt-8 w-auto rounded-xl bg-gradient-to-br px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className="mt-8 w-auto rounded-xl bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
               >
                 Cancel
               </a>
