@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import ScrollToTop from 'react-scroll-to-top';
+import TermsModal from '@/components/TermsModal';
+import PrivacyModal from '@/components/PrivacyModal';
 
 import OTPForm from '@/components/OTPForm';
 
@@ -18,6 +20,28 @@ export default function Register() {
   const [otpError, setOtpError] = useState<string>('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+  const [termsAgreed, setTermsAgreed] = useState(false);
+
+  const toggleTermsAgreement = () => {
+    setTermsAgreed(!termsAgreed);
+  };
+  const openTermsModal = () => {
+    setIsTermsModalOpen(true);
+  };
+
+  const closeTermsModal = () => {
+    setIsTermsModalOpen(false);
+  };
+
+  const openPrivacyModal = () => {
+    setIsPrivacyModalOpen(true);
+  };
+
+  const closePrivacyModal = () => {
+    setIsPrivacyModalOpen(false);
+  };
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -930,6 +954,7 @@ export default function Register() {
                 <button
                   type="submit"
                   className="w-32 rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                  disabled={!termsAgreed}
                 >
                   Register
                 </button>
