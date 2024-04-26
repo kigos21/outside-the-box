@@ -27,6 +27,7 @@ export default function Register() {
   const toggleTermsAgreement = () => {
     setTermsAgreed(!termsAgreed);
   };
+
   const openTermsModal = () => {
     setIsTermsModalOpen(true);
   };
@@ -133,7 +134,7 @@ export default function Register() {
       setRegisterError(data.error);
       return;
     }
-    setFormSubmitted(true);
+
     setIsEnteringOTP(true);
   };
 
