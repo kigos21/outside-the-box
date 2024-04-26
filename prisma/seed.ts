@@ -47,6 +47,7 @@ async function main() {
       mobileNumber: '09271779395',
       username: 'alice',
       password: '$2b$10$tMVYz3YhD4iIGTF9I4qe/OeTQmIOhdGMROM8R2Mm1pjbA/jJ98lpW',
+      email: 'melfred.fonclara.cics@ust.edu.ph',
     },
   });
 
@@ -63,6 +64,7 @@ async function main() {
       mobileNumber: '09271779395',
       username: 'bob',
       password: '$2b$10$tMVYz3YhD4iIGTF9I4qe/OeTQmIOhdGMROM8R2Mm1pjbA/jJ98lpW',
+      email: 'melfred.fonclara.cics@ust.edu.ph',
     },
   });
 

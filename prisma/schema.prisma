@@ -45,6 +45,7 @@ model Customer {
   mobileNumber         String
   username             String                @unique
   password             String
+  email                String
   otps                 OTP[]
   facilityReservations FacilityReservation[]
   Log                  Log[]
