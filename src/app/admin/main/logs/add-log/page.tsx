@@ -32,12 +32,18 @@ export default function AddLog() {
   };
 
   const handleSubmit = async (formData: CreateLogRequestBody) => {
+    const trimmedFormData = {
+      ...formData,
+      firstName: formData.firstName.trimEnd(),
+      lastName: formData.lastName.trimEnd(),
+    };
+
     const response = await fetch('/api/logs/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(trimmedFormData),
     });
 
     const { message } = await response.json();
@@ -106,7 +112,7 @@ export default function AddLog() {
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    firstName: e.target.value.trim(),
+                    firstName: e.target.value,
                   })
                 }
               />
@@ -125,7 +131,7 @@ export default function AddLog() {
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    lastName: e.target.value.trim(),
+                    lastName: e.target.value,
                   })
                 }
               />
