@@ -31,7 +31,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="relative z-50 flex items-center justify-between bg-gradient-to-b from-cs-yellow to-cs-orange px-[7%] py-2">
+    <header className="from-cs-yellow to-cs-orange relative sticky top-0 z-50 flex items-center justify-between bg-gradient-to-b px-[7%] py-2">
       <Link href={'/'}>
         <Image
           src="/coursescape-logo-cropped-removebg.png"
@@ -66,7 +66,7 @@ export default function Header() {
           className="fixed bottom-0 left-0 right-0 top-0 z-40 flex items-center justify-center bg-black/80"
           onClick={() => setShowNav(false)}
         >
-          <div className="z-50 flex w-full max-w-xs flex-col justify-center bg-cs-cream p-8 font-sans">
+          <div className="bg-cs-cream z-50 flex w-full max-w-xs flex-col justify-center p-8 font-sans">
             <nav className="flex flex-col gap-6">
               {navLinks.map((link) => (
                 <NavLink

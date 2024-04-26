@@ -1,6 +1,10 @@
+'use client';
+import ScrollToTop from 'react-scroll-to-top';
+
 export default function page() {
   return (
     <div className="mx-auto flex max-w-screen-lg flex-col gap-2 px-[7%] py-16 pt-28 font-sans xl:px-0">
+      <ScrollToTop smooth color="#0d49a6" width="40" />
       <h1 className="mb-6 text-center font-sans text-6xl font-bold">
         Privacy Policy
       </h1>
@@ -47,7 +51,7 @@ export default function page() {
         </li>
         <li className="mb-4 text-left text-xl">
           <strong>Security:</strong> We may use your information to enforce our
-          website's security and protect against unauthorized access.
+          website&apos;s security and protect against unauthorized access.
         </li>
       </ul>
     </div>

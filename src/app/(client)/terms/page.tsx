@@ -1,13 +1,17 @@
+'use client';
+import ScrollToTop from 'react-scroll-to-top';
+
 export default function page() {
   return (
     <div className="mx-auto flex max-w-screen-lg flex-col gap-2 px-[7%] py-16 pt-28 font-sans xl:px-0">
+      <ScrollToTop smooth color="#0d49a6" width="40" />
       <h1 className="mb-6 text-center font-sans text-6xl font-bold">
         Terms and Conditions
       </h1>
       <p className="mb-4 text-left text-xl">
         By using our website and services, you agree to be bound by these Terms
         and Conditions. If you do not agree, please do not use our website.
-        These Terms govern your use of Coursescape Coworking Space's online
+        These Terms govern your use of Coursescape Coworking Space&apos;s online
         logbook and reservation website for our coworking and study lounge.
       </p>
       <h2 className="text-2xl font-bold underline">Reservations</h2>

@@ -1,9 +1,12 @@
+'use client';
 import styles from '@/styles/client-home.module.css';
 import Carousel from '@/components/Carousel';
+import ScrollToTop from 'react-scroll-to-top';
 
 export default function Home() {
   return (
     <div className="relative">
+      <ScrollToTop smooth color="#0d49a6" width="40" />
       <div className={styles.sticky_bg} />
       <div className="flex flex-col gap-24">
         {/* <div className="flex flex-col gap-48 pt-48">  */}

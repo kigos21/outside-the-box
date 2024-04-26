@@ -44,6 +44,7 @@ export type RegisterFormBody = Map & {
   username: string;
   firstname: string;
   lastname: string;
+  email: string;
   occupation: string;
   affiliation: string;
   mobileNumber: string;
