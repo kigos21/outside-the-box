@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function page() {
   return (
     <div className="mx-auto flex max-w-screen-lg flex-col gap-2 px-[7%] py-16 pt-28 font-sans xl:px-0">
@@ -8,7 +10,7 @@ export default function page() {
         <p className="mb-4 text-left text-xl">
           Welcome to our website <strong>Coursescape Coworking Space</strong>.
           Please read these terms and conditions carefully before using
-          Coursescape.com website operated by Coursescape Coworking Space
+          coursescape.com website operated by Coursescape Coworking Space
           ("Site", "us", "we", "our").
           <br />
           <br />
@@ -30,9 +32,12 @@ export default function page() {
         <h2 className="text-2xl font-bold underline">Privacy Policy</h2>
         <ul>
           <li className="mb-4 text-left text-xl">
-            ● Before you continue using our website, we advise you to read our
-            privacy policy [link ng privacy policy] regarding our user data
-            collection. It will help you better understand our practices.
+            ● Before you continue using our website, we advise you to read our{' '}
+            <Link href="privacy">
+              <span className="text-xl font-bold">Privacy Policy</span>
+            </Link>{' '}
+            regarding our user data collection. It will help you better
+            understand our practices.
           </li>
         </ul>
         <h2 className="text-2xl font-bold underline">Intellectual Property</h2>
