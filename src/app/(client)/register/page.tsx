@@ -518,7 +518,7 @@ export default function Register() {
                       required: true,
                       validate: (checked) => checked === true,
                     })}
-                  />
+                  />{' '}
                   I agree to the{' '}
                   <span
                     className="cursor-pointer text-sm  font-bold text-cs-blue underline shadow-sm"
@@ -952,7 +952,6 @@ export default function Register() {
                 <button
                   type="submit"
                   className="w-32 rounded-lg bg-cs-blue px-6 py-4 font-semibold uppercase text-cs-cream shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-                  disabled={!termsAgreed}
                 >
                   Register
                 </button>
