@@ -106,7 +106,7 @@ export default function AddLog() {
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    firstName: e.target.value.trimEnd(),
+                    firstName: e.target.value.trim(),
                   })
                 }
               />
@@ -125,7 +125,7 @@ export default function AddLog() {
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    lastName: e.target.value.trimEnd(),
+                    lastName: e.target.value.trim(),
                   })
                 }
               />
