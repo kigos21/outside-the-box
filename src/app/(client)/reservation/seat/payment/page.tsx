@@ -4,10 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-
 import styles from '@/styles/services.module.css';
 import ScrollToTop from 'react-scroll-to-top';
-
 export default function Page() {
   const [isPaid, setIsPaid] = useState<boolean>(false);
   const searchParams = useSearchParams();
@@ -31,13 +29,14 @@ export default function Page() {
     const date = searchParams.get('date');
     const time = searchParams.get('time');
     const service = searchParams.get('service');
+    const seats = JSON.parse(searchParams.get('seats')!);
 
     const res = await fetch('/api/reservation/seat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ date, time, service }),
+      body: JSON.stringify({ date, time, service, seats }),
     });
 
     const body = await res.json();
