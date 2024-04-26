@@ -17,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} flex min-h-screen flex-col justify-center bg-slate-300`}
+        className={`${inter.className} flex min-h-screen flex-col justify-center`}
+        style={{
+          background: 'linear-gradient(to bottom, #fdb91a, #e79953)',
+        }}
       >
         <main>{children}</main>
       </body>
