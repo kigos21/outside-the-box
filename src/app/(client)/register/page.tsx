@@ -24,6 +24,10 @@ export default function Register() {
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
 
+  const toggleTermsAgreement = () => {
+    setTermsAgreed(!termsAgreed);
+  };
+
   const openTermsModal = () => {
     setIsTermsModalOpen(true);
   };
