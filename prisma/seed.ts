@@ -61,7 +61,7 @@ async function main() {
       lastName: 'James',
       occupation: 'Student',
       affiliation: 'FEU',
-      mobileNumber: '09271779395',
+      mobileNumber: '09054709451',
       username: 'bob',
       password: '$2b$10$tMVYz3YhD4iIGTF9I4qe/OeTQmIOhdGMROM8R2Mm1pjbA/jJ98lpW',
       email: 'melfred.fonclara.cics@ust.edu.ph',

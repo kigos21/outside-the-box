@@ -24,6 +24,7 @@ export async function POST(req: Request) {
               select: { mobileNumber: true },
             },
             startDateTime: true,
+            seats: true,
           },
         },
       },
@@ -38,6 +39,9 @@ export async function POST(req: Request) {
 
       const timeIn = customer.seatReservation.startDateTime; // Assuming Log has timeIn
 
+      const reservedSeats = customer.seatReservation.seats.toString();
+      const seatNumbers = reservedSeats.split(','); // Split string into array
+
       console.log(timeIn);
 
       // Customize the format as needed
@@ -46,7 +50,15 @@ export async function POST(req: Request) {
         const dateTime = DateTime.fromJSDate(timeIn); // Convert Date to Luxon DateTime
         const dt = dateTime.toLocaleString(DateTime.DATETIME_MED);
 
-        const message = `Your seat reservation on ${dt} is now confirmed. We hope to see you soon!`;
+        let formattedSeatNumbers;
+        if (seatNumbers.length === 1) {
+          formattedSeatNumbers = `seat number ${seatNumbers[0]}`;
+        } else {
+          // Customize this if needed for multiple seats (e.g., "seats 1, 5, and 7")
+          formattedSeatNumbers = `seat numbers ${seatNumbers.join(', ')}`;
+        }
+
+        const message = `Your seat reservation for ${formattedSeatNumbers} on ${dt} is now confirmed. We hope to see you soon!`;
 
         const verification = await sendReservationConfirmation(
           mobileNumber,
