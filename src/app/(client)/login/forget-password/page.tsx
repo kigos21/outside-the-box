@@ -7,6 +7,7 @@ import { useState } from 'react';
 import UsernameForm from '@/components/login/UsernameForm';
 import OTPForm from '@/components/OTPForm';
 import NewPasswordForm from '@/components/login/NewPasswordForm';
+import ScrollToTop from 'react-scroll-to-top';
 
 export default function Login() {
   const [username, setUsername] = useState<string>('');
@@ -122,6 +123,7 @@ export default function Login() {
 
   return (
     <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16 pt-24 text-center">
+      <ScrollToTop smooth color="#0d49a6" width="40" />
       <div className="bg-cs-yellow flex max-w-lg flex-col items-center justify-center gap-8 rounded-lg px-8 py-6 shadow-2xl sm:px-16 sm:py-12">
         <Image
           src={'/coursescape-logo-cropped.png'}

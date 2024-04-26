@@ -4,7 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-
+import styles from '@/styles/services.module.css';
+import ScrollToTop from 'react-scroll-to-top';
 export default function Page() {
   const [isPaid, setIsPaid] = useState<boolean>(false);
   const searchParams = useSearchParams();
@@ -52,12 +53,13 @@ export default function Page() {
 
   return (
     <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16 font-sans">
-      <div className="mx-auto flex min-w-[464px] flex-col gap-8 rounded-3xl border-4 border-cs-orange bg-cs-cream px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
+      <ScrollToTop smooth color="#0d49a6" width="40" />
+      <div className="border-cs-orange bg-cs-cream mx-auto flex min-w-[464px] flex-col gap-8 rounded-3xl border-4 px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
         {/* Conditional rendering of title */}
         {!isPaid ? (
-          <h2 className="text-center font-bold text-cs-orange">Payment</h2>
+          <h2 className="text-cs-orange text-center font-bold">Payment</h2>
         ) : (
-          <h2 className="text-center font-bold text-cs-orange">
+          <h2 className="text-cs-orange text-center font-bold">
             Seat Reservation
           </h2>
         )}
@@ -93,7 +95,7 @@ export default function Page() {
               )}
               <button
                 type="button"
-                className=" w-full  rounded-2xl bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className=" from-cs-yellow  to-cs-orange w-full rounded-2xl bg-gradient-to-br px-6 py-4 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
                 onClick={handleClick}
               >
                 Continue
@@ -106,7 +108,7 @@ export default function Page() {
                   By continuing, you agree to our{' '}
                   <Link
                     href=""
-                    className="font-bold text-cs-orange underline shadow-sm"
+                    className="text-cs-orange font-bold underline shadow-sm"
                   >
                     Terms and Conditions
                   </Link>
@@ -139,7 +141,7 @@ export default function Page() {
             <Link href="/" className="rounded-full">
               <button
                 type="button"
-                className=" w-full  rounded-2xl bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className=" from-cs-yellow  to-cs-orange w-full rounded-2xl bg-gradient-to-br px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
               >
                 Go to Home
               </button>
