@@ -579,7 +579,12 @@ export default function Register() {
                     <ul>
                       <li className="mb-4 text-left text-sm">
                         ● Before you continue using our website, we advise you
-                        to read our privacy policy [link ng privacy policy]
+                        to read our{' '}
+                        <Link href="privacy">
+                          <span className="text-sm font-bold">
+                            Privacy Policy
+                          </span>
+                        </Link>{' '}
                         regarding our user data collection. It will help you
                         better understand our practices.
                       </li>
