@@ -15,12 +15,11 @@ export default function page() {
           utilized. This Privacy Policy describes how Coursescape Coworking
           Space (the "Site", "we", "us", or "our") collects, uses, and discloses
           your personal information when you visit, use our services, or make a
-          purchase from pristine-records.com (the "Site") or otherwise
-          communicate with us (collectively, the "Services"). For purposes of
-          this Privacy Policy, "you" and "your" means you as the user of the
-          Services, whether you are a customer, website visitor, or another
-          individual whose information we have collected pursuant to this
-          Privacy Policy.
+          purchase from coursescape.com (the "Site") or otherwise communicate
+          with us (collectively, the "Services"). For purposes of this Privacy
+          Policy, "you" and "your" means you as the user of the Services,
+          whether you are a customer, website visitor, or another individual
+          whose information we have collected pursuant to this Privacy Policy.
           <br />
           <br />
           We urge you to review this Privacy Policy thoroughly. By utilizing and

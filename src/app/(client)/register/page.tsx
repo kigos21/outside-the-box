@@ -510,13 +510,13 @@ export default function Register() {
               )}
 
               <div>
-                <span className="block text-center text-sm">
+                <span className="mt-2 block text-center text-sm">
                   <input
                     type="checkbox"
                     id="termsAgreement"
                     {...register('termsAgreement', {
                       required: true,
-                      validate: (checked) => checked === true,
+                      validate: (checked) => checked,
                     })}
                   />{' '}
                   I agree to the{' '}
@@ -526,7 +526,7 @@ export default function Register() {
                   >
                     Terms and Conditions
                   </span>{' '}
-                  and the{' '}
+                  and{' '}
                   <span
                     onClick={openPrivacyModal}
                     className="cursor-pointer text-sm  font-bold text-cs-blue underline shadow-sm"
@@ -535,8 +535,9 @@ export default function Register() {
                   </span>{' '}
                 </span>
                 {errors.termsAgreement && (
-                  <p className="text-xs text-red-500">
-                    You must agree to the Terms and Conditions.
+                  <p className="text-center text-xs text-red-500">
+                    You must agree to the Terms and Conditions and Privacy
+                    Policy to register.
                   </p>
                 )}
                 <TermsModal isOpen={isTermsModalOpen} onClose={closeTermsModal}>
@@ -547,9 +548,9 @@ export default function Register() {
                     <p className="mb-4 text-left text-sm">
                       Welcome to our website{' '}
                       <strong>Coursescape Coworking Space</strong>. Please read
-                      these terms and conditions carefully before using [website
-                      URL] website operated by Coursescape Coworking Space
-                      ("Site", "us", "we", "our").
+                      these terms and conditions carefully before using
+                      coursescape.com website operated by Coursescape Coworking
+                      Space ("Site", "us", "we", "our").
                       <br />
                       <br />
                       The use of this website is subject to the following terms
@@ -783,13 +784,13 @@ export default function Register() {
                       Coursescape Coworking Space (the "Site", "we", "us", or
                       "our") collects, uses, and discloses your personal
                       information when you visit, use our services, or make a
-                      purchase from pristine-records.com (the "Site") or
-                      otherwise communicate with us (collectively, the
-                      "Services"). For purposes of this Privacy Policy, "you"
-                      and "your" means you as the user of the Services, whether
-                      you are a customer, website visitor, or another individual
-                      whose information we have collected pursuant to this
-                      Privacy Policy.
+                      purchase from coursescape.com (the "Site") or otherwise
+                      communicate with us (collectively, the "Services"). For
+                      purposes of this Privacy Policy, "you" and "your" means
+                      you as the user of the Services, whether you are a
+                      customer, website visitor, or another individual whose
+                      information we have collected pursuant to this Privacy
+                      Policy.
                       <br />
                       <br />
                       We urge you to review this Privacy Policy thoroughly. By
