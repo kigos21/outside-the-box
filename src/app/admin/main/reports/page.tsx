@@ -268,7 +268,7 @@ export default function Reports(e: any) {
   const handleDailyReportSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userDate.length === 0) {
-      alert('No reports found for the selected criteria.');
+      alert('No reports found for the selected criteria. Date must not be in the future');
       return;
     }
 
