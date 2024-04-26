@@ -521,8 +521,10 @@ export default function Register() {
                   <input
                     type="checkbox"
                     id="termsAgreement"
-                    checked={termsAgreed}
-                    onChange={toggleTermsAgreement}
+                    {...register('termsAgreement', {
+                      required: true,
+                      validate: (checked) => checked,
+                    })}
                   />{' '}
                   I agree to the{' '}
                   <span
