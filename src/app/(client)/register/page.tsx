@@ -479,7 +479,7 @@ export default function Register() {
                 {...register('mobileNumber', {
                   required: true,
                   validate: {
-                    isNumber: (tel) => /^\d{11}$/.test(tel),
+                    isNumber: (tel) => /^\d{11}$/.test(tel.trim()),
                   },
                 })}
               />
@@ -514,10 +514,9 @@ export default function Register() {
                   <input
                     type="checkbox"
                     id="termsAgreement"
-                    {...register('termsAgreement', {
-                      required: true,
-                      validate: (checked) => checked,
-                    })}
+                    checked={termsAgreed}
+                    onChange={toggleTermsAgreement}
+                    required
                   />{' '}
                   I agree to the{' '}
                   <span
@@ -534,7 +533,7 @@ export default function Register() {
                     Privacy Policy
                   </span>{' '}
                 </span>
-                {errors.termsAgreement && (
+                {!termsAgreed && (
                   <p className="text-center text-xs text-red-500">
                     You must agree to the Terms and Conditions and Privacy
                     Policy to register.
