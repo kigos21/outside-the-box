@@ -121,13 +121,19 @@ export default function Register() {
         mobileNumber: data.mobileNumber.trim(),
       }),
     });
+    if (!termsAgreed) {
+      setRegisterError(
+        'You must agree to the Terms and Conditions and Privacy Policy to register.',
+      );
+      return;
+    }
 
     if (!usernameResponse.ok) {
       const data = await usernameResponse.json();
       setRegisterError(data.error);
       return;
     }
-
+    setFormSubmitted(true);
     setIsEnteringOTP(true);
   };
 
@@ -516,7 +522,6 @@ export default function Register() {
                     id="termsAgreement"
                     checked={termsAgreed}
                     onChange={toggleTermsAgreement}
-                    required
                   />{' '}
                   I agree to the{' '}
                   <span
@@ -533,12 +538,7 @@ export default function Register() {
                     Privacy Policy
                   </span>{' '}
                 </span>
-                {!termsAgreed && (
-                  <p className="text-center text-xs text-red-500">
-                    You must agree to the Terms and Conditions and Privacy
-                    Policy to register.
-                  </p>
-                )}
+
                 <TermsModal isOpen={isTermsModalOpen} onClose={closeTermsModal}>
                   <h2 className="text-3xl font-bold leading-6 text-gray-900">
                     Terms and Conditions
