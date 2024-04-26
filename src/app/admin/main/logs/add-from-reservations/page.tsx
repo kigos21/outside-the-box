@@ -13,6 +13,7 @@ interface ConfirmedReservation {
     serviceId: string;
     startDateTime: Date;
     endDateTime: Date;
+    seats: number[];
     customer: {
       firstName: string;
       lastName: string;
@@ -140,6 +141,7 @@ export default function AddFromReservations() {
               <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
               <th className="sticky top-[-1.5rem] bg-white">Service</th>
               <th className="sticky top-[-1.5rem] bg-white">Time In</th>
+              <th className="sticky top-[-1.5rem] bg-white">Seats</th>
               <th className="sticky top-[-1.5rem] bg-white">Create Log</th>
             </tr>
           </thead>
@@ -161,6 +163,7 @@ export default function AddFromReservations() {
                   <td>{data.seatReservation.customer.lastName}</td>
                   <td>{data.seatReservation.service.name}</td>
                   <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
+                  <td>{data.seatReservation.seats.toString()}</td>
                   <td className="flex h-12 items-center justify-center gap-2">
                     <button
                       className="rounded-lg bg-blue-700 p-1 text-white"

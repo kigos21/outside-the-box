@@ -6,13 +6,22 @@ import { comparePasswords } from '@/lib/utils/auth';
 
 export async function POST(req: Request) {
   const { username, password }: LoginFormBody = await req.json();
+  const isAdmin = username === 'admin' || username === 'employee';
 
   try {
-    const customer = await prismaClient.customer.findUnique({
-      where: { username: username },
-    });
+    let entity;
 
-    if (!customer) {
+    if (isAdmin) {
+      entity = await prismaClient.admin.findUnique({
+        where: { username },
+      });
+    } else {
+      entity = await prismaClient.customer.findUnique({
+        where: { username },
+      });
+    }
+
+    if (!entity) {
       return Response.json(
         {
           success: false,
@@ -22,7 +31,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const match = await comparePasswords(password, customer.password);
+    const match = await comparePasswords(password, entity.password);
 
     if (!match) {
       return Response.json(
@@ -33,11 +42,21 @@ export async function POST(req: Request) {
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: customer.id, username: customer.username },
+      { id: entity.id, username: entity.username },
       process.env.JWT_SECRET_KEY!,
     );
 
-    return Response.json({ success: true, token, customer }, { status: 200 });
+    const headerString = `${isAdmin ? 'adminToken' : 'token'}=${token}; path=/; Secure; SameSite=Strict;`;
+
+    return Response.json(
+      { success: true, isAdmin },
+      {
+        status: 200,
+        headers: {
+          'Set-Cookie': headerString,
+        },
+      },
+    );
   } catch (error) {
     console.error(error);
     return Response.json(

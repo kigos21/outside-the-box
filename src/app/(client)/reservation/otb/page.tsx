@@ -93,8 +93,8 @@ export default function Page() {
               <p className="font-bold uppercase">Inquiry Sent!</p>
 
               <p className="text-center text-sm">
-                Outside The Box will contact you through your provided email
-                address to, please expect us.
+                Coursescapes Coworking Space will contact you through your
+                provided email address to, please expect us.
               </p>
             </div>
 
