@@ -24,10 +24,6 @@ export default function Register() {
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
 
-  const toggleTermsAgreement = () => {
-    setTermsAgreed(!termsAgreed);
-  };
-
   const openTermsModal = () => {
     setIsTermsModalOpen(true);
   };
@@ -521,8 +517,10 @@ export default function Register() {
                   <input
                     type="checkbox"
                     id="termsAgreement"
-                    checked={termsAgreed}
-                    onChange={toggleTermsAgreement}
+                    {...register('termsAgreement', {
+                      required: true,
+                      validate: (checked) => checked,
+                    })}
                   />{' '}
                   I agree to the{' '}
                   <span
