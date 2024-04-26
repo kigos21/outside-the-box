@@ -7,8 +7,8 @@ export async function GET(req: Request) {
     const logCount = await prismaClient.log.count({
       where: {
         AND: [
-          { timeIn: { lt: now } }, // timeIn before current datetime
-          { timeOut: { gt: now } }, // timeOut after current datetime
+          { timeIn: { lte: now } }, // timeIn before current datetime
+          { timeOut: { gte: now } }, // timeOut after current datetime
         ],
       },
     });

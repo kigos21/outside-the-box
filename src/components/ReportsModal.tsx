@@ -32,10 +32,10 @@ export default function ReportsModal({
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleCancelAndRefresh}
     >
-      <div className="rounded-lg border-2 border-solid border-black bg-white p-8 text-center shadow-lg">
+      <div className="relative z-50 rounded-lg border-2 border-solid border-black bg-white p-8 text-center shadow-lg">
         <h3 className="mb-4 text-lg font-semibold">
           {title} | Date: {dayToday}
         </h3>

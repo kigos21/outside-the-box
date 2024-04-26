@@ -45,6 +45,7 @@ model Customer {
   mobileNumber         String
   username             String                @unique
   password             String
+  email                String
   otps                 OTP[]
   facilityReservations FacilityReservation[]
   Log                  Log[]
@@ -88,6 +89,7 @@ model SeatReservation {
   serviceId            String
   startDateTime        DateTime
   endDateTime          DateTime
+  seats                Int[]
   ConfirmedReservation ConfirmedReservation[]
   ArchivedReservation  ArchivedReservation[]
 }

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import ScrollToTop from 'react-scroll-to-top';
 import TermsModal from '@/components/TermsModal';
 import PrivacyModal from '@/components/PrivacyModal';
 
@@ -59,7 +60,7 @@ export default function Register() {
   const router = useRouter();
 
   const handleOTPChange = (value: string) => {
-    setOTP(value);
+    setOTP(value.trimEnd());
   };
 
   const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -116,8 +117,8 @@ export default function Register() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: data.username,
-        mobileNumber: data.mobileNumber,
+        username: data.username.trim(),
+        mobileNumber: data.mobileNumber.trim(),
       }),
     });
 
@@ -127,11 +128,12 @@ export default function Register() {
       return;
     }
 
-    setIsEnteringOTP(true);
+    // setIsEnteringOTP(true);
   };
 
   return (
     <div className="flex min-h-[85dvh] items-center justify-center px-4 py-16 pt-40">
+      <ScrollToTop smooth color="#0d49a6" width="40" />
       <div className="flex flex-col items-center justify-center gap-8 rounded-lg bg-cs-yellow px-8 py-6 shadow-2xl max-sm:flex-grow sm:px-16 sm:py-12">
         <Image
           src={'/coursescape-logo-cropped.png'}
@@ -159,6 +161,7 @@ export default function Register() {
                   maxLength: 50,
                   validate: {
                     valid: (input) => /^[a-zA-Z0-9]{3,}$/.test(input),
+                    trimSpaces: (input) => input.trimEnd() === input,
                   },
                 })}
               />
@@ -255,7 +258,8 @@ export default function Register() {
                   {...register('confirmPassword', {
                     required: true,
                     validate: {
-                      match: (input) => input === watch('password'),
+                      match: (input) =>
+                        input.trim() === watch('password').trim(),
                     },
                   })}
                 />
@@ -321,6 +325,29 @@ export default function Register() {
               )}
 
               <input
+                type="email"
+                id="email"
+                required
+                placeholder="Email"
+                className="rounded-lg border border-gray-300 px-6 py-4"
+                {...register('email', {
+                  required: true,
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: 'Invalid email address',
+                  },
+                })}
+              />
+              {errors.email && (
+                <p
+                  role="alert"
+                  className="mt-[-0.75rem] px-6 text-xs text-red-500"
+                >
+                  {errors.email.message}
+                </p>
+              )}
+
+              <input
                 type="text"
                 id="firstName"
                 required
@@ -332,7 +359,7 @@ export default function Register() {
                     validName: (firstName) => {
                       if (firstName) {
                         const regex = /^[A-Za-z .-]+$/;
-                        return regex.test(firstName);
+                        return regex.test(firstName.trimEnd());
                       }
                     },
                   },
@@ -367,7 +394,7 @@ export default function Register() {
                     validName: (lastName) => {
                       if (lastName) {
                         const regex = /^[A-Za-z .-]+$/;
-                        return regex.test(lastName);
+                        return regex.test(lastName.trimEnd());
                       }
                     },
                   },
@@ -466,15 +493,15 @@ export default function Register() {
                 </p>
               )}
 
-              {responseError && (
-                <p
-                  role="alert"
-                  className="mt-2 px-6 text-center text-xs text-red-500"
-                >
-                  Sorry! We cannot complete yout request at the moment. Error:{' '}
-                  {responseError}
-                </p>
-              )}
+              {/* {responseError && (
+              <p
+                role="alert"
+                className="mt-2 px-6 text-center text-xs text-red-500"
+              >
+                Sorry! We cannot complete yout request at the moment. Error:{' '}
+                {responseError}
+              </p>
+            )} */}
 
               {registerError && (
                 <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-red-600">
