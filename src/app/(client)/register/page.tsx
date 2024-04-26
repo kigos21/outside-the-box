@@ -22,6 +22,11 @@ export default function Register() {
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+  const [termsAgreed, setTermsAgreed] = useState(false);
+
+  const toggleTermsAgreement = () => {
+    setTermsAgreed(!termsAgreed);
+  };
 
   const openTermsModal = () => {
     setIsTermsModalOpen(true);
@@ -117,6 +122,12 @@ export default function Register() {
         mobileNumber: data.mobileNumber.trim(),
       }),
     });
+    if (!termsAgreed) {
+      setRegisterError(
+        'You must agree to the Terms and Conditions and Privacy Policy to register.',
+      );
+      return;
+    }
 
     if (!usernameResponse.ok) {
       const data = await usernameResponse.json();
@@ -475,7 +486,7 @@ export default function Register() {
                 {...register('mobileNumber', {
                   required: true,
                   validate: {
-                    isNumber: (tel) => /^\d{11}$/.test(tel),
+                    isNumber: (tel) => /^\d{11}$/.test(tel.trim()),
                   },
                 })}
               />
@@ -507,7 +518,15 @@ export default function Register() {
 
               <div>
                 <span className="mt-2 block text-center text-sm">
-                  By clicking Register, you agree to the{' '}
+                  <input
+                    type="checkbox"
+                    id="termsAgreement"
+                    {...register('termsAgreement', {
+                      required: true,
+                      validate: (checked) => checked,
+                    })}
+                  />{' '}
+                  I agree to the{' '}
                   <span
                     className="cursor-pointer text-sm  font-bold text-cs-blue underline shadow-sm"
                     onClick={openTermsModal}
@@ -522,12 +541,7 @@ export default function Register() {
                     Privacy Policy
                   </span>{' '}
                 </span>
-                {errors.termsAgreement && (
-                  <p className="text-center text-xs text-red-500">
-                    You must agree to the Terms and Conditions and Privacy
-                    Policy to register.
-                  </p>
-                )}
+
                 <TermsModal isOpen={isTermsModalOpen} onClose={closeTermsModal}>
                   <h2 className="text-3xl font-bold leading-6 text-gray-900">
                     Terms and Conditions
