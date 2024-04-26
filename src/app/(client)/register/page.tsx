@@ -128,7 +128,7 @@ export default function Register() {
       return;
     }
 
-    // setIsEnteringOTP(true);
+    setIsEnteringOTP(true);
   };
 
   return (

@@ -20,21 +20,21 @@ export async function POST(req: Request) {
       );
     }
 
-    // try {
-    //   const message = 'Your OTP to confirm your registration is: {otp}';
+    try {
+      const message = 'Your OTP to confirm your registration is: {otp}';
 
-    //   const verification = await sendOTP(mobileNumber, message);
+      const verification = await sendOTP(mobileNumber, message);
 
-    //   console.log('sendOTP called');
+      console.log('sendOTP called');
 
-    //   const otp = await prismaClient.oTP.create({
-    //     data: {
-    //       otp: verification,
-    //     },
-    //   });
-    // } catch (error) {
-    //   console.error('Error sending OTP: ', error);
-    // }
+      const otp = await prismaClient.oTP.create({
+        data: {
+          otp: verification,
+        },
+      });
+    } catch (error) {
+      console.error('Error sending OTP: ', error);
+    }
 
     return Response.json({ success: true }, { status: 200 });
   } catch (error) {
