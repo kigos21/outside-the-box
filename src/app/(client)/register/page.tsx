@@ -521,9 +521,9 @@ export default function Register() {
                     <p className="mb-4 text-left text-sm">
                       Welcome to our website{' '}
                       <strong>Coursescape Coworking Space</strong>. Please read
-                      these terms and conditions carefully before using [website
-                      URL] website operated by Coursescape Coworking Space
-                      ("Site", "us", "we", "our").
+                      these terms and conditions carefully before using
+                      coursescape.com website operated by Coursescape Coworking
+                      Space ("Site", "us", "we", "our").
                       <br />
                       <br />
                       The use of this website is subject to the following terms
@@ -757,13 +757,13 @@ export default function Register() {
                       Coursescape Coworking Space (the "Site", "we", "us", or
                       "our") collects, uses, and discloses your personal
                       information when you visit, use our services, or make a
-                      purchase from pristine-records.com (the "Site") or
-                      otherwise communicate with us (collectively, the
-                      "Services"). For purposes of this Privacy Policy, "you"
-                      and "your" means you as the user of the Services, whether
-                      you are a customer, website visitor, or another individual
-                      whose information we have collected pursuant to this
-                      Privacy Policy.
+                      purchase from coursescape.com (the "Site") or otherwise
+                      communicate with us (collectively, the "Services"). For
+                      purposes of this Privacy Policy, "you" and "your" means
+                      you as the user of the Services, whether you are a
+                      customer, website visitor, or another individual whose
+                      information we have collected pursuant to this Privacy
+                      Policy.
                       <br />
                       <br />
                       We urge you to review this Privacy Policy thoroughly. By

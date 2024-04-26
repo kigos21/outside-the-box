@@ -7,9 +7,9 @@ export default function page() {
       <div className="mt-6">
         <p className="mb-4 text-left text-xl">
           Welcome to our website <strong>Coursescape Coworking Space</strong>.
-          Please read these terms and conditions carefully before using [website
-          URL] website operated by Coursescape Coworking Space ("Site", "us",
-          "we", "our").
+          Please read these terms and conditions carefully before using
+          Coursescape.com website operated by Coursescape Coworking Space
+          ("Site", "us", "we", "our").
           <br />
           <br />
           The use of this website is subject to the following terms of use:
