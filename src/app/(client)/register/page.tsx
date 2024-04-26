@@ -22,11 +22,7 @@ export default function Register() {
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
-  const [termsAgreed, setTermsAgreed] = useState(false);
 
-  const toggleTermsAgreement = () => {
-    setTermsAgreed(!termsAgreed);
-  };
   const openTermsModal = () => {
     setIsTermsModalOpen(true);
   };
@@ -511,15 +507,7 @@ export default function Register() {
 
               <div>
                 <span className="mt-2 block text-center text-sm">
-                  <input
-                    type="checkbox"
-                    id="termsAgreement"
-                    {...register('termsAgreement', {
-                      required: true,
-                      validate: (checked) => checked,
-                    })}
-                  />{' '}
-                  I agree to the{' '}
+                  By clicking Register, you agree to the{' '}
                   <span
                     className="cursor-pointer text-sm  font-bold text-cs-blue underline shadow-sm"
                     onClick={openTermsModal}
