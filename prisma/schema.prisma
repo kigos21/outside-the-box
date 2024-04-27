@@ -90,6 +90,7 @@ model SeatReservation {
   startDateTime        DateTime
   endDateTime          DateTime
   seats                Int[]
+  proofUrl             String?
   ConfirmedReservation ConfirmedReservation[]
   ArchivedReservation  ArchivedReservation[]
 }

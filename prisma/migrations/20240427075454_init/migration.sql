@@ -33,6 +33,7 @@ CREATE TABLE "Customer" (
     "mobileNumber" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
 
     CONSTRAINT "Customer_pkey" PRIMARY KEY ("id")
 );
@@ -77,6 +78,7 @@ CREATE TABLE "SeatReservation" (
     "startDateTime" TIMESTAMP(3) NOT NULL,
     "endDateTime" TIMESTAMP(3) NOT NULL,
     "seats" INTEGER[],
+    "proofUrl" TEXT,
 
     CONSTRAINT "SeatReservation_pkey" PRIMARY KEY ("id")
 );
