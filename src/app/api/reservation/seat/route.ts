@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { date, time, service, seats } = await req.json();
+    const { date, time, service, seats, proofUrl } = await req.json();
 
     // retrieve service data
     const serviceData = await prismaClient.service.findUniqueOrThrow({
@@ -63,6 +63,7 @@ export async function POST(req: NextRequest) {
       startDateTime,
       computedEndTime,
       seats,
+      proofUrl,
     );
 
     return Response.json(

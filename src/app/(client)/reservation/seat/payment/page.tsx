@@ -4,12 +4,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import styles from '@/styles/services.module.css';
+
 import ScrollToTop from 'react-scroll-to-top';
+import ImageUploadForm from '@/components/ImageUploadForm';
+import { getApiKey } from '@/lib/imgbb';
+
 export default function Page() {
   const [isPaid, setIsPaid] = useState<boolean>(false);
   const searchParams = useSearchParams();
   const [error, setError] = useState('');
+  const [selectedImage, setSelectedImage] = useState();
 
   const paymentProviders = [
     { qrcode: '/payment/qrcode/gcash.png', name: 'Gcash' },
@@ -17,7 +21,7 @@ export default function Page() {
     { qrcode: '/payment/qrcode/bpi.png', name: 'BPI' },
   ];
 
-  const handleClick = async () => {
+  const handlePayment = async () => {
     const confirmed = confirm(
       'By clicking OK, you assure that you have made your payment.',
     );
@@ -26,17 +30,47 @@ export default function Page() {
       return;
     }
 
+    // prepare form data
+    const formData = new FormData();
+    const imageString = selectedImage as unknown as string;
+    formData.append('image', imageString.split(',')[1]);
+
+    const requestOptions: RequestInit = {
+      method: 'POST',
+      body: formData,
+    };
+
+    // upload image to hosting service
+    const imgbbApiKey = await getApiKey();
+    const imgbbEndpoint = `https://api.imgbb.com/1/upload?expiration=172800&key=${imgbbApiKey}`;
+    const imgbbRes = await fetch(imgbbEndpoint, requestOptions);
+
+    if (!imgbbRes.ok) {
+      const message = await imgbbRes.text();
+      alert(message);
+      return;
+    }
+
+    const { data } = await imgbbRes.json();
+
     const date = searchParams.get('date');
     const time = searchParams.get('time');
     const service = searchParams.get('service');
     const seats = JSON.parse(searchParams.get('seats')!);
+    const url = data.medium?.url || data.url;
 
     const res = await fetch('/api/reservation/seat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ date, time, service, seats }),
+      body: JSON.stringify({
+        date,
+        time,
+        service,
+        seats,
+        proofUrl: url,
+      }),
     });
 
     const body = await res.json();
@@ -54,12 +88,12 @@ export default function Page() {
   return (
     <div className="mx-auto flex min-h-[85dvh] max-w-7xl items-center justify-center px-4 py-16 font-sans">
       <ScrollToTop smooth color="#0d49a6" width="40" />
-      <div className="border-cs-orange bg-cs-cream mx-auto flex min-w-[464px] flex-col gap-8 rounded-3xl border-4 px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
+      <div className="mx-auto flex min-w-[464px] flex-col gap-8 rounded-3xl border-4 border-cs-orange bg-cs-cream px-8 py-6 shadow-2xl sm:p-16 sm:pb-12">
         {/* Conditional rendering of title */}
         {!isPaid ? (
-          <h2 className="text-cs-orange text-center font-bold">Payment</h2>
+          <h2 className="text-center font-bold text-cs-orange">Payment</h2>
         ) : (
-          <h2 className="text-cs-orange text-center font-bold">
+          <h2 className="text-center font-bold text-cs-orange">
             Seat Reservation
           </h2>
         )}
@@ -93,13 +127,13 @@ export default function Page() {
                   {error}
                 </div>
               )}
-              <button
-                type="button"
-                className=" from-cs-yellow  to-cs-orange w-full rounded-2xl bg-gradient-to-br px-6 py-4 font-bold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-                onClick={handleClick}
-              >
-                Continue
-              </button>
+
+              <ImageUploadForm
+                onPayment={handlePayment}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
+              />
+
               <div className="mt-3 text-center">
                 <p className="text-xs">
                   Press &quot;Continue&quot; once you have finished your payment
@@ -108,7 +142,7 @@ export default function Page() {
                   By continuing, you agree to our{' '}
                   <Link
                     href=""
-                    className="text-cs-orange font-bold underline shadow-sm"
+                    className="font-bold text-cs-orange underline shadow-sm"
                   >
                     Terms and Conditions
                   </Link>
@@ -141,7 +175,7 @@ export default function Page() {
             <Link href="/" className="rounded-full">
               <button
                 type="button"
-                className=" from-cs-yellow  to-cs-orange w-full rounded-2xl bg-gradient-to-br px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+                className=" w-full  rounded-2xl bg-gradient-to-br from-cs-yellow to-cs-orange px-6 py-4 font-semibold uppercase shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
               >
                 Go to Home
               </button>
