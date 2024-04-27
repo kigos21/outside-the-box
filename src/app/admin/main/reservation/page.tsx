@@ -132,7 +132,9 @@ export default function Reservation() {
         </div>
         <div className="flex justify-between gap-4">
           <p className="basis-1/2">Price</p>
-          <p className="basis-1/2 font-semibold">{data.service.price}</p>
+          <p className="basis-1/2 font-semibold">
+            {data.service.price * Number(data.seats)}
+          </p>
         </div>
       </div>
     );
@@ -198,7 +200,7 @@ export default function Reservation() {
                   <td>{data.customer.lastName}</td>
                   <td>{data.service.name}</td>
                   <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
-                  <td>{data.service.price}</td>
+                  <td>{data.service.price * Number(data.seats)}</td>
                   <td>{data.seats.toString()}</td>
                   <td className="flex h-12 items-center justify-center gap-2">
                     <button

@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ServiceFormBody } from '@/types';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function AddServices() {
   const searchParams = useSearchParams();
@@ -76,7 +77,7 @@ export default function AddServices() {
               setShowModal(false);
               router.push(`/admin/main/services`);
             }}
-            className={`bg-cs-blue basis-full rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none`}
+            className={`basis-full rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none`}
           >
             OK
           </button>
@@ -167,12 +168,21 @@ export default function AddServices() {
                 </select>
               </div>
             </div>
-            <button
-              type="submit"
-              className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-            >
-              Save Changes
-            </button>
+
+            <div className="flex justify-between">
+              <Link
+                href="/admin/main/services"
+                className="w-fit rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              >
+                Back to Services
+              </Link>
+              <button
+                type="submit"
+                className="w-fit self-end rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              >
+                Save Changes
+              </button>
+            </div>
           </form>
         </div>
       </div>

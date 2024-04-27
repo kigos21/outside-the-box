@@ -17,6 +17,15 @@ export async function GET() {
             price: true,
           },
         },
+        confirmedReservation: {
+          select: {
+            seatReservation: {
+              select: {
+                seats: true,
+              },
+            },
+          },
+        },
       },
       orderBy: { timeIn: 'desc' },
     });

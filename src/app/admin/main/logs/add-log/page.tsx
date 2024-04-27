@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { CreateLogRequestBody } from '@/types';
+import Link from 'next/link';
 
 export default function AddLog() {
   const [formData, setFormData] = useState<CreateLogRequestBody>({
@@ -153,13 +154,20 @@ export default function AddLog() {
               </select>
             </div>
           </div>
-
-          <button
-            type="submit"
-            className="w-fit self-end rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-          >
-            Add Record
-          </button>
+          <div className="flex justify-between">
+            <Link
+              href="/admin/main/logs"
+              className="w-fit rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            >
+              Back to Log Records
+            </Link>
+            <button
+              type="submit"
+              className="w-fit self-end rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            >
+              Add Record
+            </button>
+          </div>
         </form>
       </div>
 

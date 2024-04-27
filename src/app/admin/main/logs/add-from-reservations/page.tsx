@@ -1,6 +1,7 @@
 'use client';
 
 import AdminModal from '@/components/AdminModal';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 interface ConfirmedReservation {
@@ -85,7 +86,7 @@ export default function AddFromReservations() {
 
   return (
     <div className="flex h-full flex-col">
-      {showModal && modalData && (
+      {showModal && modalData && reserveData && (
         <AdminModal
           title={'Create log based on this reservation?'}
           handleConfirm={() =>
@@ -118,6 +119,17 @@ export default function AddFromReservations() {
               <p className="basis-1/2">Time in</p>
               <p className="basis-1/2 font-semibold">
                 {modalData.startDateTime}
+              </p>
+            </div>
+            <div className="flex justify-between gap-4">
+              <p className="basis-1/2">Seats</p>
+              <p className="basis-1/2 font-semibold">
+                {reserveData.map((reservation, index) => (
+                  <div key={index} className="flex gap-1">
+                    {' '}
+                    {reservation.seatReservation.seats}{' '}
+                  </div>
+                ))}
               </p>
             </div>
           </div>
@@ -207,6 +219,14 @@ export default function AddFromReservations() {
             })}
           </tbody>
         </table>
+        <div className="mt-6 flex justify-end">
+          <Link
+            href="/admin/main/logs"
+            className="w-fit rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+          >
+            Back to Log Records
+          </Link>
+        </div>
       </div>
     </div>
   );

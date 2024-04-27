@@ -13,6 +13,11 @@ interface ObjectContainer {
     date: string;
     id: string;
     service: { serviceName: string; servicePrice: number };
+    confirmedReservation: {
+      seatReservation: {
+        seats: number[];
+      };
+    };
     timeIn: string;
     timeOut: string;
   }[];
@@ -94,10 +99,17 @@ export default function Reports(e: any) {
       date,
       id: report.id,
       service: { ...report.service },
+      confirmedReservation: {
+        seatReservation: {
+          seats: report.confirmedReservation.seatReservation.seats,
+        },
+      },
       timeIn: report.timeIn,
       timeOut: report.timeOut,
     });
   });
+
+  console.log(objectContainer);
 
   const styles = 'border border-solid border-black px-2 py-2';
 
@@ -230,7 +242,8 @@ export default function Reports(e: any) {
       'First Name',
       'Last Name',
       'Service Name',
-      'Service Price',
+      'Price',
+      'Seats',
       'Date',
       'Time In',
       'Time Out',
@@ -241,7 +254,9 @@ export default function Reports(e: any) {
         obj.customer.firstName,
         obj.customer.lastName,
         obj.service.name,
-        obj.service.price,
+        obj.service.price *
+          Number(obj.confirmedReservation.seatReservation.seats.length),
+        obj.confirmedReservation.seatReservation.seats.length,
         obj.date,
         new Date(obj.timeIn).toLocaleString('en-US', {
           hour: 'numeric',
@@ -258,7 +273,10 @@ export default function Reports(e: any) {
     });
     const headerRow = headers.join(',');
     const totalSales = data.reduce(
-      (total: any, item: any) => total + item.service.price,
+      (total: any, item: any) =>
+        total +
+        item.service.price *
+          Number(item.confirmedReservation.seatReservation.seats.length),
       0,
     );
     const totalSalesRow = ['', '', '', '', `Total Sales: ${totalSales} PHP`];
@@ -319,6 +337,7 @@ export default function Reports(e: any) {
                 <th className={styles}>Last Name</th>
                 <th className={styles}>Service</th>
                 <th className={styles}>Price</th>
+                <th className={styles}>Seats</th>
                 <th className={styles}>Date</th>
                 <th className={styles}>Time In</th>
                 <th className={styles}>Time Out</th>
@@ -331,7 +350,16 @@ export default function Reports(e: any) {
                   <td className={styles}>{item.customer.firstName}</td>
                   <td className={styles}>{item.customer.lastName}</td>
                   <td className={styles}>{item.service.name}</td>
-                  <td className={styles}>{item.service.price}</td>
+                  <td className={styles}>
+                    {item.service.price *
+                      Number(
+                        item.confirmedReservation?.seatReservation?.seats
+                          .length,
+                      )}
+                  </td>
+                  <td className={styles}>
+                    {item.confirmedReservation?.seatReservation?.seats.length}
+                  </td>
                   <td className={styles}>{item.date}</td>
                   <td className={styles}>
                     {new Date(item.timeIn).toLocaleString('en-US', {
@@ -355,7 +383,13 @@ export default function Reports(e: any) {
                 </td>
                 <td className={styles} colSpan={6}>
                   {dataToExport.reduce(
-                    (total, item) => total + item.service.price,
+                    (total, item) =>
+                      total +
+                      item.service.price *
+                        Number(
+                          item.confirmedReservation.seatReservation.seats
+                            .length,
+                        ),
                     0,
                   )}{' '}
                   PHP
@@ -412,7 +446,7 @@ export default function Reports(e: any) {
             </div>
             <button
               type="submit"
-              className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              className="w-fit self-end rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
             >
               Generate
             </button>
@@ -459,7 +493,7 @@ export default function Reports(e: any) {
 
             <button
               type="submit"
-              className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              className="w-fit self-end rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
             >
               Generate
             </button>
