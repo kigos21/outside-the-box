@@ -1,6 +1,10 @@
 import { prismaClient } from '@/lib/prismaClient';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const page = parseInt(url.searchParams.get('page') || '1', 10);
+  const pageSize = parseInt(url.searchParams.get('pageSize') || '10', 10);
+
   try {
     const today = new Date().toISOString().slice(0, 10); //get Date Today in ISO Format
 
@@ -19,27 +23,12 @@ export async function GET() {
           select: { name: true, price: true },
         },
       },
+      orderBy: { timeIn: 'desc' },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
     });
 
-    return Response.json(
-      {
-        success: true,
-        logs: logs.map((log) => ({
-          id: log.id,
-          timeIn: log.timeIn.toLocaleTimeString(),
-          timeOut: log.timeOut.toLocaleTimeString(),
-          customer: {
-            firstName: log.customer.firstName,
-            lastName: log.customer.lastName,
-          },
-          service: {
-            serviceName: log.service.name,
-            servicePrice: log.service.price,
-          },
-        })),
-      },
-      { status: 200 },
-    );
+    return new Response(JSON.stringify({ logs }), { status: 200 });
   } catch (error: any) {
     console.error(error);
     return Response.json({ error }, { status: 500 });

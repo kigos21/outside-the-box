@@ -25,42 +25,50 @@ interface ReservationForConfirmation {
 export default function Reservation() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
-  const [reserveData, setReserveData] = useState<ReservationForConfirmation[]>(
-    [],
-  );
+  const [seatsData, setSeatsData] = useState<ReservationForConfirmation[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [seatsPage, setSeatsPage] = useState(1);
+  const [seatsHasMore, setSeatsHasMore] = useState(true);
+
   const [selectedData, setSelectedData] =
     useState<ReservationForConfirmation>();
 
   useEffect(() => {
-    fetchUnconfirmed();
+    fetchSeats(seatsPage);
   }, []);
 
-  const fetchUnconfirmed = async () => {
-    try {
-      const response = await fetch('/api/reservations/seat/unconfirmed');
-      const data = await response.json();
+  const fetchSeats = async (page: number) => {
+    setIsLoading(true);
 
-      if (response.ok) {
-        // format the time
-        let unconfirmedReservations = data.unconfirmedReservations.map(
-          (reservation: any) => {
-            const current = reservation;
-            return {
-              ...current,
-              startDateTime: new Date(
-                current.startDateTime,
-              ).toLocaleTimeString(),
-              endDateTime: new Date(current.endDateTime).toLocaleTimeString(),
-            };
-          },
-        );
+    const response = await fetch(
+      `/api/reservations/seat/unconfirmed?page=${page}&pageSize=13`,
+    );
 
-        setReserveData(unconfirmedReservations);
+    if (response.ok) {
+      const { seats } = await response.json();
+
+      if (seats.length > 0) {
+        setSeatsData([...seatsData, ...seats]);
+        setSeatsPage(page + 1);
       } else {
-        console.error(data.message);
+        setSeatsHasMore(false);
       }
-    } catch (error) {
-      console.error(error);
+    } else {
+      const message = await response.text();
+      console.error(message);
+      alert(message);
+    }
+
+    setIsLoading(false);
+  };
+
+  const handleSeatsScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight) {
+      if (seatsHasMore && !isLoading) {
+        fetchSeats(seatsPage);
+      }
     }
   };
 
@@ -77,7 +85,7 @@ export default function Reservation() {
 
     if (response.ok) {
       setShowConfirmModal(false);
-      fetchUnconfirmed();
+      fetchSeats(seatsPage);
     } else {
       console.error(data.message);
     }
@@ -96,7 +104,7 @@ export default function Reservation() {
 
     if (response.ok) {
       setShowArchiveModal(false);
-      fetchUnconfirmed();
+      fetchSeats(seatsPage);
     } else {
       console.error(data.message);
     }
@@ -161,7 +169,10 @@ export default function Reservation() {
         </AdminModal>
       )}
 
-      <div className="h-[calc(86vh-104px-1.25rem)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <div
+        onScroll={handleSeatsScroll}
+        className="h-[calc(86vh-104px-1.25rem)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25"
+      >
         <h3 className="absolute top-10 text-3xl font-bold">
           Book Reservations
         </h3>
@@ -182,29 +193,37 @@ export default function Reservation() {
             </tr>
           </thead>
           <tbody>
-            {reserveData.map((data) => {
-              const [hoursIn, minutesIn, meridianIn] =
-                data.startDateTime.split(':');
-              const [hoursOut, minutesOut, meridianOut] =
-                data.endDateTime.split(':');
+            {seatsData.map((reservation) => {
+              const [hoursIn, minutesIn, meridianIn] = new Date(
+                reservation.startDateTime,
+              )
+                .toLocaleTimeString()
+                .split(':');
+              const [hoursOut, minutesOut, meridianOut] = new Date(
+                reservation.endDateTime,
+              )
+                .toLocaleTimeString()
+                .split(':');
 
               return (
                 <tr
                   className="h-9 border border-solid border-black"
-                  key={data.id}
+                  key={reservation.id}
                 >
-                  <td title={data.id}>{data.id.substring(0, 8)}...</td>
-                  <td>{data.customer.firstName}</td>
-                  <td>{data.customer.lastName}</td>
-                  <td>{data.service.name}</td>
+                  <td title={reservation.id}>
+                    {reservation.id.substring(0, 8)}...
+                  </td>
+                  <td>{reservation.customer.firstName}</td>
+                  <td>{reservation.customer.lastName}</td>
+                  <td>{reservation.service.name}</td>
                   <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
-                  <td>{data.service.price}</td>
-                  <td>{data.seats.toString()}</td>
+                  <td>{reservation.service.price}</td>
+                  <td>{reservation.seats.toString()}</td>
                   <td className="flex h-12 items-center justify-center gap-2">
                     <button
                       className="flex items-center justify-center rounded-lg bg-blue-700 p-2 text-white shadow-lg"
                       onClick={() => {
-                        setSelectedData(data);
+                        setSelectedData(reservation);
                         setShowConfirmModal(true);
                       }}
                     >
@@ -213,7 +232,7 @@ export default function Reservation() {
                     <button
                       className="flex items-center justify-center rounded-lg bg-red-500 p-2 text-white shadow-lg"
                       onClick={() => {
-                        setSelectedData(data);
+                        setSelectedData(reservation);
                         setShowArchiveModal(true);
                       }}
                     >

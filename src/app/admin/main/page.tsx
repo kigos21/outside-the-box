@@ -1,78 +1,143 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import fetch from 'node-fetch'; // Assuming server-side rendering
+import { useState, useEffect } from 'react';
+
+interface Log {
+  id: string;
+  customerId: string;
+  serviceId: string;
+  timeIn: Date;
+  timeOut: Date;
+  confirmedReservationId: string;
+  customer: {
+    firstName: string;
+    lastName: string;
+  };
+  service: {
+    name: string;
+    hours: number;
+    price: number;
+  };
+}
+
+interface SeatReservation {
+  id: string;
+  customerId: string;
+  serviceId: string;
+  startDateTime: Date;
+  endDateTime: Date;
+  seats: number;
+  customer: {
+    firstName: string;
+    lastName: string;
+  };
+  service: {
+    name: string;
+    hours: number;
+    price: number;
+  };
+}
 
 export default function Home() {
-  const [logs, setLogs] = useState<any[]>([]); // Initialize state for logs
-  const [reservationsForConfirmation, setReservationsForConfirmation] =
-    useState<any[]>([]);
+  const [logData, setLogData] = useState<Log[]>([]); // Initialize state for logs
+  const [seatsData, setSeatsData] = useState<SeatReservation[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [logsPage, setLogsPage] = useState(1);
+  const [logsHasMore, setLogsHasMore] = useState(true);
+
+  const [seatsPage, setSeatsPage] = useState(1);
+  const [seatsHasMore, setSeatsHasMore] = useState(true);
 
   useEffect(() => {
-    fetchLogs();
-    fetchUnconfirmed();
+    fetchLogs(logsPage);
+    fetchSeats(seatsPage);
   }, []);
 
-  const fetchLogs = async () => {
-    try {
-      const response = await fetch('/api/logs/today'); // API endpoint URL
-      const data = await response.json();
+  const fetchLogs = async (page: number) => {
+    setIsLoading(true);
 
-      if (data.success) {
-        setLogs(data.logs); //sets the logs state value
+    const response = await fetch(`/api/logs/today?page=${page}&pageSize=9`);
+
+    if (response.ok) {
+      const { logs } = await response.json();
+
+      if (logs.length > 0) {
+        setLogData([...logData, ...logs]);
+        setLogsPage(page + 1);
       } else {
-        console.error('Error fetching logs:', data.error);
+        setLogsHasMore(false);
       }
-    } catch (error) {
-      console.error('Error fetching logs:', error);
+    } else {
+      const message = await response.text();
+      console.error(message);
+      alert(message);
+    }
+
+    setIsLoading(false);
+  };
+
+  const handleLogsScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight + 100) {
+      if (logsHasMore && !isLoading) {
+        fetchLogs(logsPage);
+      }
     }
   };
 
-  const fetchUnconfirmed = async () => {
-    try {
-      const response = await fetch('/api/reservations/seat/unconfirmed');
-      const data = await response.json();
+  const fetchSeats = async (page: number) => {
+    setIsLoading(true);
 
-      if (response.ok) {
-        // format the time
-        let unconfirmedReservations = data.unconfirmedReservations.map(
-          (reservation: any) => {
-            const current = reservation;
-            return {
-              ...current,
-              startDateTime: new Date(
-                current.startDateTime,
-              ).toLocaleTimeString(),
-              endDateTime: new Date(current.endDateTime).toLocaleTimeString(),
-            };
-          },
-        );
+    const response = await fetch(
+      `/api/reservations/seat/unconfirmed?page=${page}&pageSize=9`,
+    );
 
-        setReservationsForConfirmation(unconfirmedReservations);
+    if (response.ok) {
+      const { seats } = await response.json();
+
+      if (seats.length > 0) {
+        setSeatsData([...seatsData, ...seats]);
+        setSeatsPage(page + 1);
       } else {
-        console.error(data.message);
-        // setError
+        setSeatsHasMore(false);
       }
-    } catch (error) {
-      console.error(error);
-      // setError
+    } else {
+      const message = await response.text();
+      console.error(message);
+      alert(message);
+    }
+
+    setIsLoading(false);
+  };
+
+  const handleSeatsScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight + 100) {
+      if (seatsHasMore && !isLoading) {
+        fetchSeats(seatsPage);
+      }
     }
   };
 
   const hasLogsToday = () => {
-    if (logs.length > 0) {
-      return logs.map((log) => {
-        const [hoursIn, minutesIn, meridianIn] = log.timeIn.split(':');
-        const [hoursOut, minutesOut, meridianOut] = log.timeOut.split(':');
+    if (logData.length > 0) {
+      return logData.map((log) => {
+        const [hoursIn, minutesIn, meridianIn] = new Date(log.timeIn)
+          .toLocaleTimeString()
+          .split(':');
+        const [hoursOut, minutesOut, meridianOut] = new Date(log.timeOut)
+          .toLocaleTimeString()
+          .split(':');
 
         return (
           <tr className="h-9 border border-solid border-black" key={log.id}>
             <td>{log.customer.firstName}</td>
             <td>{log.customer.lastName}</td>
-            <td>{log.service.serviceName}</td>
+            <td>{log.service.name}</td>
             <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
             <td>{`${hoursOut}:${minutesOut} ${meridianOut.substring(2)}`}</td>
-            <td>{log.service.servicePrice}</td>
+            <td>{log.service.price}</td>
           </tr>
         );
       });
@@ -88,12 +153,18 @@ export default function Home() {
   };
 
   const hasReservationsForConfirmation = () => {
-    if (reservationsForConfirmation.length > 0) {
-      return reservationsForConfirmation.map((reservation) => {
-        const [hoursIn, minutesIn, meridianIn] =
-          reservation.startDateTime.split(':');
-        const [hoursOut, minutesOut, meridianOut] =
-          reservation.endDateTime.split(':');
+    if (seatsData.length > 0) {
+      return seatsData.map((reservation) => {
+        const [hoursIn, minutesIn, meridianIn] = new Date(
+          reservation.startDateTime,
+        )
+          .toLocaleTimeString()
+          .split(':');
+        const [hoursOut, minutesOut, meridianOut] = new Date(
+          reservation.endDateTime,
+        )
+          .toLocaleTimeString()
+          .split(':');
 
         return (
           <tr
@@ -113,7 +184,7 @@ export default function Home() {
       return (
         <tr className="h-9" key="0">
           <td colSpan={6} className="pt-[8%] opacity-50">
-            No logs for today
+            No reservations for today
           </td>
         </tr>
       );
@@ -122,7 +193,10 @@ export default function Home() {
 
   return (
     <div className="flex h-[86vh] flex-col gap-5">
-      <div className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <div
+        onScroll={handleLogsScroll}
+        className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25"
+      >
         <h3 className="absolute top-10 text-3xl font-bold">Homepage</h3>
         <h3 className="mb-3 text-xl font-semibold text-gray-500">
           Recent Log Records
@@ -143,7 +217,10 @@ export default function Home() {
           </table>
         </div>
       </div>
-      <div className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+      <div
+        onScroll={handleSeatsScroll}
+        className="h-[calc(86vh/2-10px)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25"
+      >
         <h3 className="mb-3 text-xl font-semibold text-gray-500">
           Reservations for Confirmation
         </h3>
