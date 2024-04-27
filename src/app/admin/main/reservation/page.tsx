@@ -133,7 +133,13 @@ export default function Reservation() {
         <div className="flex justify-between gap-4">
           <p className="basis-1/2">Price</p>
           <p className="basis-1/2 font-semibold">
-            {data.service.price * Number(data.seats)}
+            {data.service.price * Number(data.seats.length)}
+          </p>
+        </div>
+        <div className="flex justify-between gap-4">
+          <p className="basis-1/2">Seats</p>
+          <p className="basis-1/2 font-semibold">
+            {data.seats.toString()} ({data.seats.length})
           </p>
         </div>
       </div>
@@ -200,8 +206,10 @@ export default function Reservation() {
                   <td>{data.customer.lastName}</td>
                   <td>{data.service.name}</td>
                   <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
-                  <td>{data.service.price * Number(data.seats)}</td>
-                  <td>{data.seats.toString()}</td>
+                  <td>{data.service.price * Number(data.seats.length)}</td>
+                  <td>
+                    {data.seats.toString()} ({data.seats.length})
+                  </td>
                   <td className="flex h-12 items-center justify-center gap-2">
                     <button
                       className="flex items-center justify-center rounded-lg bg-blue-700 p-2 text-white shadow-lg"
