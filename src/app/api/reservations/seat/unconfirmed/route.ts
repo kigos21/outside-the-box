@@ -1,25 +1,32 @@
 import { prismaClient } from '@/lib/prismaClient';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const page = parseInt(url.searchParams.get('page') || '1', 10);
+  const pageSize = parseInt(url.searchParams.get('pageSize') || '10', 10);
+
   try {
-    const unconfirmedReservations = await prismaClient.seatReservation.findMany(
-      {
-        where: {
-          NOT: {
-            OR: [
-              { ConfirmedReservation: { some: {} } },
-              { ArchivedReservation: { some: {} } },
-            ],
-          },
-        },
-        include: {
-          customer: { select: { firstName: true, lastName: true } },
-          service: { select: { name: true, price: true } },
+    const seats = await prismaClient.seatReservation.findMany({
+      where: {
+        NOT: {
+          OR: [
+            { ConfirmedReservation: { some: {} } },
+            { ArchivedReservation: { some: {} } },
+          ],
         },
       },
-    );
+      include: {
+        customer: { select: { firstName: true, lastName: true } },
+        service: { select: { name: true, price: true } },
+      },
+      orderBy: { startDateTime: 'desc' },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    });
 
-    return Response.json({ unconfirmedReservations }, { status: 200 });
+    return new Response(JSON.stringify({ seats }), {
+      status: 200,
+    });
   } catch (error) {
     console.error(error);
     return Response.json({ message: JSON.stringify(error) }, { status: 500 });

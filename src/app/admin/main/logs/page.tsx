@@ -25,26 +25,46 @@ interface Log {
 
 export default function Logs() {
   const [logData, setLogData] = useState<Log[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    fetchLogs();
+    fetchLogs(page);
   }, []);
 
-  const fetchLogs = async () => {
-    const response = await fetch('/api/logs');
+  const fetchLogs = async (page: number) => {
+    const response = await fetch(`/api/logs?page=${page}&pageSize=20`);
 
     if (response.ok) {
       const { logs } = await response.json();
-      setLogData(logs);
-      console.log('Logs', logs);
+      
+      if (logs.length > 0) {
+        setLogData([...logData, ...logs]);
+        setPage(page + 1);
+      } else {
+        setHasMore(false);
+      }
     } else {
       const message = await response.text();
       console.error(message);
       alert(message);
     }
   };
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop === clientHeight) {
+      if (hasMore) {
+        fetchLogs(page);
+      }
+    }
+  };
+
   return (
-    <div className="h-[calc(86vh)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25">
+    <div
+      className="h-[calc(86vh)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25"
+      onScroll={handleScroll}
+    >
       <h3 className="absolute top-10 text-3xl font-bold">Manage Log Records</h3>
       <div className="mb-3 flex justify-between">
         <h3 className="text-xl font-semibold text-gray-500">Logs</h3>

@@ -29,11 +29,13 @@
     "react-cookie": "^7.0.2",
     "react-dom": "^18",
     "react-hook-form": "^7.50.1",
+    "react-intersection-observer": "^9.8.2",
     "react-nice-scroll": "^1.0.0",
     "react-router-dom": "^6.22.3",
     "react-scroll-to-top": "^3.0.0",
     "ts-node": "^10.9.2",
-    "twilio": "^4.21.0"
+    "twilio": "^4.21.0",
+    "use-intersection-observer": "^0.1.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -41,7 +43,7 @@
     "@types/node": "^20",
     "@types/node-fetch": "^2.6.11",
     "@types/nodemailer": "^6.4.14",
-    "@types/react": "^18",
+    "@types/react": "^18.3.0",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
