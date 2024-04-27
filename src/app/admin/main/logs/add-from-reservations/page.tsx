@@ -127,7 +127,8 @@ export default function AddFromReservations() {
                 {reserveData.map((reservation, index) => (
                   <div key={index} className="flex gap-1">
                     {' '}
-                    {reservation.seatReservation.seats}{' '}
+                    {reservation.seatReservation.seats.join(',')} (
+                    {reservation.seatReservation.seats.length}){' '}
                   </div>
                 ))}
               </p>
@@ -175,7 +176,10 @@ export default function AddFromReservations() {
                   <td>{data.seatReservation.customer.lastName}</td>
                   <td>{data.seatReservation.service.name}</td>
                   <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
-                  <td>{data.seatReservation.seats.toString()}</td>
+                  <td>
+                    {data.seatReservation.seats.toString()} (
+                    {data.seatReservation.seats.length})
+                  </td>
                   <td className="flex h-12 items-center justify-center gap-2">
                     <button
                       className="rounded-lg bg-blue-700 p-1 text-white"
