@@ -148,7 +148,15 @@ export default function Reservation() {
         </div>
         <div className="flex justify-between gap-4">
           <p className="basis-1/2">Price</p>
-          <p className="basis-1/2 font-semibold">{data.service.price}</p>
+          <p className="basis-1/2 font-semibold">
+            {data.service.price * Number(data.seats.length)}
+          </p>
+        </div>
+        <div className="flex justify-between gap-4">
+          <p className="basis-1/2">Seats</p>
+          <p className="basis-1/2 font-semibold">
+            {data.seats.toString()} ({data.seats.length})
+          </p>
         </div>
       </div>
     );
@@ -271,8 +279,13 @@ export default function Reservation() {
                   <td>{reservation.customer.lastName}</td>
                   <td>{reservation.service.name}</td>
                   <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
-                  <td>{reservation.service.price}</td>
-                  <td>{reservation.seats.toString()}</td>
+                  <td>
+                    {reservation.service.price *
+                      Number(reservation.seats.length)}
+                  </td>
+                  <td>
+                    {reservation.seats.toString()} ({reservation.seats.length})
+                  </td>
                   <td className="flex h-12 items-center justify-center gap-2">
                     <ViewProofOfPaymentButton
                       onClick={() => {

@@ -8,10 +8,15 @@ import { useEffect, useState } from 'react';
 interface Log {
   id: string;
   customerId: string;
+  confirmedReservationId: string;
   serviceId: string;
   timeIn: Date;
   timeOut: Date;
-  confirmedReservationId: string;
+  confirmedReservation: {
+    seatReservation: {
+      seats: number[];
+    };
+  };
   customer: {
     firstName: string;
     lastName: string;
@@ -87,6 +92,7 @@ export default function Logs() {
             <th className="sticky top-[-1.5rem] bg-white">Time In</th>
             <th className="sticky top-[-1.5rem] bg-white">Time Out</th>
             <th className="sticky top-[-1.5rem] bg-white">Price</th>
+            <th className="sticky top-[-1.5rem] bg-white">Seats</th>
           </tr>
         </thead>
         <tbody>
@@ -98,6 +104,9 @@ export default function Logs() {
               .toLocaleTimeString()
               .split(':');
 
+            const seats = log.confirmedReservation?.seatReservation?.seats;
+            console.log(seats);
+
             return (
               <tr className="h-9 border border-solid border-black" key={log.id}>
                 <td>{log.customer.firstName}</td>
@@ -105,7 +114,16 @@ export default function Logs() {
                 <td>{log.service.name}</td>
                 <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
                 <td>{`${hoursOut}:${minutesOut} ${meridianOut.substring(2)}`}</td>
-                <td>{log.service.price}</td>
+                <td>
+                  {log.service.price *
+                    Number(
+                      log.confirmedReservation?.seatReservation?.seats.length,
+                    )}
+                </td>
+                <td>
+                  {log.confirmedReservation.seatReservation.seats.toString()} (
+                  {log.confirmedReservation?.seatReservation?.seats.length})
+                </td>
               </tr>
             );
           })}

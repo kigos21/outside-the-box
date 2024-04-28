@@ -22,6 +22,15 @@ export async function GET(request: Request) {
             price: true,
           },
         },
+        confirmedReservation: {
+          select: {
+            seatReservation: {
+              select: {
+                seats: true,
+              },
+            },
+          },
+        },
       },
       orderBy: { timeIn: 'desc' },
       skip: (page - 1) * pageSize,

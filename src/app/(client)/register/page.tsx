@@ -500,15 +500,15 @@ export default function Register() {
                 </p>
               )}
 
-              {/* {responseError && (
-              <p
-                role="alert"
-                className="mt-2 px-6 text-center text-xs text-red-500"
-              >
-                Sorry! We cannot complete yout request at the moment. Error:{' '}
-                {responseError}
-              </p>
-            )} */}
+              {responseError && (
+                <p
+                  role="alert"
+                  className="mt-2 px-6 text-center text-xs text-red-500"
+                >
+                  Sorry! We cannot complete yout request at the moment. Error:{' '}
+                  {responseError}
+                </p>
+              )}
 
               {registerError && (
                 <div className="w-full rounded-md border border-red-400 bg-red-50 p-4 text-center text-red-600">
@@ -687,8 +687,8 @@ export default function Register() {
                         <li className="mb-4 text-left text-sm">
                           1. Unlimited Coffee <br />
                           2. Unlimited Purified Water <br />
-                          3. Free Use of 24" Flat Screen TV (upon request) OR
-                          Free Use of Projector and Projector Screen <br />
+                          3. Free Use of 24&quot; Flat Screen TV (upon request)
+                          OR Free Use of Projector and Projector Screen <br />
                           4. Free Use of Sound System (Speakers and 2
                           Microphones) <br />
                           5. No Corkage Fee (No foul-smelling food allowed){' '}
@@ -703,9 +703,9 @@ export default function Register() {
                     <ul>
                       <li className="mb-4 text-left text-sm">
                         1. A non-refundable reservation fee of 50% of the agreed
-                        rate is required to confirm the client's reservation.
-                        The remaining balance is payable on the date of the
-                        client's stay.
+                        rate is required to confirm the client&apos;s
+                        reservation. The remaining balance is payable on the
+                        date of the client&apos;s stay.
                       </li>
                     </ul>
                     <h2 className="text-lg font-bold underline">
@@ -766,8 +766,8 @@ export default function Register() {
                         users to enjoy. Any spills, stains, or damage caused to
                         the property will result in a penalty fee, as we take
                         the maintenance of our premises seriously.
-                        <br /> 7. Follow the "Clean As You Go" rule: Please
-                        clean up after yourself and dispose of any waste
+                        <br /> 7. Follow the &quot;Clean As You Go&quot; rule:
+                        Please clean up after yourself and dispose of any waste
                         properly. This helps maintain a pleasant environment for
                         all users of the workspace.
                       </li>
@@ -897,11 +897,11 @@ export default function Register() {
                         following:
                         <br />
                         <br /> • Analyzing the browser types and pages visited
-                        helps us optimize our website's performance and user
-                        experience. <br />• Your IP address and the date/time of
-                        access aid us in monitoring and detecting any
-                        unauthorized or suspicious activity on our website,
-                        helping to safeguard your data and our platform's
+                        helps us optimize our website&apos;s performance and
+                        user experience. <br />• Your IP address and the
+                        date/time of access aid us in monitoring and detecting
+                        any unauthorized or suspicious activity on our website,
+                        helping to safeguard your data and our platform&apos;s
                         integrity. <br />• Understanding which pages are most
                         frequently visited and at what times helps us gauge the
                         effectiveness of our content and make informed decisions

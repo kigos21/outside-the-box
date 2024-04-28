@@ -2,6 +2,27 @@
 
 import { useEffect, useState } from 'react';
 import { CreateLogRequestBody } from '@/types';
+import Link from 'next/link';
+
+interface Seat {
+  number: number;
+  selected: boolean;
+}
+
+const initialSeats: Seat[] = [
+  { number: 1, selected: false },
+  { number: 2, selected: false },
+  { number: 3, selected: false },
+  { number: 4, selected: false },
+  { number: 5, selected: false },
+  { number: 6, selected: false },
+  { number: 7, selected: false },
+  { number: 8, selected: false },
+  { number: 9, selected: false },
+  { number: 10, selected: false },
+  { number: 11, selected: false },
+  { number: 12, selected: false },
+];
 
 export default function AddLog() {
   const [formData, setFormData] = useState<CreateLogRequestBody>({
@@ -9,7 +30,7 @@ export default function AddLog() {
     lastName: '',
     serviceId: '',
   });
-
+  const [seats, setSeats] = useState<Seat[]>(initialSeats);
   const [services, setServices] = useState<any[]>([]);
   const [message, setMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -60,6 +81,13 @@ export default function AddLog() {
       console.log(message);
       alert(message);
     }
+  };
+
+  const handleCheckboxChange = (index: number) => {
+    const updatedSeats = [...seats];
+    const changedItem = updatedSeats[index];
+    updatedSeats[index] = { ...changedItem, selected: !changedItem.selected };
+    setSeats(updatedSeats);
   };
 
   const modal = (
@@ -158,14 +186,30 @@ export default function AddLog() {
                 ))}
               </select>
             </div>
+            <div className="flex items-center gap-4">
+              <label className="basis-2/12">Select Seats</label>
+              <div className="basis-3/12">
+                <SeatCheckboxes
+                  seats={seats}
+                  handleCheckboxChange={handleCheckboxChange}
+                />
+              </div>
+            </div>
           </div>
-
-          <button
-            type="submit"
-            className="w-fit self-end rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
-          >
-            Add Record
-          </button>
+          <div className="flex justify-between">
+            <Link
+              href="/admin/main/logs"
+              className="w-fit rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            >
+              Back to Log Records
+            </Link>
+            <button
+              type="submit"
+              className="w-fit self-end rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+            >
+              Add Record
+            </button>
+          </div>
         </form>
       </div>
 
@@ -173,3 +217,30 @@ export default function AddLog() {
     </div>
   );
 }
+
+interface SeatCheckboxesProps {
+  seats: Seat[];
+  handleCheckboxChange: any;
+}
+
+const SeatCheckboxes = ({
+  seats,
+  handleCheckboxChange,
+}: SeatCheckboxesProps) => (
+  <>
+    <p className="text-base">Select seats.</p>
+    <div className="flex h-[100px] flex-col flex-wrap">
+      {seats.map((seat, i) => (
+        <div key={seat.number} className="flex items-center gap-1">
+          <input
+            type="checkbox"
+            id={`Seat ${seat.number}`}
+            checked={seat.selected}
+            onChange={() => handleCheckboxChange(i)}
+          />
+          <label htmlFor={`Seat ${seat.number}`}>Seat {seat.number}</label>
+        </div>
+      ))}
+    </div>
+  </>
+);
