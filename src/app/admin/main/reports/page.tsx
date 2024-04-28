@@ -101,7 +101,7 @@ export default function Reports(e: any) {
       service: { ...report.service },
       confirmedReservation: {
         seatReservation: {
-          seats: report.confirmedReservation.seatReservation.seats,
+          seats: report.confirmedReservation?.seatReservation?.seats,
         },
       },
       timeIn: report.timeIn,
@@ -276,7 +276,7 @@ export default function Reports(e: any) {
       (total: any, item: any) =>
         total +
         item.service.price *
-          Number(item.confirmedReservation.seatReservation.seats.length),
+          Number(item.confirmedReservation?.seatReservation?.seats.length),
       0,
     );
     const totalSalesRow = ['', '', '', '', `Total Sales: ${totalSales} PHP`];
@@ -286,7 +286,9 @@ export default function Reports(e: any) {
   const handleDailyReportSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userDate.length === 0) {
-      alert('No reports found for the selected criteria. Date must not be in the future');
+      alert(
+        'No reports found for the selected criteria. Date must not be in the future',
+      );
       return;
     }
 
@@ -387,7 +389,7 @@ export default function Reports(e: any) {
                       total +
                       item.service.price *
                         Number(
-                          item.confirmedReservation.seatReservation.seats
+                          item.confirmedReservation?.seatReservation?.seats
                             .length,
                         ),
                     0,

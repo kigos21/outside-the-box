@@ -1,5 +1,6 @@
 // route.ts
 import { prismaClient } from '@/lib/prismaClient';
+import { log } from 'console';
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -36,6 +37,7 @@ export async function GET(request: Request) {
       skip: (page - 1) * pageSize,
       take: pageSize,
     });
+    console.log(logs);
 
     return new Response(JSON.stringify({ logs }), { status: 200 });
   } catch (error) {

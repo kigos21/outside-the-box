@@ -83,13 +83,6 @@ export default function AddLog() {
     }
   };
 
-  const handleCheckboxChange = (index: number) => {
-    const updatedSeats = [...seats];
-    const changedItem = updatedSeats[index];
-    updatedSeats[index] = { ...changedItem, selected: !changedItem.selected };
-    setSeats(updatedSeats);
-  };
-
   const modal = (
     <div className="absolute bottom-0 left-0 right-0 top-0 z-10 flex items-center justify-center bg-black/75">
       <div className="mb-12 flex w-[28rem] flex-col gap-8 rounded-lg bg-white px-8 py-6">
@@ -186,15 +179,6 @@ export default function AddLog() {
                 ))}
               </select>
             </div>
-            <div className="flex items-center gap-4">
-              <label className="basis-2/12">Select Seats</label>
-              <div className="basis-3/12">
-                <SeatCheckboxes
-                  seats={seats}
-                  handleCheckboxChange={handleCheckboxChange}
-                />
-              </div>
-            </div>
           </div>
           <div className="flex justify-between">
             <Link
@@ -217,30 +201,3 @@ export default function AddLog() {
     </div>
   );
 }
-
-interface SeatCheckboxesProps {
-  seats: Seat[];
-  handleCheckboxChange: any;
-}
-
-const SeatCheckboxes = ({
-  seats,
-  handleCheckboxChange,
-}: SeatCheckboxesProps) => (
-  <>
-    <p className="text-base">Select seats.</p>
-    <div className="flex h-[100px] flex-col flex-wrap">
-      {seats.map((seat, i) => (
-        <div key={seat.number} className="flex items-center gap-1">
-          <input
-            type="checkbox"
-            id={`Seat ${seat.number}`}
-            checked={seat.selected}
-            onChange={() => handleCheckboxChange(i)}
-          />
-          <label htmlFor={`Seat ${seat.number}`}>Seat {seat.number}</label>
-        </div>
-      ))}
-    </div>
-  </>
-);

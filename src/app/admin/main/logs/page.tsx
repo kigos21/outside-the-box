@@ -42,7 +42,7 @@ export default function Logs() {
 
     if (response.ok) {
       const { logs } = await response.json();
-      
+
       if (logs.length > 0) {
         setLogData([...logData, ...logs]);
         setPage(page + 1);
@@ -121,8 +121,8 @@ export default function Logs() {
                     )}
                 </td>
                 <td>
-                  {log.confirmedReservation.seatReservation.seats.toString()} (
-                  {log.confirmedReservation?.seatReservation?.seats.length})
+                  {log.confirmedReservation?.seatReservation?.seats?.toString()}{' '}
+                  ({log.confirmedReservation?.seatReservation?.seats.length})
                 </td>
               </tr>
             );
