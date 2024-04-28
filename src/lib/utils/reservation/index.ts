@@ -59,6 +59,7 @@ export const reserveSeat = async (
   startDateTime: Date,
   endDateTime: Date,
   seats: number[],
+  proofUrl: string,
 ) => {
   const seatReservation = await prismaClient.seatReservation.create({
     data: {
@@ -67,6 +68,7 @@ export const reserveSeat = async (
       startDateTime,
       endDateTime,
       seats,
+      proofUrl,
     },
   });
 

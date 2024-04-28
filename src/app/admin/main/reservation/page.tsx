@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { XMarkIcon, CheckIcon } from '@heroicons/react/16/solid';
 import { useEffect, useState } from 'react';
 import AdminModal from '@/components/AdminModal';
+import ViewProofOfPaymentButton from '@/components/ViewProofOfPaymentButton';
 
 interface ReservationForConfirmation {
   id: string;
@@ -12,6 +13,7 @@ interface ReservationForConfirmation {
   startDateTime: string;
   endDateTime: string;
   seats: number[];
+  proofUrl: string;
   customer: {
     firstName: string;
     lastName: string;
@@ -33,6 +35,12 @@ export default function Reservation() {
 
   const [selectedData, setSelectedData] =
     useState<ReservationForConfirmation>();
+  const [isViewingImage, setIsViewingImage] = useState<boolean>(false);
+  const [proofUrl, setProofUrl] = useState<string>('');
+
+  useEffect(() => {
+    console.log({ proofUrl, isViewingImage });
+  }, [proofUrl, isViewingImage]);
 
   useEffect(() => {
     fetchSeats(seatsPage);
@@ -169,6 +177,52 @@ export default function Reservation() {
         </AdminModal>
       )}
 
+      {isViewingImage && (
+        <div
+          className="absolute bottom-0 left-0 right-0 top-0 z-10 flex items-center justify-center bg-black/75"
+          onClick={() => setIsViewingImage(false)}
+        >
+          <div
+            className="mb-12 flex w-[28rem] flex-col gap-8 rounded-lg bg-white px-8 py-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-xl font-bold">Proof of payment</p>
+
+            {proofUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={proofUrl}
+                alt="customer's proof of payment"
+                className="w-full"
+              />
+            )}
+          </div>
+        </div>
+      )}
+
+      {isViewingImage && (
+        <div
+          className="absolute bottom-0 left-0 right-0 top-0 z-10 flex items-center justify-center bg-black/75"
+          onClick={() => setIsViewingImage(false)}
+        >
+          <div
+            className="mb-12 flex w-[28rem] flex-col gap-8 rounded-lg bg-white px-8 py-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-xl font-bold">Proof of payment</p>
+
+            {proofUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={proofUrl}
+                alt="customer's proof of payment"
+                className="w-full"
+              />
+            )}
+          </div>
+        </div>
+      )}
+
       <div
         onScroll={handleSeatsScroll}
         className="h-[calc(86vh-104px-1.25rem)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25"
@@ -220,6 +274,12 @@ export default function Reservation() {
                   <td>{reservation.service.price}</td>
                   <td>{reservation.seats.toString()}</td>
                   <td className="flex h-12 items-center justify-center gap-2">
+                    <ViewProofOfPaymentButton
+                      onClick={() => {
+                        setIsViewingImage(true);
+                        setProofUrl(reservation.proofUrl);
+                      }}
+                    />
                     <button
                       className="flex items-center justify-center rounded-lg bg-blue-700 p-2 text-white shadow-lg"
                       onClick={() => {

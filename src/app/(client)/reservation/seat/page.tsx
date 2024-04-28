@@ -98,8 +98,6 @@ export default function Page() {
       return;
     }
 
-    console.log(JSON.stringify({ ...data, selectedSeats }));
-
     const res = await fetch('/api/reservation/seat/availability', {
       method: 'POST',
       headers: {
