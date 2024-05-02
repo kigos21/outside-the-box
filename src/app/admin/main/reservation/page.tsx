@@ -127,7 +127,7 @@ export default function Reservation() {
         <div className="flex justify-between gap-4">
           <p className="basis-1/2">Reservation ID</p>
           <p className="basis-1/2 font-semibold" title={data.id}>
-            {data.id.substring(0, 13)}...
+            {data.id}
           </p>
         </div>
         <div className="flex justify-between gap-4">
@@ -264,9 +264,7 @@ export default function Reservation() {
                   className="h-9 border border-solid border-black"
                   key={reservation.id}
                 >
-                  <td title={reservation.id}>
-                    {reservation.id.substring(0, 8)}...
-                  </td>
+                  <td>{reservation.id}</td>
                   <td>{reservation.customer.firstName}</td>
                   <td>{reservation.customer.lastName}</td>
                   <td>{reservation.service.name}</td>

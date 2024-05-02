@@ -5,16 +5,18 @@ import { DateTime } from 'luxon'; // Import DateTime
 export async function POST(req: Request) {
   const { id } = await req.json();
 
+  const intId = parseInt(id, 10);
+
   try {
     const confirmedReservation = await prismaClient.confirmedReservation.create(
       {
-        data: { seatReservationId: id },
+        data: { seatReservationId: intId },
       },
     );
 
     const customer = await prismaClient.confirmedReservation.findFirst({
       where: {
-        seatReservationId: id,
+        seatReservationId: intId,
       },
       select: {
         seatReservationId: true,
@@ -41,6 +43,7 @@ export async function POST(req: Request) {
 
       const reservedSeats = customer.seatReservation.seats.toString();
       const seatNumbers = reservedSeats.split(','); // Split string into array
+      const resId = id.toString().padStart(6, '0');
 
       console.log(timeIn);
 
@@ -58,7 +61,7 @@ export async function POST(req: Request) {
           formattedSeatNumbers = `seat numbers ${seatNumbers.join(', ')}`;
         }
 
-        const message = `Your seat reservation for ${formattedSeatNumbers} on ${dt} is now confirmed. We hope to see you soon!`;
+        const message = `Your seat reservation for ${formattedSeatNumbers} on ${dt} is now confirmed and your reservation number is: ${resId}. We hope to see you soon!`;
 
         const verification = await sendReservationConfirmation(
           mobileNumber,
