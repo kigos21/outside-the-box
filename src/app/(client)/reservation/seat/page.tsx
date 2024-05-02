@@ -124,7 +124,9 @@ export default function Page() {
       isAvailable ? (
         <>
           <div className={`flex w-full justify-center rounded-3xl `}>
-            <h2 className="font-sans">Schedule available!</h2>
+            <h2 className="font-sans">
+              Schedule and chosen Seat Number are available!
+            </h2>
           </div>
 
           <button
