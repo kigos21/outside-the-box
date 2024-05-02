@@ -99,7 +99,7 @@ export default function AddFromReservations() {
             <div className="flex justify-between gap-4">
               <p className="basis-1/2">Reservation ID</p>
               <p className="basis-1/2 font-semibold" title={modalData.id}>
-                {modalData.id.substring(0, 8)}...
+                {modalData.id}
               </p>
             </div>
             <div className="flex justify-between gap-4">
@@ -158,7 +158,7 @@ export default function AddFromReservations() {
                   className="h-9 border border-solid border-black"
                   key={data.id}
                 >
-                  <td title={data.id}>{data.id.substring(0, 8)}...</td>
+                  <td>{data.seatReservationId.toString().padStart(6, '0')}</td>
                   <td>{data.seatReservation.customer.firstName}</td>
                   <td>{data.seatReservation.customer.lastName}</td>
                   <td>{data.seatReservation.service.name}</td>
