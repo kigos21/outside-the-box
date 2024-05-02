@@ -157,7 +157,7 @@ export default function Page() {
               className={`flex flex-col items-center justify-center gap-4 rounded-3xl p-8 `}
             >
               <h1 className="borderpx-3 w-full rounded-lg py-2 text-center font-bold ">
-                Reservation Success!
+                Reservation Successful!
               </h1>
 
               <div className="text-sm">

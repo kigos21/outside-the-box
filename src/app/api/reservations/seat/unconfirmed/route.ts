@@ -24,7 +24,12 @@ export async function GET(request: Request) {
       take: pageSize,
     });
 
-    return new Response(JSON.stringify({ seats }), {
+    const formattedSeats = seats.map((seat) => ({
+      ...seat,
+      id: seat.id.toString().padStart(6, '0'),
+    }));
+
+    return new Response(JSON.stringify({ seats: formattedSeats }), {
       status: 200,
     });
   } catch (error) {

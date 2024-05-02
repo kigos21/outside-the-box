@@ -247,106 +247,106 @@ async function main() {
   });
 
   // ---------------------------------- SEAT RESERVATION ----------------------------------
-  startTime.setHours(7, 0, 0, 0);
-  endTime.setHours(8, 0, 0, 0);
+  // startTime.setHours(7, 0, 0, 0);
+  // endTime.setHours(8, 0, 0, 0);
 
-  const seat1_Id = '4e005317-efba-440e-8d73-94377190ce78';
-  const seat1 = await prisma.seatReservation.upsert({
-    where: { id: seat1_Id },
-    update: {},
-    create: {
-      id: seat1_Id,
-      customerId: aliceId,
-      serviceId: service1_id,
-      startDateTime: startTime,
-      endDateTime: endTime,
-      seats: [1, 2],
-    },
-  });
+  // const seat1_Id = 1;
+  // const seat1 = await prisma.seatReservation.upsert({
+  //   where: { id: seat1_Id },
+  //   update: {},
+  //   create: {
+  //     id: seat1_Id,
+  //     customerId: aliceId,
+  //     serviceId: service1_id,
+  //     startDateTime: startTime,
+  //     endDateTime: endTime,
+  //     seats: [1, 2],
+  //   },
+  // });
 
-  startTime.setHours(4, 0, 0, 0);
-  endTime.setHours(6, 0, 0, 0);
+  // startTime.setHours(4, 0, 0, 0);
+  // endTime.setHours(6, 0, 0, 0);
 
-  const seat2_Id = '74a7d588-5889-45d1-82d0-bc62d189f315';
-  const seat2 = await prisma.seatReservation.upsert({
-    where: { id: seat2_Id },
-    update: {},
-    create: {
-      id: seat2_Id,
-      customerId: bobId,
-      serviceId: service2_id,
-      startDateTime: startTime,
-      endDateTime: endTime,
-      seats: [3, 4],
-    },
-  });
+  // const seat2_Id = 2;
+  // const seat2 = await prisma.seatReservation.upsert({
+  //   where: { id: seat2_Id },
+  //   update: {},
+  //   create: {
+  //     id: seat2_Id,
+  //     customerId: bobId,
+  //     serviceId: service2_id,
+  //     startDateTime: startTime,
+  //     endDateTime: endTime,
+  //     seats: [3, 4],
+  //   },
+  // });
 
-  startTime.setHours(17, 0, 0, 0);
-  endTime.setHours(20, 0, 0, 0);
+  // startTime.setHours(17, 0, 0, 0);
+  // endTime.setHours(20, 0, 0, 0);
 
-  const seat3_Id = '2fce1027-960a-466e-ab5f-6a0762bc7064';
-  const seat3 = await prisma.seatReservation.upsert({
-    where: { id: seat3_Id },
-    update: {},
-    create: {
-      id: seat3_Id,
-      customerId: bobId,
-      serviceId: service3_id,
-      startDateTime: startTime,
-      endDateTime: endTime,
-      seats: [5],
-    },
-  });
+  // const seat3_Id = 3;
+  // const seat3 = await prisma.seatReservation.upsert({
+  //   where: { id: seat3_Id },
+  //   update: {},
+  //   create: {
+  //     id: seat3_Id,
+  //     customerId: bobId,
+  //     serviceId: service3_id,
+  //     startDateTime: startTime,
+  //     endDateTime: endTime,
+  //     seats: [5],
+  //   },
+  // });
 
-  startTime.setHours(21, 0, 0, 0);
-  endTime.setHours(22, 0, 0, 0);
+  // startTime.setHours(21, 0, 0, 0);
+  // endTime.setHours(22, 0, 0, 0);
 
-  const seat4_Id = '29508343-5cda-4d13-996f-0d0665ee19d9';
-  const seat4 = await prisma.seatReservation.upsert({
-    where: { id: seat4_Id },
-    update: {},
-    create: {
-      id: seat4_Id,
-      customerId: aliceId,
-      serviceId: service1_id,
-      startDateTime: startTime,
-      endDateTime: endTime,
-      seats: [6],
-    },
-  });
+  // const seat4_Id = 4;
+  // const seat4 = await prisma.seatReservation.upsert({
+  //   where: { id: seat4_Id },
+  //   update: {},
+  //   create: {
+  //     id: seat4_Id,
+  //     customerId: aliceId,
+  //     serviceId: service1_id,
+  //     startDateTime: startTime,
+  //     endDateTime: endTime,
+  //     seats: [6],
+  //   },
+  // });
 
   // ---------------------------------- CONFIRMED RESERVATION ----------------------------------
 
-  const confirmed1_Id = '38ec81ef-2064-411b-b114-4c1bbcb8b845';
-  const confirmed1 = await prisma.confirmedReservation.upsert({
-    where: { id: confirmed1_Id },
-    update: {},
-    create: {
-      id: confirmed1_Id,
-      seatReservationId: seat1_Id,
-    },
-  });
+  // const confirmed1_Id = '38ec81ef-2064-411b-b114-4c1bbcb8b845';
+  // const confirmed1 = await prisma.confirmedReservation.upsert({
+  //   where: { id: confirmed1_Id },
+  //   update: {},
+  //   create: {
+  //     id: confirmed1_Id,
+  //     seatReservationId: seat1_Id,
+  //   },
+  // });
 
-  const confirmed2_Id = 'c8e8b996-0d8b-4ba7-b144-7dca005e2b66';
-  const confirmed2 = await prisma.confirmedReservation.upsert({
-    where: { id: confirmed2_Id },
-    update: {},
-    create: {
-      id: confirmed2_Id,
-      seatReservationId: seat2_Id,
-    },
-  });
+  // const confirmed2_Id = 'c8e8b996-0d8b-4ba7-b144-7dca005e2b66';
+  // const confirmed2 = await prisma.confirmedReservation.upsert({
+  //   where: { id: confirmed2_Id },
+  //   update: {},
+  //   create: {
+  //     id: confirmed2_Id,
+  //     seatReservationId: seat2_Id,
+  //   },
+  // });
 
   // ---------------------------------- ARCHIVED RESERVATION ----------------------------------
-  const archive1_id = '9c11dcf9-cbb0-44b5-8fe3-780b06cab34f';
-  const archive1 = await prisma.archivedReservation.upsert({
-    where: { id: archive1_id },
-    update: {},
-    create: {
-      id: archive1_id,
-      seatReservationId: seat4_Id,
-    },
-  });
+  // const archive1_id = '9c11dcf9-cbb0-44b5-8fe3-780b06cab34f';
+  // const archive1 = await prisma.archivedReservation.upsert({
+  //   where: { id: archive1_id },
+  //   update: {},
+  //   create: {
+  //     id: archive1_id,
+  //     seatReservationId: seat4_Id,
+  //   },
+  // });
 
   // DISCONNECT PRISMA
   await prisma.$disconnect();

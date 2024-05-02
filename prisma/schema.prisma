@@ -76,13 +76,13 @@ model Log {
 model ConfirmedReservation {
   id                String          @id @default(uuid())
   seatReservation   SeatReservation @relation(fields: [seatReservationId], references: [id], onDelete: Cascade)
-  seatReservationId String
+  seatReservationId Int
   date              DateTime        @default(now())
   Log               Log[]
 }
 
 model SeatReservation {
-  id                   String                 @id @default(uuid())
+  id                   Int                    @id @default(autoincrement()) 
   customer             Customer               @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId           String
   service              Service                @relation(fields: [serviceId], references: [id], onDelete: Cascade)
@@ -119,6 +119,6 @@ model Report {
 model ArchivedReservation {
   id                String          @id @default(uuid())
   seatReservation   SeatReservation @relation(fields: [seatReservationId], references: [id], onDelete: Cascade)
-  seatReservationId String
+  seatReservationId Int
   archivedAt        DateTime        @default(now())
 }
