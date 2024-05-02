@@ -123,6 +123,7 @@ export default function Home() {
   const hasLogsToday = () => {
     if (logData.length > 0) {
       return logData.map((log) => {
+        const dateIn = new Date(log.timeIn).toLocaleDateString();
         const [hoursIn, minutesIn, meridianIn] = new Date(log.timeIn)
           .toLocaleTimeString()
           .split(':');
@@ -135,6 +136,7 @@ export default function Home() {
             <td>{log.customer.firstName}</td>
             <td>{log.customer.lastName}</td>
             <td>{log.service.name}</td>
+            <td>{dateIn}</td>
             <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
             <td>{`${hoursOut}:${minutesOut} ${meridianOut.substring(2)}`}</td>
             <td>{log.service.price}</td>
@@ -155,6 +157,7 @@ export default function Home() {
   const hasReservationsForConfirmation = () => {
     if (seatsData.length > 0) {
       return seatsData.map((reservation) => {
+        const dateIn = new Date(reservation.startDateTime).toLocaleDateString();
         const [hoursIn, minutesIn, meridianIn] = new Date(
           reservation.startDateTime,
         )
@@ -175,6 +178,7 @@ export default function Home() {
             <td>{reservation.customer.firstName}</td>
             <td>{reservation.customer.lastName}</td>
             <td>{reservation.service.name}</td>
+            <td>{dateIn}</td>
             <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
             <td>{reservation.service.price}</td>
           </tr>
@@ -208,6 +212,7 @@ export default function Home() {
                 <th className="sticky top-[-1.5rem] bg-white">First Name</th>
                 <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
                 <th className="sticky top-[-1.5rem] bg-white">Service</th>
+                <th className="sticky top-[-1.5rem] bg-white">Date</th>
                 <th className="sticky top-[-1.5rem] bg-white">Time In</th>
                 <th className="sticky top-[-1.5rem] bg-white">Time Out</th>
                 <th className="sticky top-[-1.5rem] bg-white">Price</th>
@@ -234,6 +239,7 @@ export default function Home() {
                 <th className="sticky top-[-1.5rem] bg-white">First Name</th>
                 <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
                 <th className="sticky top-[-1.5rem] bg-white">Service</th>
+                <th className="sticky top-[-1.5rem] bg-white">Date</th>
                 <th className="sticky top-[-1.5rem] bg-white">Time In</th>
                 <th className="sticky top-[-1.5rem] bg-white">Price</th>
               </tr>
