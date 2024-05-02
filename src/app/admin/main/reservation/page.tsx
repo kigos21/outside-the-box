@@ -240,6 +240,7 @@ export default function Reservation() {
               <th className="sticky top-[-1.5rem] bg-white">First Name</th>
               <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
               <th className="sticky top-[-1.5rem] bg-white">Service</th>
+              <th className="sticky top-[-1.5rem] bg-white">Date</th>
               <th className="sticky top-[-1.5rem] bg-white">Time In</th>
               <th className="sticky top-[-1.5rem] bg-white">Price</th>
               <th className="sticky top-[-1.5rem] bg-white">Seats</th>
@@ -248,6 +249,10 @@ export default function Reservation() {
           </thead>
           <tbody>
             {seatsData.map((reservation) => {
+              const dateIn = new Date(
+                reservation.startDateTime,
+              ).toLocaleDateString();
+
               const [hoursIn, minutesIn, meridianIn] = new Date(
                 reservation.startDateTime,
               )
@@ -270,6 +275,7 @@ export default function Reservation() {
                   <td>{reservation.customer.firstName}</td>
                   <td>{reservation.customer.lastName}</td>
                   <td>{reservation.service.name}</td>
+                  <td>{dateIn}</td>
                   <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
                   <td>{reservation.service.price}</td>
                   <td>{reservation.seats.toString()}</td>

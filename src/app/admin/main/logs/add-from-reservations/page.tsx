@@ -140,6 +140,7 @@ export default function AddFromReservations() {
               <th className="sticky top-[-1.5rem] bg-white">First Name</th>
               <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
               <th className="sticky top-[-1.5rem] bg-white">Service</th>
+              <th className="sticky top-[-1.5rem] bg-white">Date</th>
               <th className="sticky top-[-1.5rem] bg-white">Time In</th>
               <th className="sticky top-[-1.5rem] bg-white">Seats</th>
               <th className="sticky top-[-1.5rem] bg-white">Create Log</th>
@@ -147,6 +148,9 @@ export default function AddFromReservations() {
           </thead>
           <tbody>
             {reserveData.map((data) => {
+              const dateIn = new Date(
+                data.seatReservation.startDateTime,
+              ).toLocaleDateString();
               const [hoursIn, minutesIn, meridianIn] = new Date(
                 data.seatReservation.startDateTime,
               )
@@ -162,6 +166,7 @@ export default function AddFromReservations() {
                   <td>{data.seatReservation.customer.firstName}</td>
                   <td>{data.seatReservation.customer.lastName}</td>
                   <td>{data.seatReservation.service.name}</td>
+                  <td>{dateIn}</td>
                   <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
                   <td>{data.seatReservation.seats.toString()}</td>
                   <td className="flex h-12 items-center justify-center gap-2">

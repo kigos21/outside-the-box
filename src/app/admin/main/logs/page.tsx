@@ -37,7 +37,7 @@ export default function Logs() {
 
     if (response.ok) {
       const { logs } = await response.json();
-      
+
       if (logs.length > 0) {
         setLogData([...logData, ...logs]);
         setPage(page + 1);
@@ -84,6 +84,7 @@ export default function Logs() {
             <th className="sticky top-[-1.5rem] bg-white">First Name</th>
             <th className="sticky top-[-1.5rem] bg-white">Last Name</th>
             <th className="sticky top-[-1.5rem] bg-white">Service</th>
+            <th className="sticky top-[-1.5rem] bg-white">Date</th>
             <th className="sticky top-[-1.5rem] bg-white">Time In</th>
             <th className="sticky top-[-1.5rem] bg-white">Time Out</th>
             <th className="sticky top-[-1.5rem] bg-white">Price</th>
@@ -91,6 +92,7 @@ export default function Logs() {
         </thead>
         <tbody>
           {logData.map((log) => {
+            const dateIn = new Date(log.timeIn).toLocaleDateString();
             const [hoursIn, minutesIn, meridianIn] = new Date(log.timeIn)
               .toLocaleTimeString()
               .split(':');
@@ -103,6 +105,7 @@ export default function Logs() {
                 <td>{log.customer.firstName}</td>
                 <td>{log.customer.lastName}</td>
                 <td>{log.service.name}</td>
+                <td>{dateIn}</td>
                 <td>{`${hoursIn}:${minutesIn} ${meridianIn.substring(2)}`}</td>
                 <td>{`${hoursOut}:${minutesOut} ${meridianOut.substring(2)}`}</td>
                 <td>{log.service.price}</td>
