@@ -81,7 +81,6 @@ export default function Register() {
 
     if (status === 200) {
       await handleOtpVerificationSuccess(watch()); // Wait for success
-      setIsEnteringOTP(false);
     } else if (status === 400) {
       setOtpError('Invalid OTP. Please try again.');
     } else {
