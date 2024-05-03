@@ -228,7 +228,7 @@ export default function Reservation() {
         className="h-[calc(86vh-104px-1.25rem)] overflow-y-scroll rounded-lg bg-white px-8 py-6 shadow-lg shadow-black/25"
       >
         <h3 className="absolute top-10 text-3xl font-bold">
-          Book Reservations
+          Seat Reservations
         </h3>
         <h3 className="mb-3 text-xl font-semibold text-gray-500">
           Reservations for Confirmation

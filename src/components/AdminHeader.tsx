@@ -43,14 +43,14 @@ export default function AdminHeader({
   const navLinks = isAdmin
     ? [
         { name: 'Homepage', path: '/admin/main' },
-        { name: 'Book Reservations', path: '/admin/main/reservation' },
+        { name: 'Seat Reservations', path: '/admin/main/reservation' },
         { name: 'Manage Log Records', path: '/admin/main/logs' },
         { name: 'Manage Services and Promos', path: '/admin/main/services' },
         { name: 'Generate Reports', path: '/admin/main/reports' },
       ]
     : [
         { name: 'Homepage', path: '/admin/main' },
-        { name: 'Book Reservations', path: '/admin/main/reservation' },
+        { name: 'Seat Reservations', path: '/admin/main/reservation' },
         { name: 'Manage Log Records', path: '/admin/main/logs' },
         { name: 'Manage Services and Promos', path: '/admin/main/services' },
       ];
