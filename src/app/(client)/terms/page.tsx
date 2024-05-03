@@ -1,8 +1,6 @@
-
 'use client';
 import Link from 'next/link';
 import ScrollToTop from 'react-scroll-to-top';
-
 
 export default function page() {
   return (

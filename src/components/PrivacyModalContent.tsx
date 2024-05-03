@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 function PrivacyModalContent() {
   return (
     <div>
@@ -33,9 +35,12 @@ function PrivacyModalContent() {
             The type of personal information includes:
             <br />
             <br />• Name: Your name helps us address you appropriately and
-            ensures a personalized interaction. <br />• Occupation:
-            Understanding your occupation allows us to tailor our services to
-            better suit your needs and preferences.
+            ensures a personalized interaction.
+            <br /> • Email: Your email address serves us a way to effectively
+            communicate regarding reservation details, updates, and any
+            inquiries about our different services.
+            <br />• Occupation: Understanding your occupation allows us to
+            tailor our services to better suit your needs and preferences.
             <br /> • Affiliation: Your affiliation provides valuable context
             that assists us in enhancing your experience and meeting your
             specific requirements.
@@ -74,7 +79,32 @@ function PrivacyModalContent() {
             complete payment information, as it is handled directly by these
             processors. Please review the privacy policies of our payment
             processors for information regarding their handling of your payment
-            details.
+            details:
+            <br />
+            <br />{' '}
+            <Link
+              href="https://www.new.gcash.com/privacy-notice"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="text-sm font-bold">• GCash</span>
+            </Link>
+            <br />{' '}
+            <Link
+              href="https://www.bpi.com.ph/about-bpi/governance/data-privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="text-sm font-bold">• BPI</span>
+            </Link>
+            <br />{' '}
+            <Link
+              href="https://www.maya.ph/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="text-sm font-bold">• Maya</span>
+            </Link>
           </li>
           <li className="mb-4 text-left text-sm">
             <strong>Reservation Information:</strong> When you reserve a seat,
@@ -122,8 +152,8 @@ function PrivacyModalContent() {
           the following payment methods for transactions made on our website:
           <br />
           <br />• GCash
-          <br />• Maya
           <br />• BPI
+          <br />• Maya
           <br />
           <br /> These payment methods offer secure and convenient options for
           completing transactions on our website. Please note that additional
