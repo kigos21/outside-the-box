@@ -7,6 +7,8 @@ import { useSearchParams } from 'next/navigation';
 
 import ScrollToTop from 'react-scroll-to-top';
 import ImageUploadForm from '@/components/ImageUploadForm';
+import TermsModal from '@/components/TermsModal';
+import PaymentTermsModalContent from '@/components/PaymentTermsModalContent';
 import { getApiKey } from '@/lib/imgbb';
 
 export default function Page() {
@@ -14,12 +16,21 @@ export default function Page() {
   const searchParams = useSearchParams();
   const [error, setError] = useState('');
   const [selectedImage, setSelectedImage] = useState();
+  const [isPaymentTermsModalOpen, setIsPaymentTermsModalOpen] = useState(false);
 
   const paymentProviders = [
     { qrcode: '/payment/qrcode/gcash.png', name: 'Gcash' },
     { qrcode: '/payment/qrcode/maya.png', name: 'Maya' },
     { qrcode: '/payment/qrcode/bpi.png', name: 'BPI' },
   ];
+
+  const openPaymentTermsModal = () => {
+    setIsPaymentTermsModalOpen(true);
+  };
+
+  const closePaymentTermsModal = () => {
+    setIsPaymentTermsModalOpen(false);
+  };
 
   const handlePayment = async () => {
     const confirmed = confirm(
@@ -140,12 +151,18 @@ export default function Page() {
                 </p>
                 <p className="text-xs">
                   By continuing, you agree to our{' '}
-                  <Link
-                    href=""
-                    className="font-bold text-cs-orange underline shadow-sm"
+                  <span
+                    className="cursor-pointer text-sm font-bold text-cs-orange underline shadow-sm"
+                    onClick={openPaymentTermsModal}
                   >
                     Terms and Conditions
-                  </Link>
+                  </span>
+                  <TermsModal
+                    isOpen={isPaymentTermsModalOpen}
+                    onClose={closePaymentTermsModal}
+                  >
+                    <PaymentTermsModalContent />
+                  </TermsModal>
                 </p>
               </div>
             </div>
