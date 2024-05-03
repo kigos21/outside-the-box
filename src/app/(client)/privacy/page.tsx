@@ -15,14 +15,15 @@ export default function page() {
             <strong>Coursescape Coworking Space</strong> is committed to
             transparency regarding the information we collect and how it is
             utilized. This Privacy Policy describes how Coursescape Coworking
-            Space (the "Site", "we", "us", or "our") collects, uses, and
+            Space {'(the "Site", "we", "us", or "our")'} collects, uses, and
             discloses your personal information when you visit, use our
-            services, or make a purchase from coursescape.com (the "Site") or
-            otherwise communicate with us (collectively, the "Services"). For
-            purposes of this Privacy Policy, "you" and "your" means you as the
-            user of the Services, whether you are a customer, website visitor,
-            or another individual whose information we have collected pursuant
-            to this Privacy Policy.
+            services, or make a purchase from coursescapeph.com {'(the'}{' '}
+            {'"Site")'} or otherwise communicate with us (collectively, the
+            &quot;Services&quot;). For purposes of this Privacy Policy,
+            &quot;you&quot; and &quot;your&quot; means you as the user of the
+            Services, whether you are a customer, website visitor, or another
+            individual whose information we have collected pursuant to this
+            Privacy Policy.
             <br />
             <br />
             We urge you to review this Privacy Policy thoroughly. By utilizing
@@ -95,7 +96,7 @@ export default function page() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="text-xl font-bold">• GCash</span>
+                <span className="text-xl font-bold">• GCASH</span>
               </Link>
               <br />{' '}
               <Link
@@ -111,7 +112,7 @@ export default function page() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="text-xl font-bold">• Maya</span>
+                <span className="text-xl font-bold">• MAYA</span>
               </Link>
             </li>
             <li className="mb-4 text-left text-xl">
@@ -139,10 +140,11 @@ export default function page() {
               <br /> We use the collected log information for the following:
               <br />
               <br /> • Analyzing the browser types and pages visited helps us
-              optimize our website's performance and user experience. <br />•
-              Your IP address and the date/time of access aid us in monitoring
+              optimize our website&apos;s performance and user experience.{' '}
+              <br />
+              • Your IP address and the date/time of access aid us in monitoring
               and detecting any unauthorized or suspicious activity on our
-              website, helping to safeguard your data and our platform's
+              website, helping to safeguard your data and our platform&apos;s
               integrity. <br />• Understanding which pages are most frequently
               visited and at what times helps us gauge the effectiveness of our
               content and make informed decisions for improvement.
@@ -163,9 +165,12 @@ export default function page() {
             accepts the following payment methods for transactions made on our
             website:
             <br />
-            <br />• GCash
-            <br />• BPI
-            <br />• Maya
+            <br />
+            <strong>• GCASH</strong>
+            <br />
+            <strong>• BPI</strong>
+            <br />
+            <strong>• MAYA</strong>
             <br />
             <br /> These payment methods offer secure and convenient options for
             completing transactions on our website. Please note that additional
