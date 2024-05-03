@@ -16,7 +16,7 @@ export default function Page() {
   const searchParams = useSearchParams();
   const [error, setError] = useState('');
   const [selectedImage, setSelectedImage] = useState();
-  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+  const [isPaymentTermsModalOpen, setIsPaymentTermsModalOpen] = useState(false);
 
   const paymentProviders = [
     { qrcode: '/payment/qrcode/gcash.png', name: 'Gcash' },
@@ -24,12 +24,12 @@ export default function Page() {
     { qrcode: '/payment/qrcode/bpi.png', name: 'BPI' },
   ];
 
-  const openTermsModal = () => {
-    setIsTermsModalOpen(true);
+  const openPaymentTermsModal = () => {
+    setIsPaymentTermsModalOpen(true);
   };
 
-  const closeTermsModal = () => {
-    setIsTermsModalOpen(false);
+  const closePaymentTermsModal = () => {
+    setIsPaymentTermsModalOpen(false);
   };
 
   const handlePayment = async () => {
@@ -153,13 +153,13 @@ export default function Page() {
                   By continuing, you agree to our{' '}
                   <span
                     className="cursor-pointer text-sm font-bold text-cs-orange underline shadow-sm"
-                    onClick={openTermsModal}
+                    onClick={openPaymentTermsModal}
                   >
                     Terms and Conditions
                   </span>
                   <TermsModal
-                    isOpen={isTermsModalOpen}
-                    onClose={closeTermsModal}
+                    isOpen={isPaymentTermsModalOpen}
+                    onClose={closePaymentTermsModal}
                   >
                     <PaymentTermsModalContent />
                   </TermsModal>
