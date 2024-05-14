@@ -12,7 +12,7 @@ import { useCookies } from 'react-cookie';
 export default function AdminHeader({
   children,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   const pathname = usePathname();
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
