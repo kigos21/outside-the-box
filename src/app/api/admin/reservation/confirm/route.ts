@@ -10,13 +10,13 @@ export async function POST(req: Request) {
   try {
     const confirmedReservation = await prismaClient.confirmedReservation.create(
       {
-        data: { seatReservationId: intId },
+        data: { seatReservationId: intId.toString() }, // Convert intId to a string
       },
     );
 
     const customer = await prismaClient.confirmedReservation.findFirst({
       where: {
-        seatReservationId: intId,
+        seatReservationId: toString(),
       },
       select: {
         seatReservationId: true,

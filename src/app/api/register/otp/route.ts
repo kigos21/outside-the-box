@@ -1,7 +1,3 @@
-import { verifyOTP } from '@/lib/twilioClient';
-import { register } from '@/lib/utils/customer';
-import * as bcrypt from 'bcrypt';
-import { PrismaClient } from '@prisma/client';
 import { prismaClient } from '@/lib/prismaClient';
 
 export async function POST(req: Request) {

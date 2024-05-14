@@ -4,9 +4,10 @@ export default function ServicePillItem({
   title,
   price,
   index,
-}: ServicePill & { index: number }) {
+}: ServicePill & { index?: number }) {
   // Determine background color and font color based on index
-  const backgroundColor = index % 2 === 0 ? 'bg-cs-green' : 'bg-cs-orange';
+  const backgroundColor =
+    index && index % 2 === 0 ? 'bg-cs-green' : 'bg-cs-orange';
   const fontColor = 'text-white';
 
   return (

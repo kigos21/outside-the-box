@@ -60,6 +60,7 @@ export type Customer = {
   affiliation: string;
   mobileNumber: string;
   password: string;
+  email: string;
 };
 
 export type LoginFormBody = Map & {
