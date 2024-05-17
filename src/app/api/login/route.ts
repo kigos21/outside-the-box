@@ -46,7 +46,7 @@ export async function POST(req: Request) {
       process.env.JWT_SECRET_KEY!,
     );
 
-    const headerString = `${isAdmin ? 'adminToken' : 'token'}=${token}; path=/; Secure; SameSite=Strict;`;
+    const headerString = `${isAdmin ? 'adminToken' : 'token'}=${token}; path=/; SameSite=Lax;`;
 
     return Response.json(
       { success: true, isAdmin },
