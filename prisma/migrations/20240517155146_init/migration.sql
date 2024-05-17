@@ -64,7 +64,7 @@ CREATE TABLE "Log" (
 -- CreateTable
 CREATE TABLE "ConfirmedReservation" (
     "id" TEXT NOT NULL,
-    "seatReservationId" TEXT NOT NULL,
+    "seatReservationId" INTEGER NOT NULL,
     "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "ConfirmedReservation_pkey" PRIMARY KEY ("id")
@@ -72,7 +72,7 @@ CREATE TABLE "ConfirmedReservation" (
 
 -- CreateTable
 CREATE TABLE "SeatReservation" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "customerId" TEXT NOT NULL,
     "serviceId" TEXT NOT NULL,
     "startDateTime" TIMESTAMP(3) NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE "Report" (
 -- CreateTable
 CREATE TABLE "ArchivedReservation" (
     "id" TEXT NOT NULL,
-    "seatReservationId" TEXT NOT NULL,
+    "seatReservationId" INTEGER NOT NULL,
     "archivedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "ArchivedReservation_pkey" PRIMARY KEY ("id")
