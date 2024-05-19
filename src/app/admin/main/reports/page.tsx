@@ -1,5 +1,6 @@
 // src/app/admin/main/reports/page.tsx
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useRouter } from 'next/navigation';
 import ReportsModal from '@/components/ReportsModal';
@@ -42,11 +43,13 @@ export default function Reports(e: any) {
   }, []);
 
   const fetchReports = async () => {
+    const { signal } = new AbortController();
+
     try {
       const response = await fetch('/api/admin/reports', {
-        headers: {
-          'Cache-Control': 'no-cache',
-        },
+        signal,
+        cache: 'no-store',
+        next: { revalidate: 0 },
       });
 
       if (response.ok) {
@@ -268,7 +271,9 @@ export default function Reports(e: any) {
   const handleDailyReportSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userDate.length === 0) {
-      alert('No reports found for the selected criteria. Date must not be in the future');
+      alert(
+        'No reports found for the selected criteria. Date must not be in the future',
+      );
       return;
     }
 
@@ -412,7 +417,7 @@ export default function Reports(e: any) {
             </div>
             <button
               type="submit"
-              className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              className="w-fit self-end rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
             >
               Generate
             </button>
@@ -459,7 +464,7 @@ export default function Reports(e: any) {
 
             <button
               type="submit"
-              className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              className="w-fit self-end rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
             >
               Generate
             </button>

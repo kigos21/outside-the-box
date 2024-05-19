@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import {
   PencilSquareIcon,
@@ -37,7 +38,13 @@ export default function ServicesPage() {
   }, []);
 
   const fetchServices = async () => {
-    const response = await fetch('/api/services');
+    const { signal } = new AbortController();
+
+    const response = await fetch('/api/services', {
+      signal,
+      cache: 'no-store',
+      next: { revalidate: 0 },
+    });
     const { services, message } = await response.json();
 
     if (response.ok) {

@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
 import { XMarkIcon, CheckIcon } from '@heroicons/react/16/solid';
@@ -46,11 +47,14 @@ export default function Reservation() {
     fetchSeats(seatsPage);
   }, []);
 
+  const { signal } = new AbortController();
+
   const fetchSeats = async (page: number) => {
     setIsLoading(true);
 
     const response = await fetch(
       `/api/reservations/seat/unconfirmed?page=${page}&pageSize=13`,
+      { signal, cache: 'no-store', next: { revalidate: 0 } },
     );
 
     if (response.ok) {

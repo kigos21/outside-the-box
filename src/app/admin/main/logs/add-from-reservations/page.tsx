@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import AdminModal from '@/components/AdminModal';
 import { useEffect, useState } from 'react';
@@ -51,8 +52,14 @@ export default function AddFromReservations() {
     fetchConfirmedReservations();
   }, []);
 
+  const { signal } = new AbortController();
+
   const fetchConfirmedReservations = async () => {
-    const response = await fetch('/api/reservations/confirmed');
+    const response = await fetch('/api/reservations/confirmed', {
+      signal,
+      cache: 'no-store',
+      next: { revalidate: 0 },
+    });
 
     if (response.ok) {
       const { confirmedReservations } = await response.json();

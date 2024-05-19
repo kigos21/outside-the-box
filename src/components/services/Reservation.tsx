@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -22,8 +23,14 @@ export default function Reservation() {
     fetchSeatCount();
   }, []);
 
+  const { signal } = new AbortController();
+
   const fetchSeatCount = async () => {
-    const res = await fetch('/api/services/available-seats');
+    const res = await fetch('/api/services/available-seats', {
+      signal,
+      cache: 'no-store',
+      next: { revalidate: 0 },
+    });
 
     if (res.ok) {
       const { seatCount } = await res.json();

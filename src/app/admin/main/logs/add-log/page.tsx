@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useEffect, useState } from 'react';
 import { CreateLogRequestBody } from '@/types';
@@ -19,7 +20,13 @@ export default function AddLog() {
   }, []);
 
   const fetchServices = async () => {
-    const response = await fetch('/api/services');
+    const { signal } = new AbortController();
+
+    const response = await fetch('/api/services', {
+      signal,
+      cache: 'no-store',
+      next: { revalidate: 0 },
+    });
 
     if (response.ok) {
       const { services } = await response.json();

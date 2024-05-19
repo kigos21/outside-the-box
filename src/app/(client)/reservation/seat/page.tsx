@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useRouter } from 'next/navigation';
 import ScrollToTop from 'react-scroll-to-top';
@@ -392,8 +393,14 @@ const TimeDropdown: React.FC<DropdownProps> = ({ register, errors, date }) => {
 const ServiceDropdown: React.FC<DropdownProps> = ({ register, errors }) => {
   const [services, setServices] = useState<ServiceOption[]>([]);
 
+  const { signal } = new AbortController();
+
   const fetchServices = async () => {
-    const response = await fetch('/api/services');
+    const response = await fetch('/api/services', {
+      signal,
+      cache: 'no-store',
+      next: { revalidate: 0 },
+    });
     if (!response.ok) {
       const { message } = await response.json();
       console.error(message);

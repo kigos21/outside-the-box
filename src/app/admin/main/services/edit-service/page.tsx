@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ServiceFormBody } from '@/types';
@@ -76,7 +77,7 @@ export default function AddServices() {
               setShowModal(false);
               router.push(`/admin/main/services`);
             }}
-            className={`bg-cs-blue basis-full rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none`}
+            className={`basis-full rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none`}
           >
             OK
           </button>
@@ -169,7 +170,7 @@ export default function AddServices() {
             </div>
             <button
               type="submit"
-              className="bg-cs-blue w-fit self-end rounded-md px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
+              className="w-fit self-end rounded-md bg-cs-blue px-6 py-4 font-semibold uppercase text-white shadow-md transition-all hover:bg-black hover:text-white hover:shadow-none"
             >
               Save Changes
             </button>

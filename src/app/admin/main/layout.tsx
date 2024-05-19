@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -20,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-cs-yellow h-screen p-8`}>
+      <body className={`${inter.className} h-screen bg-cs-yellow p-8`}>
         <Link href={'/admin/main'} className="block w-fit">
           <Image
             src="/coursescape-logo-cropped-removebg.png"

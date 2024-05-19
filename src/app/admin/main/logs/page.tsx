@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { PlusIcon } from '@heroicons/react/16/solid';
 import AddButton from '../services/AddButton';
@@ -32,8 +33,14 @@ export default function Logs() {
     fetchLogs(page);
   }, []);
 
+  const { signal } = new AbortController();
+
   const fetchLogs = async (page: number) => {
-    const response = await fetch(`/api/logs?page=${page}&pageSize=20`);
+    const response = await fetch(`/api/logs?page=${page}&pageSize=20`, {
+      signal,
+      cache: 'no-store',
+      next: { revalidate: 0 },
+    });
 
     if (response.ok) {
       const { logs } = await response.json();

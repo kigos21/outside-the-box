@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from 'react';
 
@@ -54,10 +55,16 @@ export default function Home() {
     fetchSeats(seatsPage);
   }, []);
 
+  const { signal } = new AbortController();
+
   const fetchLogs = async (page: number) => {
     setIsLoading(true);
 
-    const response = await fetch(`/api/logs/today?page=${page}&pageSize=9`);
+    const response = await fetch(`/api/logs/today?page=${page}&pageSize=9`, {
+      signal,
+      cache: 'no-store',
+      next: { revalidate: 0 },
+    });
 
     if (response.ok) {
       const { logs } = await response.json();
@@ -91,6 +98,11 @@ export default function Home() {
 
     const response = await fetch(
       `/api/reservations/seat/unconfirmed?page=${page}&pageSize=9`,
+      {
+        signal,
+        cache: 'no-store',
+        next: { revalidate: 0 },
+      },
     );
 
     if (response.ok) {

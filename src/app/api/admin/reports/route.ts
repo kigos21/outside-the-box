@@ -1,4 +1,6 @@
 //src app/api/admin/reports/route.ts
+export const dynamic = 'force-dynamic';
+
 import { prismaClient } from '@/lib/prismaClient';
 
 export async function GET() {
